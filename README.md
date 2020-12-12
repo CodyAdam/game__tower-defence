@@ -39,7 +39,7 @@ En tant que joueur, nous posons des singes sur le terrain dans le but de se déf
 -   Grille de 31 x 18 tuiles (une tuile fait 40 x 40 px)
 -   Sprite des tours et ennemies customiser
 -   Arrière plan customiser (pas de tuile mais en une seul image)
--   Changement total des unités ennemies et alliées (bomber et archer remplacés par les différents singes et les monstres sont remplacés par le système de Bloons)
+-   Changement total des unités ennemies et alliées (Bomb et Arrow Tower remplacés par les différents singes et les monstres sont remplacés par le système de Bloons)
 -   Système de niveaux avec chacun des "pathing", environnements et difficultés différentes
 -   Système de grille évolué avec prévisualisation des emplacements disponible interactive quand une tour souhaite être placée
     ![Image d'explication de la grille](/explication_grille.png)

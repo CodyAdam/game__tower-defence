@@ -22,7 +22,7 @@ public class Main {
 				startingLevel.spawn.y * w.squareHeight + w.squareHeight / 2));
 		monster.nextP = new Position(startingLevel.spawn.x * w.squareWidth + w.squareWidth / 2, 0);
 		monster.speed = 0.001;
-		w.monsters.add(monster);
+		w.bloons.add(monster);
 
 		// Lancement de la boucle principale du jeu
 		w.run();

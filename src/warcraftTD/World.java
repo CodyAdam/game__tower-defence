@@ -3,6 +3,7 @@ package warcraftTD;
 import warcraftTD.Bloons.Bloon;
 import warcraftTD.Levels.Level;
 import warcraftTD.Tiles.Tile;
+import warcraftTD.Waves.Waves;
 
 import java.awt.Color;
 import java.util.List;
@@ -13,13 +14,16 @@ import java.util.Iterator;
 
 public class World {
 	// l'ensemble des monstres, pour gerer (notamment) l'affichage
-	List<Bloon> monsters = new ArrayList<Bloon>();
+	List<Bloon> bloons = new ArrayList<Bloon>();
 
 	// Répertorie les chemins de tout les sprites du jeu
 	Map<String, String> sprites;
 
 	// Le niveau actuel
 	Level level;
+
+	// Les vagues de Bloons
+	Waves waves;
 
 	// grille qui determine qu'est-ce que qu'il y a sur la carte à sa création
 	// (ex : SingeX, SingeY, Rien, Route, Arbre et rochers)
@@ -61,8 +65,10 @@ public class World {
 		sprites.put("test", "/images/hud.png");
 		sprites.put("hud", "/images/hud.png");
 
-		this.map = level.map;
 		this.level = level;
+		this.waves = new Waves(level.spawn, this.bloons);
+		this.map = level.map;
+
 		this.width = width;
 		this.height = height;
 		this.nbSquareX = level.nbSquareX;
@@ -219,7 +225,7 @@ public class World {
 	 */
 	public void updateBloons() {
 
-		Iterator<Bloon> i = monsters.iterator();
+		Iterator<Bloon> i = bloons.iterator();
 		Bloon m;
 		while (i.hasNext()) {
 			m = i.next();
@@ -275,6 +281,7 @@ public class World {
 				break;
 			case 's':
 				System.out.println("Starting game!");
+				this.waves.startNextWave();
 				break;
 			case 'd':
 				System.out.println("Debug mode toggled!");
@@ -303,9 +310,10 @@ public class World {
 	 * @param y
 	 */
 	public void mouseClick(double x, double y) {
-		double normalizedX = (int) (x / squareWidth) * squareWidth + squareWidth / 2;
-		double normalizedY = (int) (y / squareHeight) * squareHeight + squareHeight / 2;
-		Position p = new Position(normalizedX, normalizedY);
+		// double normalizedX = (int) (x / squareWidth) * squareWidth + squareWidth / 2;
+		// double normalizedY = (int) (y / squareHeight) * squareHeight + squareHeight /
+		// 2;
+		// Position p = new Position(normalizedX, normalizedY);
 		switch (key) {
 			case 'a':
 				System.out.println("il faut ajouter une tour d'archers si l'utilisateur à de l'or !!");
