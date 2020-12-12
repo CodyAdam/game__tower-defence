@@ -36,6 +36,31 @@ public class Position {
 	}
 
 	/**
+	 * soustrait deux vecteur position
+	 * 
+	 * @param p la position à soustraire à "this"
+	 * @return la position qui correspon à la soustraction de (this - p)
+	 */
+	public Position minus(Position p) {
+		return new Position(this.x - p.x, this.y - p.y);
+	}
+
+	/**
+	 * @return Donne la norme du vecteur position
+	 */
+	public double norm() {
+		Position zero = new Position(0, 0);
+		return dist(zero);
+	}
+
+	/**
+	 * @return rend le vecteur position mais normalisé (norme = 1)
+	 */
+	public Position normalized() {
+		return new Position(x / norm(), y / norm());
+	}
+
+	/**
 	 * Retourne la position du point sur l'axe des x et des y
 	 */
 	public String toString() {

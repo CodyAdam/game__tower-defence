@@ -7,33 +7,28 @@ import warcraftTD.Position;
 
 public abstract class Bloon {
 	// Position du bloon à l'instant t
-	public Position p;
+	public Position pos;
 
 	// Vitesse du bloon
 	public double speed;
 
-	// Position du bloon à l'instant t+1
-	public Position nextP;
-
-	// Boolean pour savoir si le bloon à atteint le chateau du joueur
+	// Boolean pour savoir si le bloon à atteint le "chateau" du joueur
 	public boolean reached;
 
-	// Compteur de déplacement pour savoir si le bloon à atteint le chateau du
-	// joueur
-	public int checkpoint = 0;
+	// Compteur de distance déplacé pour savoir quelle Bloons est en tête
+	public double traveledDistance = 0;
 
+	// Queue de Position qui sont les point par lequel le Bloon doit passer
 	public ArrayDeque<Position> pathing;
 
 	public Bloon(Position p, List<Position> pathing) {
 		this.pathing = new ArrayDeque<Position>(pathing);
-		this.p = p;
-		this.nextP = new Position(p);
+		this.pos = p;
 	}
 
 	public Bloon(List<Position> pathing) {
 		this.pathing = new ArrayDeque<Position>(pathing);
-		this.p = new Position(this.pathing.removeFirst());
-		this.nextP = new Position(p);
+		this.pos = new Position(this.pathing.removeFirst());
 	}
 
 	/**
@@ -41,22 +36,23 @@ public abstract class Bloon {
 	 * prochaine position.
 	 */
 	public void move() {
-		// Mesure sur quel axe le bloon se dirige.
-		double dx = this.pathing.getFirst().x - p.x;
-		double dy = this.pathing.getFirst().y - p.y;
-		if (dy + dx != 0) {
-			// Mesure la distance à laquelle le bloon à pu se déplacer.
-			double ratioX = dx / (Math.abs(dx) + Math.abs(dy));
-			double ratioY = dy / (Math.abs(dx) + Math.abs(dy));
-			p.x += ratioX * speed;
-			p.y += ratioY * speed;
-		}
+		// Mesure le vecteur direction (Position normalisé)
+		Position dir = pos.minus(this.pathing.getFirst()).normalized();
+		pos.x -= dir.x * speed;
+		pos.y -= dir.y * speed;
+	}
+
+	public void onDeath() {
+
 	}
 
 	public void update() {
-		move();
-		draw();
-		checkpoint++;
+		if (reached)
+			onDeath();
+		else {
+			move();
+			draw();
+		}
 	}
 
 	/**

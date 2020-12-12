@@ -232,8 +232,8 @@ public class World {
 		while (i.hasNext()) {
 			m = i.next();
 			m.update();
-			if (m.p.y < 0) {
-				m.p.y = 1;
+			if (m.pos.y < 0) {
+				m.pos.y = 1;
 			}
 		}
 	}

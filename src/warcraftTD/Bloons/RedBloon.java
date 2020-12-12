@@ -23,6 +23,6 @@ public class RedBloon extends Bloon {
 	 */
 	public void draw() {
 		StdDraw.setPenColor(StdDraw.BLUE);
-		StdDraw.filledCircle(p.x, p.y, 0.01);
+		StdDraw.filledCircle(pos.x, pos.y, 0.01);
 	}
 }
