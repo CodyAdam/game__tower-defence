@@ -224,6 +224,7 @@ public class World {
 	 * position du monstre au cours du temps à l'aide du paramètre nextP.
 	 */
 	public void updateBloons() {
+		this.waves.update();
 
 		Iterator<Bloon> i = bloons.iterator();
 		Bloon m;
