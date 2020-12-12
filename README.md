@@ -1,5 +1,9 @@
 #### /!\ Pour la bonne compréhension du projet merci de lire entièrement ce fichier /!\
 
+#### Binôme : Cody ADAM et Fabien GOUARDOU
+
+#### Page Github du projet : [Github](https://github.com/CodyAdam/Tower-Defence)
+
 ## TODO
 
 -   [ ] image "explication_grille.gif"
@@ -7,15 +11,15 @@
 
 ## Concept du projet :
 
-Quand j'était petit j'ai beaucoup jouer au jeu tower defence appeller Bloons TD5 c'est pourquoi nous avons eu l'idée de faire une récréation simplifier de ce jeu avecles outils mis à notre disposition.
+Durant mon enfance j'ai beaucoup jouer au jeu tower defénse appeler Bloons TD 5 c'est pourquoi moi et mon binôme, avons eu l'idée de faire une récréation simplifier de ce jeu avec les outils mis à notre disposition.
 
-Tout les sprites sont tirée de ce même jeu, je vous renvoie donc vers la page Steam si vous voulez en savoir plus : https://store.steampowered.com/app/306020Bloons_TD_5/
+Tous les sprites sont issus de ce même jeu, nous vous renvoyions donc vers la page Steam si vous voulez en savoir plus : [Bloons TD 5]https://store.steampowered.com/app/306020Bloons_TD_5/
 
 ## Concept du gameplay :
 
 En tant que joueur, nous posons des singes sur le terrain dans le but de se défendre contre des vague de ballons appellé "Bloons". Les différents singes possèdes des capacités diverce et varier. La particularité de ce jeu c'est la mécanique des ballons, car quand un ballon éclate, il libère les ballons qu'il contient.
 
-#### Hierarchie des ballons :
+#### Hiérarchie des ballons :
 
 | Type de Bloons | Capacité                 | Spécialité                                      |
 | -------------- | ------------------------ | ----------------------------------------------- |
@@ -30,20 +34,20 @@ En tant que joueur, nous posons des singes sur le terrain dans le but de se déf
 
 ![Image d'explication des Bloons](/explication_ballon.png)
 
-## Changement effectuer sur le projet par defaut :
+## Changement effectué sur le projet par défaut :
 
--   Les enemies ont été renommé en tant que "Bloon" et les tour en tant que "Singe"
--   Fenetre de résolution : 1240 x 720 px
--   Grille : 31 x 18 -> une tuile fait 40 x 40 px
--   Point de vie de départ : 200
--   Sprite des tours et enemies customiser
+-   Les ennemies ont été renommé en tant que "Bloon" et les tours en tant que "Singe"
+-   Fenêtre de résolution de 1240 x 720 px
+-   Grille de 31 x 18 tuiles (une tuile fait 40 x 40 px)
+-   Sprite des tours et ennemies customiser
 -   Arrière plan customiser (pas de tuile mais en une seul image)
--   Système de niveaux avec chacun des pathing, environnements et difficulté différentes
--   Système de grille évolué avec prévisualisation des emplacements disponible intéractive quand une tour souhaite être placé
+-   Changement total des unités ennemies et alliées (bomber et archer remplacés par les différents singes et les monstres sont remplacés par le système de Bloons)
+-   Système de niveaux avec chacun des "pathing", environnements et difficultés différentes
+-   Système de grille évolué avec prévisualisation des emplacements disponible interactive quand une tour souhaite être placée
     ![Image d'explication de la grille](/explication_grille.png)
--   Un mode débug avancé avec un affichage de multiple informations et accès à des commandes de "triche"
--   Ajout d'une interface visuel intéractive d'achat et d'amélioration sur le panel de droite
+-   Un mode débug avancé avec un affichage de multiples informations et accès à des commandes de "triche"
+-   Ajout d'une interface visuelle interactive d'achat et d'amélioration sur le panel de droite
 
 ## Touches utiles en jeu :
 
--   [D] passe en mode DEBUG
+-   [D] alterne avec le mode DEBUG
