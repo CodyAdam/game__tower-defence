@@ -1,5 +1,8 @@
 package warcraftTD.Bloons;
 
+import java.util.ArrayDeque;
+import java.util.List;
+
 import warcraftTD.Position;
 
 public abstract class Bloon {
@@ -19,8 +22,17 @@ public abstract class Bloon {
 	// joueur
 	public int checkpoint = 0;
 
-	public Bloon(Position p) {
+	public ArrayDeque<Position> pathing;
+
+	public Bloon(Position p, List<Position> pathing) {
+		this.pathing = new ArrayDeque<Position>(pathing);
 		this.p = p;
+		this.nextP = new Position(p);
+	}
+
+	public Bloon(List<Position> pathing) {
+		this.pathing = new ArrayDeque<Position>(pathing);
+		this.p = new Position(this.pathing.removeFirst());
 		this.nextP = new Position(p);
 	}
 
@@ -30,8 +42,8 @@ public abstract class Bloon {
 	 */
 	public void move() {
 		// Mesure sur quel axe le bloon se dirige.
-		double dx = nextP.x - p.x;
-		double dy = nextP.y - p.y;
+		double dx = this.pathing.getFirst().x - p.x;
+		double dy = this.pathing.getFirst().y - p.y;
 		if (dy + dx != 0) {
 			// Mesure la distance à laquelle le bloon à pu se déplacer.
 			double ratioX = dx / (Math.abs(dx) + Math.abs(dy));

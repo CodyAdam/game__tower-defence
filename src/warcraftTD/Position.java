@@ -39,6 +39,6 @@ public class Position {
 	 * Retourne la position du point sur l'axe des x et des y
 	 */
 	public String toString() {
-		return "(" + Double.toString(x) + "," + Double.toString(y) + ")";
+		return "(" + Double.toString(x) + ", " + Double.toString(y) + ")";
 	}
 }

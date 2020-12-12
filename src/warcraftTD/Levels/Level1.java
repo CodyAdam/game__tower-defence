@@ -1,5 +1,7 @@
 package warcraftTD.Levels;
 
+import java.util.ArrayList;
+
 import warcraftTD.Position;
 import warcraftTD.Tiles.Empty;
 import warcraftTD.Tiles.Obstructed;
@@ -14,25 +16,25 @@ public class Level1 extends Level {
         nbSquareX = 31;
         nbSquareY = 18;
 
-        // remplie le tableau de points par lequel les Bloons vont passer dans l'ordre.
-        pathing = new Position[17];
-        pathing[0] = spawn;
-        pathing[1] = new Position(0.155, 0.45);
-        pathing[2] = new Position(0.155, 0.600);
-        pathing[3] = new Position(0.295, 0.600);
-        pathing[4] = new Position(0.295, 0.085);
-        pathing[5] = new Position(0.485, 0.085);
-        pathing[6] = new Position(0.485, 0.769);
-        pathing[7] = new Position(0.162, 0.769);
-        pathing[8] = new Position(0.162, 0.929);
-        pathing[9] = new Position(0.590, 0.929);
-        pathing[10] = new Position(0.590, 0.775);
-        pathing[11] = new Position(0.710, 0.775);
-        pathing[12] = new Position(0.710, 0.600);
-        pathing[13] = new Position(0.590, 0.600);
-        pathing[14] = new Position(0.590, 0.290);
-        pathing[15] = new Position(0.157, 0.290);
-        pathing[16] = new Position(0.157, 0.000);
+        // remplie la liste de points par lequel les Bloons vont passer dans l'ordre.
+        pathing = new ArrayList<Position>();
+        pathing.add(spawn);
+        pathing.add(new Position(0.155, 0.45));
+        pathing.add(new Position(0.155, 0.600));
+        pathing.add(new Position(0.295, 0.600));
+        pathing.add(new Position(0.295, 0.085));
+        pathing.add(new Position(0.485, 0.085));
+        pathing.add(new Position(0.485, 0.769));
+        pathing.add(new Position(0.162, 0.769));
+        pathing.add(new Position(0.162, 0.929));
+        pathing.add(new Position(0.590, 0.929));
+        pathing.add(new Position(0.590, 0.775));
+        pathing.add(new Position(0.710, 0.775));
+        pathing.add(new Position(0.710, 0.600));
+        pathing.add(new Position(0.590, 0.600));
+        pathing.add(new Position(0.590, 0.290));
+        pathing.add(new Position(0.157, 0.290));
+        pathing.add(new Position(0.157, 0.000));
 
         map = new Tile[nbSquareX][nbSquareY];
 

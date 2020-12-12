@@ -1,12 +1,20 @@
 package warcraftTD.Bloons;
 
+import java.util.List;
+
 import warcraftTD.Position;
 import warcraftTD.StdDraw;
 
 public class RedBloon extends Bloon {
 
-	public RedBloon(Position p) {
-		super(p);
+	public RedBloon(Position p, List<Position> pathing) {
+		super(p, pathing);
+		this.speed = 0.001;
+	}
+
+	public RedBloon(List<Position> pathing) {
+		super(pathing);
+		this.speed = 0.001;
 	}
 
 	/**

@@ -22,6 +22,5 @@ public abstract class Wave {
     public Wave(String name) {
         this.name = name;
         this.queue = new ArrayDeque<Pair>();
-
     }
 }

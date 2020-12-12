@@ -66,7 +66,7 @@ public class World {
 		sprites.put("hud", "/images/hud.png");
 
 		this.level = level;
-		this.waves = new Waves(level.spawn, this.bloons);
+		this.waves = new Waves(level.pathing, this.bloons);
 		this.map = level.map;
 
 		this.width = width;
@@ -138,10 +138,10 @@ public class World {
 		StdDraw.setPenColor(new Color(206, 255, 10, 128));
 		StdDraw.setPenRadius(0.01);
 		if (debug) {
-			Position[] pathing = level.pathing;
-			for (int i = 0; i < pathing.length; i++) {
-				if (i + 1 < pathing.length) {
-					StdDraw.line(pathing[i].x, pathing[i].y, pathing[i + 1].x, pathing[i + 1].y);
+			List<Position> pathing = level.pathing;
+			for (int i = 0; i < pathing.size(); i++) {
+				if (i + 1 < pathing.size()) {
+					StdDraw.line(pathing.get(i).x, pathing.get(i).y, pathing.get(i + 1).x, pathing.get(i + 1).y);
 				}
 			}
 		}
@@ -194,6 +194,7 @@ public class World {
 			StdDraw.textLeft(alignLeft, 0.10, "Mouse Pos (In frame) : " + mouseX + ",d " + mouseY);
 			StdDraw.textLeft(alignLeft, 0.08, "Mouse Pos (In grid) : " + (int) mouseGrid.x + ", " + (int) mouseGrid.y);
 			StdDraw.textLeft(alignLeft, 0.06, "Mouse Tile : " + getMouseTile().getClass().getName());
+			StdDraw.textLeft(alignLeft, 0.04, "Number of Bloons : " + bloons.size());
 		}
 	}
 

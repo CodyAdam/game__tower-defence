@@ -1,5 +1,7 @@
 package warcraftTD.Levels;
 
+import java.util.List;
+
 import warcraftTD.Position;
 import warcraftTD.Tiles.Tile;
 
@@ -11,7 +13,7 @@ public abstract class Level {
     public Position spawn;
 
     // ensemble de point qui forme le chemin que les Bloons vont parcourir
-    public Position[] pathing;
+    public List<Position> pathing;
 
     // grille qui determine qu'est-ce que qu'il y a sur la carte à sa création
     // (ex : Rien, Route, Arbre et rochers)
