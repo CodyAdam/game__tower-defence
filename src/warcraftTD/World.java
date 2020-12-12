@@ -6,27 +6,33 @@ import warcraftTD.Tiles.Tile;
 import warcraftTD.Waves.Waves;
 
 import java.awt.Color;
+import java.awt.Font;
+import java.io.File;
+import java.io.FileInputStream;
 import java.util.List;
-import java.util.Map;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 
 public class World {
+
+	// Répertorie les chemins de tout les assets du jeu
+	final String PATH_HUD = "src/assets/sprites/hud.png";
+	final String PATH_FONT = "src/assets/fonts/Langar-Regular.ttf";
+
 	// l'ensemble des monstres, pour gerer (notamment) l'affichage
 	List<Bloon> bloons = new ArrayList<Bloon>();
-
-	// Répertorie les chemins de tout les sprites du jeu
-	Map<String, String> sprites;
 
 	// Le niveau actuel
 	Level level;
 
-	// Les vagues de Bloons
+	// La police du texte
+	Font font;
+
+	// Le gestionnaire de vagues
 	Waves waves;
 
-	// grille qui determine qu'est-ce que qu'il y a sur la carte à sa création
-	// (ex : SingeX, SingeY, Rien, Route, Arbre et rochers)
+	// grille qui determine qu'est-ce que qu'il y a sur la carte
+	// (ex : SingeXXX, SingeYYY, Rien, Route ou Arbre ou rochers, UI, etc...)
 	Tile[][] map;
 
 	// Information sur la taille du plateau de jeu
@@ -49,6 +55,11 @@ public class World {
 	// Condition pour terminer la partie
 	boolean end = false;
 
+	// compte le nombre de fps (frames per second)
+	int fps;
+	int fpsCount = 0;
+	long fpsCountStart;
+
 	/**
 	 * Initialisation du monde en fonction de la largeur, la hauteur et le nombre de
 	 * cases données
@@ -61,9 +72,7 @@ public class World {
 	 * @param startSquareY
 	 */
 	public World(Level level, int width, int height) {
-		sprites = new HashMap<String, String>();
-		sprites.put("test", "/images/hud.png");
-		sprites.put("hud", "/images/hud.png");
+		loadFont();
 
 		this.level = level;
 		this.waves = new Waves(level.pathing, this.bloons);
@@ -80,6 +89,17 @@ public class World {
 
 		// TODO remove
 		waves.startNextWave();
+	}
+
+	public void loadFont() {
+		try {
+			Font font = Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File(PATH_FONT)))
+					.deriveFont(Font.PLAIN, 24);
+			this.font = font;
+
+		} catch (Exception e) {
+			System.err.println(e);
+		}
 	}
 
 	/**
@@ -130,7 +150,7 @@ public class World {
 				1);
 		int xPosHud = 960;
 		int widthHud = 280;
-		StdDraw.picture((double) xPosHud / width + (double) widthHud / (2 * width), 0.5, sprites.get("hud"),
+		StdDraw.picture((double) xPosHud / width + (double) widthHud / (2 * width), 0.5, PATH_HUD,
 				(double) widthHud / width, 1);
 	}
 
@@ -192,9 +212,11 @@ public class World {
 			double mouseY = Math.round(StdDraw.mouseY() * 1000) / (double) 1000;
 			Position mouseGrid = inGridSpace(mouseX, mouseY);
 
-			StdDraw.setPenColor(StdDraw.BLACK);
-			StdDraw.textLeft(alignLeft, 0.13, "Debug info : ");
-			StdDraw.textLeft(alignLeft, 0.10, "Mouse Pos (In frame) : " + mouseX + ",d " + mouseY);
+			StdDraw.setFont(font);
+			StdDraw.setPenColor(StdDraw.WHITE);
+			StdDraw.textLeft(alignLeft, 0.15, "Debug info : ");
+			StdDraw.textLeft(alignLeft, 0.12, "FPS : " + fps);
+			StdDraw.textLeft(alignLeft, 0.10, "Mouse Pos (In frame) : " + mouseX + ", " + mouseY);
 			StdDraw.textLeft(alignLeft, 0.08, "Mouse Pos (In grid) : " + (int) mouseGrid.x + ", " + (int) mouseGrid.y);
 			StdDraw.textLeft(alignLeft, 0.06, "Mouse Tile : " + getMouseTile().getClass().getName());
 			StdDraw.textLeft(alignLeft, 0.04, "Number of Bloons : " + bloons.size());
@@ -212,10 +234,10 @@ public class World {
 		String image = null;
 		switch (key) {
 			case 'a':
-				image = sprites.get("test");
+				image = PATH_HUD;
 				break;
 			case 'b':
-				image = sprites.get("test");
+				image = PATH_HUD;
 				break;
 		}
 		if (image != null)
@@ -333,24 +355,10 @@ public class World {
 	}
 
 	/**
-	 * Comme son nom l'indique, cette fonction permet d'afficher dans le terminal
-	 * les différentes possibilités offertes au joueur pour intéragir avec le
-	 * clavier
-	 */
-	public void printCommands() {
-		System.out.println("Press A to select Arrow Tower (cost 50g).");
-		System.out.println("Press B to select Cannon Tower (cost 60g).");
-		System.out.println("Press E to update a tower (cost 40g).");
-		System.out.println("Click on the grass to build it.");
-		System.out.println("Press S to start.");
-	}
-
-	/**
 	 * Récupère la touche entrée au clavier ainsi que la position de la souris et
 	 * met à jour le plateau en fonction de ces interractions
 	 */
 	public void run() {
-		printCommands();
 		while (!end) {
 
 			StdDraw.clear();
@@ -366,6 +374,16 @@ public class World {
 			update();
 			StdDraw.show();
 			StdDraw.pause(20);
+
+			// FPS Counter
+			if (debug) {
+				if (fpsCountStart == 0 || System.currentTimeMillis() - fpsCountStart >= 1000) {
+					fpsCountStart = System.currentTimeMillis();
+					fps = fpsCount;
+					fpsCount = 0;
+				}
+				fpsCount++;
+			}
 		}
 		System.exit(0);
 	}

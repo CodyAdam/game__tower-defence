@@ -11,7 +11,7 @@ import warcraftTD.Tiles.Tile;
 public class Level1 extends Level {
 
     public Level1() {
-        spritePath = "/images/monkey_lane_thumb.jpg";
+        spritePath = "/assets/sprites/monkey_lane_thumb.jpg";
         nbSquareX = 31;
         nbSquareY = 18;
 

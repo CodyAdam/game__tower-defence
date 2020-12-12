@@ -11,7 +11,7 @@ public abstract class Bloon {
 
 	// Vitesse du bloon
 	public double speed;
-	private final double speedRatioXY = ((double) 1240 / 720); // la fenêtre n'étant pas carré la vitesse X n'est pas la
+	private final double SPEED_RATIO = ((double) 1240 / 720); // la fenêtre n'étant pas carré la vitesse X n'est pas la
 																// même que Y donc nous égalisont
 
 	// Boolean pour savoir si le bloon à atteint le "chateau" du joueur
@@ -50,7 +50,7 @@ public abstract class Bloon {
 		Position dir = this.pathing.getFirst().minus(pos);
 
 		// Mesure le vecteur vitesse
-		Position speedVec = new Position(dir.normalized().x * speed / speedRatioXY, dir.normalized().y * speed);
+		Position speedVec = new Position(dir.normalized().x * speed / SPEED_RATIO, dir.normalized().y * speed);
 
 		if (dir.norm() < speedVec.norm()) { // Le Bloon à atteint le waypoint alors on passe au suivant
 			pos.x = this.pathing.getFirst().x;
