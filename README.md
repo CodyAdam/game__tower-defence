@@ -3,6 +3,7 @@
 ## TODO
 
 -   [ ] image "explication_grille.gif"
+-   [ ] commandes de "triche" en mode DEBUG
 
 ## Concept du projet :
 
@@ -12,7 +13,7 @@ Tout les sprites sont tirée de ce même jeu, je vous renvoie donc vers la page 
 
 ## Concept du gameplay :
 
-En tant que joueur, nous posons des singes sur le terrain dans le but de se défendre contre des vague de ballons appellé "Bloons". Les différents singes possèdes des capacités diverce et varier. L'originalité de ce jeu, c'est les ballon car quand un ballon éclate, il fait apparaitre les ballons qu'il contient
+En tant que joueur, nous posons des singes sur le terrain dans le but de se défendre contre des vague de ballons appellé "Bloons". Les différents singes possèdes des capacités diverce et varier. La particularité de ce jeu c'est la mécanique des ballons, car quand un ballon éclate, il libère les ballons qu'il contient.
 
 #### Hierarchie des ballons :
 
@@ -27,19 +28,20 @@ En tant que joueur, nous posons des singes sur le terrain dans le but de se déf
 | Ballon glacé   | Contient 2 ballon rose   | 1pv et invincible contre le froid               |
 | Ballon d'acier | Contient 2 ballon noir   | 1pv et invincible contre les projectiles pointu |
 
-![Image d'explication des ballons](/explication_ballon.png)
+![Image d'explication des Bloons](/explication_ballon.png)
 
-## Changement effectuer sur le projet par defaut (\* = triée par difficulté de façon subjective) :
+## Changement effectuer sur le projet par defaut :
 
 -   Les enemies ont été renommé en tant que "Bloon" et les tour en tant que "Singe"
 -   Fenetre de résolution : 1240 x 720 px
 -   Grille : 31 x 18 -> une tuile fait 40 x 40 px
 -   Point de vie de départ : 200
 -   Sprite des tours et enemies customiser
--   -   Arrière plan customiser (pas de tuile mais en une seul image)
+-   Arrière plan customiser (pas de tuile mais en une seul image)
 -   Système de niveaux avec chacun des pathing, environnements et difficulté différentes
--   Système de grille évolué avec prévisualisation des emplacements disponible intéractive quand une tour veux etre placé
-    ![Image d'explication grille](/explication_grille.png)
+-   Système de grille évolué avec prévisualisation des emplacements disponible intéractive quand une tour souhaite être placé
+    ![Image d'explication de la grille](/explication_grille.png)
+-   Un mode débug avancé avec un affichage de multiple informations et accès à des commandes de "triche"
 -   Ajout d'une interface visuel intéractive d'achat et d'amélioration sur le panel de droite
 
 ## Touches utiles en jeu :
