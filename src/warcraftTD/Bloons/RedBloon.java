@@ -9,12 +9,12 @@ public class RedBloon extends Bloon {
 
 	public RedBloon(Position p, List<Position> pathing) {
 		super(p, pathing);
-		this.speed = 0.021;
+		this.speed = 0.005;
 	}
 
 	public RedBloon(List<Position> pathing) {
 		super(pathing);
-		this.speed = 0.021;
+		this.speed = 0.005;
 	}
 
 	/**
@@ -23,6 +23,6 @@ public class RedBloon extends Bloon {
 	 */
 	public void draw() {
 		StdDraw.setPenColor(StdDraw.BLUE);
-		StdDraw.filledCircle(pos.x, pos.y, 0.01);
+		StdDraw.filledRectangle(pos.x, pos.y, 0.01 / ((double) 1240 / 720), 0.01);
 	}
 }

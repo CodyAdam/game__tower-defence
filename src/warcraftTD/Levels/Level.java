@@ -9,10 +9,8 @@ public abstract class Level {
     // Répertorie le chemin de l'image du niveau
     public String spritePath;
 
-    // Point d'apparition des Bloons
-    public Position spawn;
-
-    // ensemble de point qui forme le chemin que les Bloons vont parcourir
+    // ensemble de point qui forme le chemin que les Bloons vont parcourir (soit le
+    // premier étant le spawn)
     public List<Position> pathing;
 
     // grille qui determine qu'est-ce que qu'il y a sur la carte à sa création

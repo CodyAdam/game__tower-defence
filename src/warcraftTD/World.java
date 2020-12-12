@@ -77,6 +77,9 @@ public class World {
 		this.squareHeight = (double) 1 / nbSquareY;
 		StdDraw.setCanvasSize(width, height);
 		StdDraw.enableDoubleBuffering();
+
+		// TODO remove
+		waves.startNextWave();
 	}
 
 	/**

@@ -1,15 +1,13 @@
 package warcraftTD;
 
-import warcraftTD.Bloons.Bloon;
-import warcraftTD.Bloons.RedBloon;
 import warcraftTD.Levels.Level;
 import warcraftTD.Levels.Level1;
 
 public class Main {
 
 	public static void main(String[] args) {
-		final int width = 1240; // VALEUR BRUT à NE PAS MODIFIER
-		final int height = 720; // VALEUR BRUT à NE PAS MODIFIER
+		final int width = 1240; // ne pas modifier
+		final int height = 720; // ne pas modifier
 
 		Level startingLevel = new Level1();
 

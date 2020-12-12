@@ -12,13 +12,12 @@ public class Level1 extends Level {
 
     public Level1() {
         spritePath = "/images/monkey_lane_thumb.jpg";
-        spawn = new Position(0, 0.45);
         nbSquareX = 31;
         nbSquareY = 18;
 
         // remplie la liste de points par lequel les Bloons vont passer dans l'ordre.
         pathing = new ArrayList<Position>();
-        pathing.add(spawn);
+        pathing.add(new Position(0, 0.45));
         pathing.add(new Position(0.155, 0.45));
         pathing.add(new Position(0.155, 0.600));
         pathing.add(new Position(0.295, 0.600));

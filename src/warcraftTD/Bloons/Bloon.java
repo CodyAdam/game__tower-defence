@@ -11,6 +11,8 @@ public abstract class Bloon {
 
 	// Vitesse du bloon
 	public double speed;
+	private final double speedRatioXY = ((double) 1240 / 720); // la fenêtre n'étant pas carré la vitesse X n'est pas la
+																// même que Y donc nous égalisont
 
 	// Boolean pour savoir si le bloon à atteint le "chateau" du joueur
 	public boolean reached;
@@ -21,11 +23,19 @@ public abstract class Bloon {
 	// Queue de Position qui sont les point par lequel le Bloon doit passer
 	public ArrayDeque<Position> pathing;
 
+	/**
+	 * Fait apparaitre un Bloon sur une position donnée (utilisé pour faire
+	 * apparaitre les Bloons contenu dans un autre qui viens de mourir)
+	 */
 	public Bloon(Position p, List<Position> pathing) {
 		this.pathing = new ArrayDeque<Position>(pathing);
 		this.pos = p;
 	}
 
+	/**
+	 * Fait apparaitre un Bloon au tout premier point de "pathing" (le spawn du
+	 * level)
+	 */
 	public Bloon(List<Position> pathing) {
 		this.pathing = new ArrayDeque<Position>(pathing);
 		this.pos = new Position(this.pathing.removeFirst());
@@ -39,16 +49,16 @@ public abstract class Bloon {
 		// Mesure le vecteur direction
 		Position dir = this.pathing.getFirst().minus(pos);
 
-		// Mesure le vecteur direction normalisé
-		Position speedDir = dir.normalized().multi(speed);
+		// Mesure le vecteur vitesse
+		Position speedVec = new Position(dir.normalized().x * speed / speedRatioXY, dir.normalized().y * speed);
 
-		if (dir.norm() < speedDir.norm()) { // Le Bloon à atteint le waypoint alors on passe au suivant
+		if (dir.norm() < speedVec.norm()) { // Le Bloon à atteint le waypoint alors on passe au suivant
 			pos.x = this.pathing.getFirst().x;
 			pos.y = this.pathing.getFirst().y;
 			this.pathing.removeFirst();
 		} else {
-			pos.x += speedDir.x;
-			pos.y += speedDir.y;
+			pos.x += speedVec.x;
+			pos.y += speedVec.y;
 		}
 	}
 
