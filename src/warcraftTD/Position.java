@@ -46,6 +46,16 @@ public class Position {
 	}
 
 	/**
+	 * multiplie deux vecteur position
+	 * 
+	 * @param i la valeur par laquelle multiplier "this"
+	 * @return la position qui correspond à la multiplication de (this * i)
+	 */
+	public Position multi(double i) {
+		return new Position(this.x * i, this.y * i);
+	}
+
+	/**
 	 * @return Donne la norme du vecteur position
 	 */
 	public double norm() {

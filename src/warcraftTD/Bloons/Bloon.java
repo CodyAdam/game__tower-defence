@@ -36,18 +36,32 @@ public abstract class Bloon {
 	 * prochaine position.
 	 */
 	public void move() {
-		// Mesure le vecteur direction (Position normalisé)
-		Position dir = pos.minus(this.pathing.getFirst()).normalized();
-		pos.x -= dir.x * speed;
-		pos.y -= dir.y * speed;
+		// Mesure le vecteur direction
+		Position dir = this.pathing.getFirst().minus(pos);
+
+		// Mesure le vecteur direction normalisé
+		Position speedDir = dir.normalized().multi(speed);
+
+		if (dir.norm() < speedDir.norm()) { // Le Bloon à atteint le waypoint alors on passe au suivant
+			pos.x = this.pathing.getFirst().x;
+			pos.y = this.pathing.getFirst().y;
+			this.pathing.removeFirst();
+		} else {
+			pos.x += speedDir.x;
+			pos.y += speedDir.y;
+		}
 	}
 
 	public void onDeath() {
-
+		// TODO remove from board
 	}
 
+	/**
+	 * À chaque tick déplace puis affiche le bloons
+	 */
 	public void update() {
 		if (reached)
+			// TODO remove health to player
 			onDeath();
 		else {
 			move();
