@@ -1,8 +1,8 @@
-#### /!\ Pour la bonne compréhension du projet merci de lire entièrement ce fichier /!\
+###### /!\ Pour la bonne compréhension du projet merci de lire entièrement ce fichier /!\
 
-#### Binôme : Cody ADAM et Fabien GOUARDOU
+###### Binôme : Cody ADAM et Fabien GOUARDOU
 
-#### Page Github du projet : [Github](https://github.com/CodyAdam/Tower-Defence)
+###### Page Github du projet : [Tower-Defence](https://github.com/CodyAdam/Tower-Defence)
 
 ## TODO
 
@@ -13,7 +13,7 @@
 
 Durant mon enfance j'ai beaucoup jouer au jeu tower defénse appeler Bloons TD 5 c'est pourquoi moi et mon binôme, avons eu l'idée de faire une récréation simplifier de ce jeu avec les outils mis à notre disposition.
 
-Tous les sprites sont issus de ce même jeu, nous vous renvoyions donc vers la page Steam si vous voulez en savoir plus : [Bloons TD 5]https://store.steampowered.com/app/306020Bloons_TD_5/
+Tous les sprites sont issus de ce même jeu, nous vous renvoyions donc vers la page Steam si vous voulez en savoir plus : [page Steam](https://store.steampowered.com/app/306020Bloons_TD_5/)
 
 ## Concept du gameplay :
 
