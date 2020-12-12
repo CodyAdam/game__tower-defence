@@ -1,4 +1,4 @@
-#### /!\ Pour la bonne compréhension du projet merci de lire entièrement ce fichier
+#### /!\ Pour la bonne compréhension du projet merci de lire entièrement ce fichier /!\
 
 ## TODO
 
@@ -12,18 +12,20 @@ Tout les sprites sont tirée de ce même jeu, je vous renvoie donc vers la page 
 
 ## Concept du gameplay :
 
-En tant que joueur, nous posons des singes sur le terrain dans le but de se défendre contre des vague de ballons. Les différents singes possèdes des capacités diverce et varier. L'originalité de ce jeu, c'est les ballon car quand un ballon éclate, il fait apparaitre les ballons qu'il contient
+En tant que joueur, nous posons des singes sur le terrain dans le but de se défendre contre des vague de ballons appellé "Bloons". Les différents singes possèdes des capacités diverce et varier. L'originalité de ce jeu, c'est les ballon car quand un ballon éclate, il fait apparaitre les ballons qu'il contient
 
 #### Hierarchie des ballons :
 
--   1 ballon rouge -> ne contient aucun ballon (1pv et lent)
--   1 ballon bleu -> contient 1 ballon rouge (1pv et moyennement lent)
--   1 ballon vert -> contient 1 ballon bleu (1pv et moyennement rapide)
--   1 ballon jaune -> contient 1 ballon vert (1pv et rapide)
--   1 ballon rose -> contient 1 ballon jaune (1pv et très rapide)
--   1 ballon noir -> contient 2 ballon rose (1pv et invincible au explosions)
--   1 ballon glacé -> contient 2 ballon rose (1pv et invincible contre le froid)
--   1 ballon d'acier -> contient 2 ballon noir (1pv et invincible contre les projectiles pointu)
+| Type de Bloons | Capacité                 | Spécialité                                      |
+| -------------- | ------------------------ | ----------------------------------------------- |
+| Ballon rouge   | Ne contient aucun ballon | 1pv et lent                                     |
+| Ballon bleu    | Contient 1 ballon rouge  | 1pv et moyennement lent                         |
+| Ballon vert    | Contient 1 ballon bleu   | 1pv et moyennement rapide                       |
+| Ballon jaune   | Contient 1 ballon vert   | 1pv et rapide                                   |
+| Ballon rose    | Contient 1 ballon jaune  | 1pv et très rapide                              |
+| Ballon noir    | Contient 2 ballon rose   | 1pv et invincible au explosions                 |
+| Ballon glacé   | Contient 2 ballon rose   | 1pv et invincible contre le froid               |
+| Ballon d'acier | Contient 2 ballon noir   | 1pv et invincible contre les projectiles pointu |
 
 ![Image d'explication des ballons](/explication_ballon.png)
 
@@ -36,7 +38,8 @@ En tant que joueur, nous posons des singes sur le terrain dans le but de se déf
 -   Sprite des tours et enemies customiser
 -   -   Arrière plan customiser (pas de tuile mais en une seul image)
 -   Système de niveaux avec chacun des pathing, environnements et difficulté différentes
--   Système de grille évolué avec prévisualisation des emplacements disponible intéractive quand une tour veux etre placé (voir ![Image d'explication grille](/explication_grille.png))
+-   Système de grille évolué avec prévisualisation des emplacements disponible intéractive quand une tour veux etre placé
+    ![Image d'explication grille](/explication_grille.png)
 -   Ajout d'une interface visuel intéractive d'achat et d'amélioration sur le panel de droite
 
 ## Touches utiles en jeu :
