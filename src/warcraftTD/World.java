@@ -55,10 +55,12 @@ public class World {
 	// Condition pour terminer la partie
 	boolean end = false;
 
-	// compte le nombre de fps (frames per second)
+	// compte le nombre de tps (tick per second) et fps (frames per second)
 	int fps;
 	int fpsCount = 0;
-	long fpsCountStart;
+	long tpsTimerStart = System.nanoTime();
+	long fpsTimerStart = System.nanoTime();
+	final long TARGET_TPS = 1000000000 / 60; // on veut avoir 60 tps constant
 
 	/**
 	 * Initialisation du monde en fonction de la largeur, la hauteur et le nombre de
@@ -212,7 +214,7 @@ public class World {
 			double mouseY = Math.round(StdDraw.mouseY() * 1000) / (double) 1000;
 			Position mouseGrid = inGridSpace(mouseX, mouseY);
 
-			StdDraw.setFont(font);
+			// StdDraw.setFont(font);
 			StdDraw.setPenColor(StdDraw.WHITE);
 			StdDraw.textLeft(alignLeft, 0.15, "Debug info : ");
 			StdDraw.textLeft(alignLeft, 0.12, "FPS : " + fps);
@@ -245,38 +247,50 @@ public class World {
 	}
 
 	/**
-	 * Pour chaque monstre de la liste de monstres de la vague, utilise la fonction
-	 * update() qui appelle les fonctions run() et draw() de Monster. Modifie la
-	 * position du monstre au cours du temps à l'aide du paramètre nextP.
+	 * update tout les bloons de la liste sans les draw
 	 */
-	public void updateBloons() {
-		this.waves.update();
+	public void tickBloons() {
 
 		Iterator<Bloon> i = bloons.iterator();
 		Bloon m;
 		while (i.hasNext()) {
 			m = i.next();
-			m.update();
-			if (m.pos.y < 0) {
-				m.pos.y = 1;
-			}
+			m.tick();
 		}
 	}
 
 	/**
-	 * Met à jour toutes les informations du plateau de jeu ainsi que les
-	 * déplacements des monstres et les attaques des tours.
-	 * 
-	 * @return les points de vie restants du joueur
+	 * draw tout les bloons
 	 */
-	public int update() {
+	public void drawBloons() {
+		Iterator<Bloon> i = bloons.iterator();
+		Bloon m;
+		while (i.hasNext()) {
+			m = i.next();
+			m.draw();
+		}
+	}
+
+	/**
+	 * Affiche tout le contenu du jeu
+	 */
+	public void draw() {
 		drawBackground();
 		drawGrid();
 		drawPath();
 		drawInfos();
-		updateBloons();
+		drawBloons();
 		drawMouse();
-		return life;
+		StdDraw.show();
+	}
+
+	/**
+	 * Met à jour toutes les informations du plateau de jeu ainsi que les
+	 * déplacements des monstres et les attaques des tours. (Ne draw rien)
+	 */
+	public void tick() {
+		this.waves.update();
+		tickBloons();
 	}
 
 	/**
@@ -362,23 +376,25 @@ public class World {
 		while (!end) {
 
 			StdDraw.clear();
+
+			while (tpsTimerStart - System.nanoTime() < TARGET_TPS) {
+				tpsTimerStart += TARGET_TPS;
+				tick();
+			}
+			draw();
+
 			if (StdDraw.hasNextKeyTyped()) {
 				keyPress(StdDraw.nextKeyTyped());
 			}
-
 			if (StdDraw.isMousePressed()) {
 				mouseClick(StdDraw.mouseX(), StdDraw.mouseY());
 				StdDraw.pause(50);
 			}
 
-			update();
-			StdDraw.show();
-			StdDraw.pause(20);
-
 			// FPS Counter
 			if (debug) {
-				if (fpsCountStart == 0 || System.currentTimeMillis() - fpsCountStart >= 1000) {
-					fpsCountStart = System.currentTimeMillis();
+				if (fpsTimerStart == 0 || System.nanoTime() - fpsTimerStart >= 1000000000) {
+					fpsTimerStart = System.nanoTime();
 					fps = fpsCount;
 					fpsCount = 0;
 				}

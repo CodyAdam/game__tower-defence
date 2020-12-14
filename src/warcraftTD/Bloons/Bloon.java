@@ -9,6 +9,9 @@ public abstract class Bloon {
 	// Position du bloon à l'instant t
 	public Position pos;
 
+	// Points de vie du ballon
+	public int hp;
+
 	// Vitesse du bloon
 	public double speed;
 	private final double SPEED_RATIO = ((double) 1240 / 720); // la fenêtre n'étant pas carré la vitesse X n'est pas la
@@ -46,6 +49,11 @@ public abstract class Bloon {
 	 * prochaine position.
 	 */
 	public void move() {
+		if (this.pathing.isEmpty()) {
+			onReach();
+			return;
+		}
+
 		// Mesure le vecteur direction
 		Position dir = this.pathing.getFirst().minus(pos);
 
@@ -62,6 +70,10 @@ public abstract class Bloon {
 		}
 	}
 
+	public void onReach() {
+
+	}
+
 	public void onDeath() {
 		// TODO remove from board
 	}
@@ -69,14 +81,8 @@ public abstract class Bloon {
 	/**
 	 * À chaque tick déplace puis affiche le bloons
 	 */
-	public void update() {
-		if (reached)
-			// TODO remove health to player
-			onDeath();
-		else {
-			move();
-			draw();
-		}
+	public void tick() {
+		move();
 	}
 
 	/**

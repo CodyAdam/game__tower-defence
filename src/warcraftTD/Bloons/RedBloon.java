@@ -9,12 +9,17 @@ public class RedBloon extends Bloon {
 
 	public RedBloon(Position p, List<Position> pathing) {
 		super(p, pathing);
-		this.speed = 0.005;
+		init();
 	}
 
 	public RedBloon(List<Position> pathing) {
 		super(pathing);
+		init();
+	}
+
+	public void init() {
 		this.speed = 0.005;
+		this.hp = 1;
 	}
 
 	/**
