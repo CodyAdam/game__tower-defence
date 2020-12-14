@@ -9,7 +9,7 @@ public abstract class Bloon {
 	// Position du bloon à l'instant t
 	public Position pos;
 
-	// Points de vie du ballon
+	// Points de vie du ballon (<1 == mort)
 	public int hp;
 
 	// Vitesse du bloon
@@ -18,7 +18,7 @@ public abstract class Bloon {
 																// même que Y donc nous égalisont
 
 	// Boolean pour savoir si le bloon à atteint le "chateau" du joueur
-	public boolean reached;
+	public boolean reached = false;
 
 	// Compteur de distance déplacé pour savoir quelle Bloons est en tête
 	public double traveledDistance = 0;
@@ -28,10 +28,12 @@ public abstract class Bloon {
 
 	/**
 	 * Fait apparaitre un Bloon sur une position donnée (utilisé pour faire
-	 * apparaitre les Bloons contenu dans un autre qui viens de mourir)
+	 * apparaitre les Bloons contenu dans un autre qui viens de mourir) Et fait des
+	 * dégats au bloon à sont apparition si sont parrent
 	 */
-	public Bloon(Position p, List<Position> pathing) {
+	public Bloon(Position p, List<Position> pathing, int hurt) {
 		this.pathing = new ArrayDeque<Position>(pathing);
+		this.hp -= hurt;
 		this.pos = p;
 	}
 

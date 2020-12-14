@@ -7,8 +7,8 @@ import warcraftTD.StdDraw;
 
 public class RedBloon extends Bloon {
 
-	public RedBloon(Position p, List<Position> pathing) {
-		super(p, pathing);
+	public RedBloon(Position p, List<Position> pathing, int hurt) {
+		super(p, pathing, hurt);
 		init();
 	}
 
