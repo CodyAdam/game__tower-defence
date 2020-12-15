@@ -146,17 +146,12 @@ public class World {
 	 */
 	public void drawBackground() {
 		// Draw LEVEL
-		int totalWidth = 1240;
-		double x = (double) 1000 / ((double) 1240 * 2);
-		StdDraw.picture(x, 0.5, level.spritePath, (2 * x), 1);
-
-		int xPosHud = 960;
-		int widthHud = 280;
+		double bgSize = (double) 1000 / ((double) 1240 * 2);
+		StdDraw.picture(bgSize, 0.5, level.spritePath, (2 * bgSize), 1);
 
 		// Draw HUD
-
-		double x2 = (double) 960 / ((double) 1240) + ((double) 280 / (2 * (double) 1240));
-		StdDraw.picture(x2, 0.5, PATH_HUD, (x2 - x), 1);
+		double panelSize = (double) 280 / ((double) 1240 * 2);
+		StdDraw.picture(1 - panelSize, 0.5, PATH_HUD, panelSize * 2, 1);
 	}
 
 	/**
