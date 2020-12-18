@@ -46,6 +46,9 @@ public class World {
 	// Nombre de points de vie du joueur
 	int life = 200;
 
+	// La vitesse à laquelle s'écoule le jeu
+	double gameSpeed = 1.50;
+
 	// Commande sur laquelle le joueur appuie (sur le clavier)
 	char key;
 
@@ -96,7 +99,6 @@ public class World {
 			Font font = Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File(PATH_FONT)))
 					.deriveFont(Font.PLAIN, 24);
 			this.font = font;
-
 		} catch (Exception e) {
 			System.err.println(e);
 		}
@@ -304,20 +306,6 @@ public class World {
 		key = Character.toLowerCase(key);
 		this.key = key;
 		switch (key) {
-			case 'a':
-				System.out.println("Arrow Tower selected (50g).");
-				break;
-			case 'h':
-				System.out.println(
-						String.format("obstructed[%s][%s] = true;", (int) (inGridSpace(normalizedX, normalizedY).x),
-								(int) (inGridSpace(normalizedX, normalizedY).y)));
-				break;
-			case 'b':
-				System.out.println("Bomb Tower selected (60g).");
-				break;
-			case 'e':
-				System.out.println("Evolution selected (40g).");
-				break;
 			case 's':
 				System.out.println("Starting game!");
 				this.waves.startNextWave();
@@ -349,17 +337,10 @@ public class World {
 	 * @param y
 	 */
 	public void mouseClick(double x, double y) {
-		// double normalizedX = (int) (x / squareWidth) * squareWidth + squareWidth / 2;
-		// double normalizedY = (int) (y / squareHeight) * squareHeight + squareHeight /
-		// 2;
+		// double normalizedX=(int)(x / squareWidth) * squareWidth + squareWidth / 2;
+		// double normalizedY=(int)(y / squareHeight) * squareHeight + squareHeight / 2;
 		// Position p = new Position(normalizedX, normalizedY);
 		switch (key) {
-			case 'a':
-				System.out.println("il faut ajouter une tour d'archers si l'utilisateur à de l'or !!");
-				break;
-			case 'b':
-				System.out.println("Ici il faut ajouter une tour de bombes");
-				break;
 			case 'e':
 				System.out.println("Ici il est possible de faire évolué une des tours");
 				break;
@@ -375,8 +356,8 @@ public class World {
 
 			StdDraw.clear();
 
-			while (tpsTimerStart - System.nanoTime() < TARGET_TPS) {
-				tpsTimerStart += TARGET_TPS;
+			while (tpsTimerStart - System.nanoTime() < TARGET_TPS / gameSpeed) {
+				tpsTimerStart += TARGET_TPS / gameSpeed;
 				tick();
 			}
 			draw();

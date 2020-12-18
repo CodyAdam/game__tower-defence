@@ -8,11 +8,17 @@ import warcraftTD.Bloons.RedBloon;
 public class Wave1 extends Wave {
     public Wave1(List<Position> pathing) {
         super("Wave 1");
-        queue.add(new Pair(60 * 5, new RedBloon(pathing)));
-        queue.add(new Pair(50, new RedBloon(pathing)));
-        queue.add(new Pair(50, new RedBloon(pathing)));
-        queue.add(new Pair(50, new RedBloon(pathing)));
-        queue.add(new Pair(50, new RedBloon(pathing)));
-        queue.add(new Pair(50, new RedBloon(pathing)));
+        queue.add(new Pair(60, new RedBloon(pathing)));
+        queue.add(new Pair(10, new RedBloon(pathing)));
+        queue.add(new Pair(10, new RedBloon(pathing)));
+        queue.add(new Pair(10, new RedBloon(pathing)));
+        queue.add(new Pair(10, new RedBloon(pathing)));
+        queue.add(new Pair(10, new RedBloon(pathing)));
+        queue.add(new Pair(10, new RedBloon(pathing)));
+        queue.add(new Pair(10, new RedBloon(pathing)));
+        queue.add(new Pair(10, new RedBloon(pathing)));
+        queue.add(new Pair(10, new RedBloon(pathing)));
+        queue.add(new Pair(10, new RedBloon(pathing)));
+        queue.add(new Pair(10, new RedBloon(pathing)));
     }
 }

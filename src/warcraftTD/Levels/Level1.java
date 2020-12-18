@@ -40,7 +40,6 @@ public class Level1 extends Level {
         // remplie la map de vide ou avec des obstacles
         // on fait ça en brut car plus rapide
         boolean[][] obstructed = new boolean[31][18];
-        obstructed[24][16] = true;
         obstructed[8][2] = true;
         obstructed[23][12] = true;
         obstructed[17][10] = true;
@@ -82,7 +81,6 @@ public class Level1 extends Level {
         obstructed[13][16] = true;
         obstructed[5][5] = true;
         obstructed[5][1] = true;
-        obstructed[24][13] = true;
         obstructed[1][8] = true;
         obstructed[17][15] = true;
         obstructed[14][10] = true;
@@ -92,14 +90,11 @@ public class Level1 extends Level {
         obstructed[18][6] = true;
         obstructed[4][2] = true;
         obstructed[4][1] = true;
-        obstructed[24][15] = true;
         obstructed[0][14] = true;
         obstructed[9][2] = true;
         obstructed[17][9] = true;
         obstructed[8][13] = true;
-        obstructed[24][4] = true;
         obstructed[6][16] = true;
-        obstructed[24][14] = true;
         obstructed[23][10] = true;
         obstructed[10][1] = true;
         obstructed[18][13] = true;
@@ -111,12 +106,9 @@ public class Level1 extends Level {
         obstructed[12][16] = true;
         obstructed[17][6] = true;
         obstructed[5][4] = true;
-        obstructed[24][9] = true;
         obstructed[15][13] = true;
-        obstructed[24][5] = true;
         obstructed[14][2] = true;
         obstructed[18][7] = true;
-        obstructed[24][17] = true;
         obstructed[21][14] = true;
         obstructed[19][14] = true;
         obstructed[14][1] = true;
@@ -127,7 +119,6 @@ public class Level1 extends Level {
         obstructed[4][16] = true;
         obstructed[15][16] = true;
         obstructed[9][6] = true;
-        obstructed[24][6] = true;
         obstructed[18][15] = true;
         obstructed[19][10] = true;
         obstructed[8][10] = true;
@@ -136,7 +127,6 @@ public class Level1 extends Level {
         obstructed[10][14] = true;
         obstructed[22][11] = true;
         obstructed[4][9] = true;
-        obstructed[24][11] = true;
         obstructed[11][1] = true;
         obstructed[9][1] = true;
         obstructed[4][15] = true;
@@ -189,7 +179,6 @@ public class Level1 extends Level {
         obstructed[18][9] = true;
         obstructed[5][14] = true;
         obstructed[11][13] = true;
-        obstructed[24][12] = true;
         obstructed[15][14] = true;
         obstructed[18][10] = true;
         obstructed[8][6] = true;
@@ -199,7 +188,6 @@ public class Level1 extends Level {
         obstructed[2][7] = true;
         obstructed[6][14] = true;
         obstructed[7][11] = true;
-        obstructed[24][7] = true;
         obstructed[8][11] = true;
         obstructed[23][4] = true;
         obstructed[5][11] = true;
@@ -216,7 +204,6 @@ public class Level1 extends Level {
         obstructed[0][7] = true;
         obstructed[0][12] = true;
         obstructed[9][16] = true;
-        obstructed[24][10] = true;
         obstructed[15][1] = true;
         obstructed[5][16] = true;
         obstructed[14][5] = true;
@@ -232,7 +219,7 @@ public class Level1 extends Level {
             for (int x = 0; x < nbSquareX; x++) {
                 if (x >= nbSquareX - 6)
                     map[x][y] = new Panel();
-                else if (obstructed[x][y]) {
+                else if (obstructed[x][y] || x == 24) {
                     map[x][y] = new Obstructed();
                 } else {
                     map[x][y] = new Empty();
