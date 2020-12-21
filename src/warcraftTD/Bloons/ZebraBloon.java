@@ -11,7 +11,7 @@ public class ZebraBloon extends Bloon {
 		this.speed *= 1.8;
 		this.hp = 1;
 		this.power = 23;
-		this.imgPath = "src/Assets/Sprites/Bloons/Zebra.png";
+		this.imgPath = "/Assets/Sprites/Bloons/Zebra.png";
 		this.center = new Position(0.5, 0.5);
 		this.spawnOnDeath = new ArrayList<Bloon>();
 

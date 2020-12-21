@@ -37,7 +37,7 @@ public abstract class Bloon {
 	public List<Bloon> spawnOnDeath;
 
 	// Rayons dans lequel les bloons apparaissent
-	private final double ON_DEATH_RADIUS = 0.02;
+	private final double ON_DEATH_RADIUS = 0.04;
 
 	// Compteur de distance déplacé pour savoir quelle Bloons est en tête
 	public double traveledDistance = 0;
@@ -90,12 +90,17 @@ public abstract class Bloon {
 
 	public List<Bloon> onDeath(List<Bloon> bloons) {
 		for (Bloon b : spawnOnDeath) {
-			b.hp += this.hp;// (overkill)
-			b.pos = this.pos;// Donne la position du Bloon éclaté
+			b.hp += this.hp;// en cas d'overkill
+
+			// Donne la position du Bloon éclaté
 			// offset la position de façon aléatoire avec un rayon défini
-			b.pos = new Position(b.pos.x + Math.random() * ON_DEATH_RADIUS - ON_DEATH_RADIUS / 2,
-					b.pos.y + Math.random() * ON_DEATH_RADIUS - ON_DEATH_RADIUS / 2);
-			b.pathing = this.pathing.clone();
+			if (spawnOnDeath.size() != 1)
+				b.pos = new Position(this.pos.x + Math.random() * ON_DEATH_RADIUS - ON_DEATH_RADIUS / 2,
+						this.pos.y + Math.random() * ON_DEATH_RADIUS - ON_DEATH_RADIUS / 2);
+			else
+				b.pos = new Position(this.pos.x, this.pos.y);
+
+			b.pathing = this.pathing.clone();// Reprend le chemin du Bloon parent
 		}
 		return this.spawnOnDeath;
 	}

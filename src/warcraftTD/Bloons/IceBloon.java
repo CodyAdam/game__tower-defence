@@ -11,7 +11,7 @@ public class IceBloon extends Bloon {
 		this.speed *= 2.00;
 		this.hp = 1;
 		this.power = 11;
-		this.imgPath = "src/Assets/Sprites/Bloons/Ice.png";
+		this.imgPath = "/Assets/Sprites/Bloons/Ice.png";
 		this.center = new Position(0.5, 0.5);
 		this.spawnOnDeath = new ArrayList<Bloon>();
 

@@ -12,7 +12,7 @@ public class BlueAirBloon extends Bloon {
 		this.speed *= 1.00;
 		this.hp = 200;
 		this.power = 616;
-		this.imgPath = "src/Assets/Sprites/Bloons/BlueAirBloon.png";
+		this.imgPath = "/Assets/Sprites/Bloons/BlueAirBloon.png";
 		this.center = new Position(0.5, 0.5);
 		this.spawnOnDeath = new ArrayList<Bloon>();
 

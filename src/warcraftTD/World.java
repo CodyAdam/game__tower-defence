@@ -17,8 +17,8 @@ import java.util.Iterator;
 public class World {
 
 	// Répertorie les chemins de tout les assets du jeu
-	final String PATH_HUD = "src/assets/sprites/hud.png";
-	final String PATH_FONT = "src/assets/fonts/Langar-Regular.ttf";
+	final String PATH_HUD = "/Assets/Sprites/hud.png";
+	final String PATH_FONT = "/Assets/Fonts/Langar-Regular.ttf";
 
 	// l'ensemble des monstres, pour gerer (notamment) l'affichage
 	List<Bloon> bloons = new ArrayList<Bloon>();
@@ -332,6 +332,11 @@ public class World {
 			case 'k':
 				for (Bloon b : bloons) {
 					b.hp -= 1;
+				}
+				break;
+			case 'l':
+				for (Bloon b : bloons) {
+					b.hp = 0;
 				}
 				break;
 			case 'q':

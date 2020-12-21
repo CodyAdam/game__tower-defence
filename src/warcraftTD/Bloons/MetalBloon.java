@@ -11,7 +11,7 @@ public class MetalBloon extends Bloon {
 		this.speed *= 1.00;
 		this.hp = 1;
 		this.power = 23;
-		this.imgPath = "src/Assets/Sprites/Bloons/Metal.png";
+		this.imgPath = "/Assets/Sprites/Bloons/Metal.png";
 		this.center = new Position(0.5, 0.5);
 		this.spawnOnDeath = new ArrayList<Bloon>();
 

@@ -11,7 +11,7 @@ public class RedBloon extends Bloon {
 		this.speed *= 1;
 		this.hp = 1;
 		this.power = 1;
-		this.imgPath = "src/Assets/Sprites/Bloons/Red.png";
+		this.imgPath = "/Assets/Sprites/Bloons/Red.png";
 		this.center = new Position(0.5, 0.5);
 		this.spawnOnDeath = new ArrayList<Bloon>();
 	}
