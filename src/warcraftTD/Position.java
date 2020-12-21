@@ -36,6 +36,15 @@ public class Position {
 	}
 
 	/**
+	 * @return Rend l'angle du vecteur position en radian
+	 * @note Soit : (1, 0) -> 0 degree, (0, 1) -> 90 degree, (-1, 0) -> 180 degree,
+	 *       (0, -1) -> 270 degree
+	 */
+	public double angle() {
+		return Math.atan2(this.y, this.x) * 180 / Math.PI;
+	}
+
+	/**
 	 * soustrait deux vecteur position
 	 * 
 	 * @param p la position à soustraire à "this"

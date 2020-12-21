@@ -18,9 +18,12 @@ public class Waves {
         this.bloonsList = bloons;
         waves = new ArrayList<Wave>();
         waves.add(new Wave1(pathing));
-        waves.add(new Wave1(pathing));
-        waves.add(new Wave1(pathing));
-        waves.add(new Wave1(pathing));
+        waves.add(new WaveTesting(pathing));
+        waves.add(new WaveTesting(pathing));
+        waves.add(new WaveTesting(pathing));
+        waves.add(new WaveTesting(pathing));
+        waves.add(new WaveTesting(pathing));
+        waves.add(new WaveTesting(pathing));
     }
 
     public boolean isRunning() {
@@ -28,19 +31,22 @@ public class Waves {
     }
 
     public void startNextWave() {
+
         if (!running) {
             if (currentWave == null)
                 if (waves != null && waves.size() > 0) {
                     currentWave = waves.get(0);
+                    System.out.println("Starting : " + currentWave.name);
                     running = true;
                 } else
                     System.err.println("The started wave is empty");
             else {
                 int nextIndex = 1 + waves.indexOf(currentWave);
                 if (nextIndex >= waves.size())
-                    System.err.println("The started wave out of range");
+                    System.err.println("There is no more waves in the queue!");
                 else {
                     currentWave = waves.get(1 + waves.indexOf(currentWave));
+                    System.out.println("Starting : " + currentWave.name);
                     running = true;
                 }
             }

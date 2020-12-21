@@ -1,0 +1,19 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Launch Main",
+            "request": "launch",
+            "mainClass": "warcraftTD.Main",
+            "projectName": "warcraftTD"
+        },
+        {
+            "type": "java",
+            "name": "Launch Main",
+            "request": "launch",
+            "mainClass": "warcraftTD.Main",
+            "projectName": "Tower-Defence"
+        }
+    ]
+}

@@ -10,6 +10,7 @@ import java.awt.Font;
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -47,7 +48,7 @@ public class World {
 	int life = 200;
 
 	// La vitesse à laquelle s'écoule le jeu
-	double gameSpeed = 1.50;
+	double gameSpeed = 1.0;
 
 	// Commande sur laquelle le joueur appuie (sur le clavier)
 	char key;
@@ -216,7 +217,8 @@ public class World {
 
 			// StdDraw.setFont(font);
 			StdDraw.setPenColor(StdDraw.WHITE);
-			StdDraw.textLeft(alignLeft, 0.15, "Debug info : ");
+			StdDraw.textLeft(alignLeft, 0.17, "Debug info : ");
+			StdDraw.textLeft(alignLeft, 0.14, "Life : " + this.life);
 			StdDraw.textLeft(alignLeft, 0.12, "FPS : " + fps);
 			StdDraw.textLeft(alignLeft, 0.10, "Mouse Pos (In frame) : " + mouseX + ", " + mouseY);
 			StdDraw.textLeft(alignLeft, 0.08, "Mouse Pos (In grid) : " + (int) mouseGrid.x + ", " + (int) mouseGrid.y);
@@ -250,12 +252,20 @@ public class World {
 	 * update tout les bloons de la liste sans les draw
 	 */
 	public void tickBloons() {
-
-		Iterator<Bloon> i = bloons.iterator();
-		Bloon m;
+		ListIterator<Bloon> i = bloons.listIterator();
+		Bloon b;
 		while (i.hasNext()) {
-			m = i.next();
-			m.tick();
+			b = i.next();
+			if (b.reached == true) {
+				this.life -= b.power;
+				i.remove();
+			} else if (b.hp <= 0) {
+				i.remove();
+				for (Bloon toAdd : b.onDeath(bloons)) {
+					i.add(toAdd);
+				}
+			}
+			b.tick();
 		}
 	}
 
@@ -300,19 +310,29 @@ public class World {
 	 * @param key la touche utilisée par le joueur
 	 */
 	public void keyPress(char key) {
-		double normalizedX = (int) (StdDraw.mouseX() / squareWidth) * squareWidth + squareWidth / 2;
-		double normalizedY = (int) (StdDraw.mouseY() / squareHeight) * squareHeight + squareHeight / 2;
+		// double normalizedX = (int) (StdDraw.mouseX() / squareWidth) * squareWidth +
+		// squareWidth / 2;
+		// double normalizedY = (int) (StdDraw.mouseY() / squareHeight) * squareHeight +
+		// squareHeight / 2;
 
 		key = Character.toLowerCase(key);
 		this.key = key;
 		switch (key) {
 			case 's':
-				System.out.println("Starting game!");
-				this.waves.startNextWave();
+				if (this.waves.isRunning())
+					System.out.println("You can't start another one now, a wave is currently running!");
+				else {
+					this.waves.startNextWave();
+				}
 				break;
 			case 'd':
 				System.out.println("Debug mode toggled!");
 				debug = !debug;
+				break;
+			case 'k':
+				for (Bloon b : bloons) {
+					b.hp -= 1;
+				}
 				break;
 			case 'q':
 				System.out.println("Exiting.");

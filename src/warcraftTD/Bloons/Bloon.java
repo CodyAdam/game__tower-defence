@@ -4,6 +4,7 @@ import java.util.ArrayDeque;
 import java.util.List;
 
 import warcraftTD.Position;
+import warcraftTD.StdDraw;
 
 public abstract class Bloon {
 	// Position du bloon à l'instant t
@@ -12,30 +13,37 @@ public abstract class Bloon {
 	// Points de vie du ballon (<1 == mort)
 	public int hp;
 
+	// Nombre de points de vie que le joueur perd quand le Bloon arrive à la fin du
+	// chemin
+	public int power;
+
+	// Chemin vers l'image du ballons
+	public String imgPath;
+	// centre de l'objet, utilisé pour l'affichage de l'image
+	public Position center;
+
 	// Vitesse du bloon
-	public double speed;
-	private final double SPEED_RATIO = ((double) 1240 / 720); // la fenêtre n'étant pas carré la vitesse X n'est pas la
-																// même que Y donc nous égalisont
+	public double speed = 0.00225;
+	// la fenêtre n'étant pas carré la vitesse X n'est pas la
+	// même que Y donc nous égalisont avevc cette constante
+	// pour que le ballon ce déplace à la même vitesse horizontalement et
+	// verticalement
+	private final double SPEED_RATIO = ((double) 1240 / 720);
 
 	// Boolean pour savoir si le bloon à atteint le "chateau" du joueur
 	public boolean reached = false;
+
+	// liste des Bloons à faire apparaitre quand le bloon actuel meurt
+	public List<Bloon> spawnOnDeath;
+
+	// Rayons dans lequel les bloons apparaissent
+	private final double ON_DEATH_RADIUS = 0.02;
 
 	// Compteur de distance déplacé pour savoir quelle Bloons est en tête
 	public double traveledDistance = 0;
 
 	// Queue de Position qui sont les point par lequel le Bloon doit passer
 	public ArrayDeque<Position> pathing;
-
-	/**
-	 * Fait apparaitre un Bloon sur une position donnée (utilisé pour faire
-	 * apparaitre les Bloons contenu dans un autre qui viens de mourir) Et fait des
-	 * dégats au bloon à sont apparition si sont parrent
-	 */
-	public Bloon(Position p, List<Position> pathing, int hurt) {
-		this.pathing = new ArrayDeque<Position>(pathing);
-		this.hp -= hurt;
-		this.pos = p;
-	}
 
 	/**
 	 * Fait apparaitre un Bloon au tout premier point de "pathing" (le spawn du
@@ -52,7 +60,7 @@ public abstract class Bloon {
 	 */
 	public void move() {
 		if (this.pathing.isEmpty()) {
-			onReach();
+			reached = true;
 			return;
 		}
 
@@ -72,12 +80,24 @@ public abstract class Bloon {
 		}
 	}
 
-	public void onReach() {
-
+	/**
+	 * Affiche un monstre qui change de couleur au cours du temps Le monstre est
+	 * représenté par un cercle de couleur bleue ou grise
+	 */
+	public void draw() {
+		StdDraw.picture(this.pos.x, this.pos.y, this.imgPath);
 	}
 
-	public void onDeath() {
-		// TODO remove from board
+	public List<Bloon> onDeath(List<Bloon> bloons) {
+		for (Bloon b : spawnOnDeath) {
+			b.hp += this.hp;// (overkill)
+			b.pos = this.pos;// Donne la position du Bloon éclaté
+			// offset la position de façon aléatoire avec un rayon défini
+			b.pos = new Position(b.pos.x + Math.random() * ON_DEATH_RADIUS - ON_DEATH_RADIUS / 2,
+					b.pos.y + Math.random() * ON_DEATH_RADIUS - ON_DEATH_RADIUS / 2);
+			b.pathing = this.pathing.clone();
+		}
+		return this.spawnOnDeath;
 	}
 
 	/**
@@ -86,10 +106,4 @@ public abstract class Bloon {
 	public void tick() {
 		move();
 	}
-
-	/**
-	 * Fonction abstraite qui sera instanciée dans les classes filles pour afficher
-	 * le bloon sur le plateau de jeu.
-	 */
-	public abstract void draw();
 }
