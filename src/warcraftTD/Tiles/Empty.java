@@ -3,19 +3,9 @@ package warcraftTD.Tiles;
 import java.awt.Color;
 
 public class Empty extends Tile {
-    public Empty() {
+    public Empty(int x, int y) {
+        super(x, y);
         isAvaliable = true;
-        isSelected = false;
         gridColor = new Color(0, 100, 0, 150);
-    }
-
-    @Override
-    void onClick() {
-        return;
-    }
-
-    @Override
-    void draw() {
-        return;
     }
 }

@@ -1,22 +1,18 @@
 package warcraftTD.Levels;
 
-import java.util.ArrayList;
-
+import warcraftTD.Assets;
 import warcraftTD.Position;
 import warcraftTD.Tiles.Empty;
 import warcraftTD.Tiles.Obstructed;
-import warcraftTD.Tiles.Panel;
-import warcraftTD.Tiles.Tile;
 
 public class Level1 extends Level {
 
     public Level1() {
-        spritePath = "/Assets/Sprites/monkey_lane_thumb.jpg";
-        nbSquareX = 31;
-        nbSquareY = 18;
+        super();
+        spritePath = Assets.level1;
 
         // remplie la liste de points par lequel les Bloons vont passer dans l'ordre.
-        pathing = new ArrayList<Position>();
+
         pathing.add(new Position(0, 0.45));
         pathing.add(new Position(0.155, 0.45));
         pathing.add(new Position(0.155, 0.600));
@@ -35,13 +31,12 @@ public class Level1 extends Level {
         pathing.add(new Position(0.157, 0.290));
         pathing.add(new Position(0.157, 0.000));
 
-        map = new Tile[nbSquareX][nbSquareY];
-
         // remplie la map de vide ou avec des obstacles
-        // on fait ça en brut car plus rapide
+
         boolean[][] obstructed = new boolean[31][18];
         obstructed[8][2] = true;
         obstructed[23][12] = true;
+        obstructed[24][12] = true;
         obstructed[17][10] = true;
         obstructed[5][9] = true;
         obstructed[21][13] = true;
@@ -64,6 +59,7 @@ public class Level1 extends Level {
         obstructed[5][13] = true;
         obstructed[9][8] = true;
         obstructed[23][9] = true;
+        obstructed[24][9] = true;
         obstructed[20][10] = true;
         obstructed[6][11] = true;
         obstructed[5][15] = true;
@@ -96,6 +92,7 @@ public class Level1 extends Level {
         obstructed[8][13] = true;
         obstructed[6][16] = true;
         obstructed[23][10] = true;
+        obstructed[24][10] = true;
         obstructed[10][1] = true;
         obstructed[18][13] = true;
         obstructed[5][8] = true;
@@ -124,6 +121,7 @@ public class Level1 extends Level {
         obstructed[8][10] = true;
         obstructed[1][7] = true;
         obstructed[23][6] = true;
+        obstructed[24][6] = true;
         obstructed[10][14] = true;
         obstructed[22][11] = true;
         obstructed[4][9] = true;
@@ -141,12 +139,14 @@ public class Level1 extends Level {
         obstructed[17][16] = true;
         obstructed[8][7] = true;
         obstructed[23][11] = true;
+        obstructed[24][11] = true;
         obstructed[17][13] = true;
         obstructed[14][8] = true;
         obstructed[8][5] = true;
         obstructed[4][14] = true;
         obstructed[12][1] = true;
         obstructed[23][7] = true;
+        obstructed[24][7] = true;
         obstructed[8][14] = true;
         obstructed[4][7] = true;
         obstructed[17][14] = true;
@@ -190,6 +190,7 @@ public class Level1 extends Level {
         obstructed[7][11] = true;
         obstructed[8][11] = true;
         obstructed[23][4] = true;
+        obstructed[24][4] = true;
         obstructed[5][11] = true;
         obstructed[7][13] = true;
         obstructed[2][8] = true;
@@ -214,16 +215,15 @@ public class Level1 extends Level {
         obstructed[12][5] = true;
         obstructed[17][5] = true;
         obstructed[23][5] = true;
+        obstructed[24][5] = true;
         obstructed[22][17] = true;
         for (int y = 0; y < nbSquareY; y++) {
             for (int x = 0; x < nbSquareX; x++) {
-                if (x >= nbSquareX - 6)
-                    map[x][y] = new Panel();
-                else if (obstructed[x][y] || x == 24) {
-                    map[x][y] = new Obstructed();
-                } else {
-                    map[x][y] = new Empty();
-                }
+                if (map[x][y] == null)
+                    if (obstructed[x][y])
+                        map[x][y] = new Obstructed(x, y);
+                    else
+                        map[x][y] = new Empty(x, y);
             }
         }
     }

@@ -2,7 +2,9 @@ package warcraftTD;
 
 import warcraftTD.Bloons.Bloon;
 import warcraftTD.Levels.Level;
+import warcraftTD.Tiles.Empty;
 import warcraftTD.Tiles.Tile;
+import warcraftTD.Tiles.BuyTiles.BuyTile;
 import warcraftTD.Waves.Waves;
 
 import java.awt.Color;
@@ -15,10 +17,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 public class World {
-
-	// Répertorie les chemins de tout les assets du jeu
-	final String PATH_HUD = "/Assets/Sprites/hud.png";
-	final String PATH_FONT = "/Assets/Fonts/Langar-Regular.ttf";
 
 	// l'ensemble des monstres, pour gerer (notamment) l'affichage
 	List<Bloon> bloons = new ArrayList<Bloon>();
@@ -35,6 +33,11 @@ public class World {
 	// grille qui determine qu'est-ce que qu'il y a sur la carte
 	// (ex : SingeXXX, SingeYYY, Rien, Route ou Arbre ou rochers, UI, etc...)
 	Tile[][] map;
+
+	// La tuile qui est actuelement selectionné peut être sois une BuyTile ou Monkey
+	Tile selectedTile;
+
+	boolean placing;
 
 	// Information sur la taille du plateau de jeu
 	int width;
@@ -97,7 +100,7 @@ public class World {
 
 	public void loadFont() {
 		try {
-			Font font = Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File(PATH_FONT)))
+			Font font = Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File(Assets.font)))
 					.deriveFont(Font.PLAIN, 24);
 			this.font = font;
 		} catch (Exception e) {
@@ -154,7 +157,7 @@ public class World {
 
 		// Draw HUD
 		double panelSize = (double) 280 / ((double) 1240 * 2);
-		StdDraw.picture(1 - panelSize, 0.5, PATH_HUD, panelSize * 2, 1);
+		StdDraw.picture(1 - panelSize, 0.5, Assets.panel, panelSize * 2, 1);
 	}
 
 	/**
@@ -177,7 +180,7 @@ public class World {
 	 * Affiche la grille de jeu quand on place un singe ou en mode DEBUG
 	 */
 	public void drawGrid() {
-		if (debug) {
+		if (debug || placing) {
 			squareWidth = (double) 1 / nbSquareX;
 			squareHeight = (double) 1 / nbSquareY;
 
@@ -233,19 +236,12 @@ public class World {
 	 * permettant la construction d'une tour.
 	 */
 	public void drawMouse() {
-		double normalizedX = (int) (StdDraw.mouseX() / squareWidth) * squareWidth + squareWidth / 2;
-		double normalizedY = (int) (StdDraw.mouseY() / squareHeight) * squareHeight + squareHeight / 2;
-		String image = null;
-		switch (key) {
-			case 'a':
-				image = PATH_HUD;
-				break;
-			case 'b':
-				image = PATH_HUD;
-				break;
+		if (selectedTile != null && selectedTile instanceof BuyTile) {
+			Position mousePos = new Position(StdDraw.mouseX(), StdDraw.mouseY());
+			String image = ((BuyTile) selectedTile).toPlace.sprite;
+			if (image != null)
+				StdDraw.picture(mousePos.x, mousePos.y, image, squareWidth, squareHeight);
 		}
-		if (image != null)
-			StdDraw.picture(normalizedX, normalizedY, image, squareWidth, squareHeight);
 	}
 
 	/**
@@ -362,14 +358,19 @@ public class World {
 	 * @param y
 	 */
 	public void mouseClick(double x, double y) {
-		// double normalizedX=(int)(x / squareWidth) * squareWidth + squareWidth / 2;
-		// double normalizedY=(int)(y / squareHeight) * squareHeight + squareHeight / 2;
-		// Position p = new Position(normalizedX, normalizedY);
-		switch (key) {
-			case 'e':
-				System.out.println("Ici il est possible de faire évolué une des tours");
-				break;
+		Tile mouseTile = getMouseTile();
+		if (placing) {
+			if (mouseTile instanceof Empty) {
+				mouseTile = ((BuyTile) selectedTile).toPlace;
+			}
+			selectedTile = null;
+			placing = false;
 		}
+		if (mouseTile == selectedTile)
+			return;
+		selectedTile = mouseTile;
+		if (selectedTile instanceof BuyTile)
+			placing = true;
 	}
 
 	/**

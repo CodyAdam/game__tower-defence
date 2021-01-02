@@ -3,12 +3,13 @@ package warcraftTD.Tiles;
 import java.awt.Color;
 
 public abstract class Tile {
-
     public boolean isAvaliable;
-    public boolean isSelected;
     public Color gridColor;
+    public int x;
+    public int y;
 
-    abstract void onClick();
-
-    abstract void draw();
+    public Tile(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
 }
