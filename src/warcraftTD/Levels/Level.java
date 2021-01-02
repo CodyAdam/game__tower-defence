@@ -30,15 +30,15 @@ public abstract class Level {
         map = new Tile[nbSquareX][nbSquareY];
         pathing = new ArrayList<Position>();
 
-        // Set HUD to the correct location on the level map
+        // Set HUD to the correct location on the map grid
 
         for (int y = 0; y < 18; y++)
             for (int x = 25; x < 31; x++)
-                map[x][y] = new Panel();
+                map[x][y] = new Panel(x, y);
 
-        map[27][11] = new BuyDartMonkey();
-        map[26][11] = new BuyDartMonkey();
-        map[27][10] = new BuyDartMonkey();
-        map[26][10] = new BuyDartMonkey();
+        map[27][11] = new BuyDartMonkey(27, 11);
+        map[26][11] = new BuyDartMonkey(26, 11);
+        map[27][10] = new BuyDartMonkey(27, 10);
+        map[26][10] = new BuyDartMonkey(26, 10);
     }
 }

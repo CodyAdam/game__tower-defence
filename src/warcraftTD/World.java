@@ -3,8 +3,10 @@ package warcraftTD;
 import warcraftTD.Bloons.Bloon;
 import warcraftTD.Levels.Level;
 import warcraftTD.Tiles.Empty;
+import warcraftTD.Tiles.Obstructed;
 import warcraftTD.Tiles.Tile;
 import warcraftTD.Tiles.BuyTiles.BuyTile;
+import warcraftTD.Tiles.Monkeys.Monkey;
 import warcraftTD.Waves.Waves;
 
 import java.awt.Color;
@@ -18,8 +20,19 @@ import java.util.Iterator;
 
 public class World {
 
-	// l'ensemble des monstres, pour gerer (notamment) l'affichage
+	// l'ensemble des monstres
 	List<Bloon> bloons = new ArrayList<Bloon>();
+
+	// l'ensemble des tours
+	List<Monkey> monkeys = new ArrayList<Monkey>();
+
+	List<Alert> alerts = new ArrayList<Alert>();
+
+	// Nombre de points de vie du joueur
+	int life = 200;
+
+	// Quantité d'argent
+	int money = 600;
 
 	// Le niveau actuel
 	Level level;
@@ -46,9 +59,6 @@ public class World {
 	int nbSquareY;
 	double squareWidth;
 	double squareHeight;
-
-	// Nombre de points de vie du joueur
-	int life = 200;
 
 	// La vitesse à laquelle s'écoule le jeu
 	double gameSpeed = 1.0;
@@ -95,6 +105,13 @@ public class World {
 		this.squareHeight = (double) 1 / nbSquareY;
 		StdDraw.setCanvasSize(width, height);
 		StdDraw.enableDoubleBuffering();
+
+		Alert mainAlert = new Alert(new Position(0.5, 0.5), 120, StdDraw.BLACK, this.font, 29);
+		mainAlert.add("Tes ting 123144 ");
+		mainAlert.add("Testfsji oefosie j12313244 ");
+		mainAlert.add("Tesf sgsghe s12314 ");
+		mainAlert.add("dwa03824 792 3748923 ");
+		alerts.add(mainAlert);
 
 	}
 
@@ -148,6 +165,27 @@ public class World {
 	}
 
 	/**
+	 * update tout les bloons de la liste sans les draw
+	 */
+	public void tickBloons() {
+		ListIterator<Bloon> i = bloons.listIterator();
+		Bloon b;
+		while (i.hasNext()) {
+			b = i.next();
+			if (b.reached == true) {
+				this.life -= b.power;
+				i.remove();
+			} else if (b.hp <= 0) {
+				i.remove();
+				for (Bloon toAdd : b.onDeath(bloons)) {
+					i.add(toAdd);
+				}
+			}
+			b.tick();
+		}
+	}
+
+	/**
 	 * Définit le décors du plateau de jeu.
 	 */
 	public void drawBackground() {
@@ -186,18 +224,31 @@ public class World {
 
 			StdDraw.setPenRadius(0.001);
 			Color line = new Color(0, 0, 0, 80);
+			Color isPlacable = StdDraw.GREEN;
+			Color isNotPlacable = StdDraw.RED;
 
 			for (int y = 0; y < nbSquareY; y++) {
 				for (int x = 0; x < nbSquareX; x++) {
 					Position pos = inFrameSpace(x, y);
+					Color squarreColor = map[x][y].gridColor;
 
+					if (placing) {
+						Position mouseGrid = inGridSpace(StdDraw.mouseX(), StdDraw.mouseY());
+						if ((x == mouseGrid.x && y == mouseGrid.y) || (x + 1 == mouseGrid.x && y == mouseGrid.y)
+								|| (x == mouseGrid.x && y + 1 == mouseGrid.y)
+								|| (x - 1 == mouseGrid.x && y == mouseGrid.y)
+								|| (x == mouseGrid.x && y - 1 == mouseGrid.y))
+							squarreColor = ((BuyTile) selectedTile).toPlace.isPlacableAt(x, y, map) ? isPlacable
+									: isNotPlacable;
+					}
 					// Draw : les lignes de la grille
 					StdDraw.setPenColor(line);
 					StdDraw.rectangle(pos.x, pos.y, squareWidth / 2, squareHeight / 2);
 
 					// Draw : les cases de la grille avec la couleur qui dépend de la case
-					StdDraw.setPenColor(map[x][y].gridColor);
+					StdDraw.setPenColor(squarreColor);
 					StdDraw.filledRectangle(pos.x, pos.y, squareWidth / 2, squareHeight / 2);
+
 				}
 			}
 		}
@@ -227,7 +278,9 @@ public class World {
 			StdDraw.textLeft(alignLeft, 0.08, "Mouse Pos (In grid) : " + (int) mouseGrid.x + ", " + (int) mouseGrid.y);
 			StdDraw.textLeft(alignLeft, 0.06, "Mouse Tile : " + getMouseTile().getClass().getName());
 			StdDraw.textLeft(alignLeft, 0.04, "Number of Bloons : " + bloons.size());
+			StdDraw.textLeft(alignLeft, 0.02, "Number of Tower : " + monkeys.size());
 		}
+
 	}
 
 	/**
@@ -245,27 +298,6 @@ public class World {
 	}
 
 	/**
-	 * update tout les bloons de la liste sans les draw
-	 */
-	public void tickBloons() {
-		ListIterator<Bloon> i = bloons.listIterator();
-		Bloon b;
-		while (i.hasNext()) {
-			b = i.next();
-			if (b.reached == true) {
-				this.life -= b.power;
-				i.remove();
-			} else if (b.hp <= 0) {
-				i.remove();
-				for (Bloon toAdd : b.onDeath(bloons)) {
-					i.add(toAdd);
-				}
-			}
-			b.tick();
-		}
-	}
-
-	/**
 	 * draw tout les bloons
 	 */
 	public void drawBloons() {
@@ -278,25 +310,27 @@ public class World {
 	}
 
 	/**
-	 * Affiche tout le contenu du jeu
+	 * draw tout les bloons
 	 */
-	public void draw() {
-		drawBackground();
-		drawGrid();
-		drawPath();
-		drawInfos();
-		drawBloons();
-		drawMouse();
-		StdDraw.show();
+	public void drawMonkeys() {
+		Iterator<Monkey> i = monkeys.iterator();
+		Monkey m;
+		while (i.hasNext()) {
+			m = i.next();
+			m.draw();
+		}
 	}
 
 	/**
-	 * Met à jour toutes les informations du plateau de jeu ainsi que les
-	 * déplacements des monstres et les attaques des tours. (Ne draw rien)
+	 * draw tout les bloons
 	 */
-	public void tick() {
-		this.waves.update();
-		tickBloons();
+	public void drawAlerts() {
+		Iterator<Alert> i = alerts.iterator();
+		Alert a;
+		while (i.hasNext()) {
+			a = i.next();
+			a.draw();
+		}
 	}
 
 	/**
@@ -306,11 +340,6 @@ public class World {
 	 * @param key la touche utilisée par le joueur
 	 */
 	public void keyPress(char key) {
-		// double normalizedX = (int) (StdDraw.mouseX() / squareWidth) * squareWidth +
-		// squareWidth / 2;
-		// double normalizedY = (int) (StdDraw.mouseY() / squareHeight) * squareHeight +
-		// squareHeight / 2;
-
 		key = Character.toLowerCase(key);
 		this.key = key;
 		switch (key) {
@@ -349,6 +378,28 @@ public class World {
 		end = true;
 	}
 
+	private void placeMonkey(Tile target) {
+		Monkey placed = ((BuyTile) selectedTile).toPlace;
+		if (placed.isPlacableAt(target.x, target.y, map)) {
+			placed.x = target.x;
+			placed.y = target.y;
+			placed.framePos = inFrameSpace(placed.x, placed.y);
+			map[target.x][target.y] = placed;
+			ArrayList<Integer[]> toBlock = placed.getOccupiedTiles();
+			for (Integer[] coordinate : toBlock) {
+				int cx = coordinate[0];
+				int cy = coordinate[1];
+				if (map[cx][cy] instanceof Empty)
+					map[cx][cy] = new Obstructed(cx, cy);
+			}
+			money -= ((BuyTile) selectedTile).cost;
+			((BuyTile) selectedTile).reset();
+			this.monkeys.add(placed);
+		}
+		selectedTile = null;
+		placing = false;
+	}
+
 	/**
 	 * Vérifie lorsque l'utilisateur clique sur sa souris qu'il peut: - Ajouter une
 	 * tour à la position indiquée par la souris. - Améliorer une tour existante.
@@ -360,17 +411,41 @@ public class World {
 	public void mouseClick(double x, double y) {
 		Tile mouseTile = getMouseTile();
 		if (placing) {
-			if (mouseTile instanceof Empty) {
-				mouseTile = ((BuyTile) selectedTile).toPlace;
-			}
-			selectedTile = null;
-			placing = false;
+			placeMonkey(mouseTile);
 		}
 		if (mouseTile == selectedTile)
 			return;
 		selectedTile = mouseTile;
 		if (selectedTile instanceof BuyTile)
-			placing = true;
+			if (money < ((BuyTile) selectedTile).cost) {
+				System.out.println("you do not have enough money!!");
+				selectedTile = null;
+			} else
+				placing = true;
+	}
+
+	/**
+	 * Met à jour toutes les informations du plateau de jeu ainsi que les
+	 * déplacements des monstres et les attaques des tours. (Ne draw rien)
+	 */
+	public void tick() {
+		this.waves.update();
+		tickBloons();
+	}
+
+	/**
+	 * Affiche tout le contenu du jeu
+	 */
+	public void draw() {
+		drawBackground();
+		drawGrid();
+		drawPath();
+		drawInfos();
+		drawAlerts();
+		drawBloons();
+		drawMonkeys();
+		drawMouse();
+		StdDraw.show();
 	}
 
 	/**
