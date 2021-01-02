@@ -26,7 +26,12 @@ public class World {
 	// l'ensemble des tours
 	List<Monkey> monkeys = new ArrayList<Monkey>();
 
+	// l'ensemble des alert (pop-up textuel) utiliser pour les gains d'argent ou
+	// améliorations de tours
 	List<Alert> alerts = new ArrayList<Alert>();
+	// l'objet d'alert général pour toutes les info importantes qui serons afficher
+	// au milieu de l'écran
+	Alert mainAlert;
 
 	// Nombre de points de vie du joueur
 	int life = 200;
@@ -93,6 +98,7 @@ public class World {
 	public World(Level level, int width, int height) {
 		loadFont();
 
+		this.mainAlert = new Alert(new Position(0.5, 0.6), 170, new Color(31, 2, 2, 255), this.font, 60, 0.1, 40);
 		this.level = level;
 		this.waves = new Waves(level.pathing, this.bloons);
 		this.map = level.map;
@@ -106,13 +112,13 @@ public class World {
 		StdDraw.setCanvasSize(width, height);
 		StdDraw.enableDoubleBuffering();
 
-		Alert mainAlert = new Alert(new Position(0.5, 0.5), 120, StdDraw.BLACK, this.font, 29);
-		mainAlert.add("Tes ting 123144 ");
-		mainAlert.add("Testfsji oefosie j12313244 ");
-		mainAlert.add("Tesf sgsghe s12314 ");
-		mainAlert.add("dwa03824 792 3748923 ");
-		alerts.add(mainAlert);
-
+		mainAlert.add(" ");
+		mainAlert.add(" ");
+		mainAlert.add("Welcome to our game!");
+		mainAlert.add("Enjoy!");
+		mainAlert.add("Press \"S\" to start the next wave");
+		mainAlert.add("Press \"D\" to toggle the DEBUG MODE");
+		mainAlert.add("Enjoy!");
 	}
 
 	public void loadFont() {
@@ -182,6 +188,19 @@ public class World {
 				}
 			}
 			b.tick();
+		}
+	}
+
+	/**
+	 * draw tout les bloons
+	 */
+	public void tickAlerts() {
+		mainAlert.tick();
+		Iterator<Alert> i = alerts.iterator();
+		Alert a;
+		while (i.hasNext()) {
+			a = i.next();
+			a.tick();
 		}
 	}
 
@@ -269,16 +288,17 @@ public class World {
 			double mouseY = Math.round(StdDraw.mouseY() * 1000) / (double) 1000;
 			Position mouseGrid = inGridSpace(mouseX, mouseY);
 
-			// StdDraw.setFont(font);
+			StdDraw.setFont(); // set default font
 			StdDraw.setPenColor(StdDraw.WHITE);
-			StdDraw.textLeft(alignLeft, 0.17, "Debug info : ");
+			StdDraw.textLeft(alignLeft, 0.19, "Debug info : ");
+			StdDraw.textLeft(alignLeft, 0.16, "FPS : " + fps);
 			StdDraw.textLeft(alignLeft, 0.14, "Life : " + this.life);
-			StdDraw.textLeft(alignLeft, 0.12, "FPS : " + fps);
-			StdDraw.textLeft(alignLeft, 0.10, "Mouse Pos (In frame) : " + mouseX + ", " + mouseY);
-			StdDraw.textLeft(alignLeft, 0.08, "Mouse Pos (In grid) : " + (int) mouseGrid.x + ", " + (int) mouseGrid.y);
-			StdDraw.textLeft(alignLeft, 0.06, "Mouse Tile : " + getMouseTile().getClass().getName());
-			StdDraw.textLeft(alignLeft, 0.04, "Number of Bloons : " + bloons.size());
-			StdDraw.textLeft(alignLeft, 0.02, "Number of Tower : " + monkeys.size());
+			StdDraw.textLeft(alignLeft, 0.12, "Mouse Pos (In frame space) : " + mouseX + ", " + mouseY);
+			StdDraw.textLeft(alignLeft, 0.10,
+					"Mouse Pos (In grid space) : " + (int) mouseGrid.x + ", " + (int) mouseGrid.y);
+			StdDraw.textLeft(alignLeft, 0.08, "On Mouse Tile : " + getMouseTile().getClass().getName());
+			StdDraw.textLeft(alignLeft, 0.06, "Number of Bloons : " + bloons.size());
+			StdDraw.textLeft(alignLeft, 0.04, "Number of Tower : " + monkeys.size());
 		}
 
 	}
@@ -325,6 +345,7 @@ public class World {
 	 * draw tout les bloons
 	 */
 	public void drawAlerts() {
+		mainAlert.draw();
 		Iterator<Alert> i = alerts.iterator();
 		Alert a;
 		while (i.hasNext()) {
@@ -418,7 +439,7 @@ public class World {
 		selectedTile = mouseTile;
 		if (selectedTile instanceof BuyTile)
 			if (money < ((BuyTile) selectedTile).cost) {
-				System.out.println("you do not have enough money!!");
+				mainAlert.add("You don't have enough money to purchase this!");
 				selectedTile = null;
 			} else
 				placing = true;
@@ -430,6 +451,7 @@ public class World {
 	 */
 	public void tick() {
 		this.waves.update();
+		tickAlerts();
 		tickBloons();
 	}
 
@@ -441,10 +463,10 @@ public class World {
 		drawGrid();
 		drawPath();
 		drawInfos();
-		drawAlerts();
 		drawBloons();
 		drawMonkeys();
 		drawMouse();
+		drawAlerts();
 		StdDraw.show();
 	}
 

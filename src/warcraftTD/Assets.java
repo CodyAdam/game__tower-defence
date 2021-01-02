@@ -10,5 +10,5 @@ public class Assets {
     public static String buyDartMonkey = "/Assets/Sprites/test.png";
     public static String dartMonkey = "/Assets/Sprites/test.png";
     public static String panel = "/Assets/Sprites/hud.png";
-    public static String font = "/Assets/Fonts/Langar-Regular.ttf";
+    public static String font = "bin/Assets/Fonts/FredokaOne-Regular.ttf";
 }

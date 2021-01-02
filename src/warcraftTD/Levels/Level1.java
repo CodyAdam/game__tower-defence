@@ -4,7 +4,6 @@ import warcraftTD.Assets;
 import warcraftTD.Position;
 import warcraftTD.Tiles.Decor;
 import warcraftTD.Tiles.Empty;
-import warcraftTD.Tiles.Obstructed;
 import warcraftTD.Tiles.Road;
 
 public class Level1 extends Level {
