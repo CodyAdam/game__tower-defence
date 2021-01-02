@@ -213,7 +213,7 @@ public class World {
 		StdDraw.picture(bgSize, 0.5, level.spritePath, (2 * bgSize), 1);
 
 		// Draw HUD
-		double panelSize = (double) 280 / ((double) 1240 * 2);
+		double panelSize = (double) 240 / ((double) 1240 * 2);
 		StdDraw.picture(1 - panelSize, 0.5, Assets.panel, panelSize * 2, 1);
 	}
 
@@ -330,7 +330,7 @@ public class World {
 	}
 
 	/**
-	 * draw tout les bloons
+	 * draw toutes les tours
 	 */
 	public void drawMonkeys() {
 		Iterator<Monkey> i = monkeys.iterator();
@@ -342,7 +342,7 @@ public class World {
 	}
 
 	/**
-	 * draw tout les bloons
+	 * draw toutes les alerts
 	 */
 	public void drawAlerts() {
 		mainAlert.draw();
@@ -352,6 +352,33 @@ public class World {
 			a = i.next();
 			a.draw();
 		}
+	}
+
+	/**
+	 * Place la tour selectionnée
+	 * 
+	 * @param target est la tile sur laquelle on va placer la tour selectionnée
+	 */
+	private void placeMonkey(Tile target) {
+		Monkey placed = ((BuyTile) selectedTile).toPlace;
+		if (placed.isPlacableAt(target.x, target.y, map)) {
+			placed.x = target.x;
+			placed.y = target.y;
+			placed.framePos = inFrameSpace(placed.x, placed.y);
+			map[target.x][target.y] = placed;
+			ArrayList<Integer[]> toBlock = placed.getOccupiedTiles();
+			for (Integer[] coordinate : toBlock) {
+				int cx = coordinate[0];
+				int cy = coordinate[1];
+				if (map[cx][cy] instanceof Empty)
+					map[cx][cy] = new Obstructed(cx, cy);
+			}
+			money -= ((BuyTile) selectedTile).cost;
+			((BuyTile) selectedTile).reset();
+			this.monkeys.add(placed);
+		}
+		selectedTile = null;
+		placing = false;
 	}
 
 	/**
@@ -372,7 +399,7 @@ public class World {
 				}
 				break;
 			case 'd':
-				System.out.println("Debug mode toggled!");
+				mainAlert.add("DEBUG MODE : " + (!debug ? "Activated" : "Desactivated"));
 				debug = !debug;
 				break;
 			case 'k':
@@ -397,28 +424,6 @@ public class World {
 	 */
 	public void exit() {
 		end = true;
-	}
-
-	private void placeMonkey(Tile target) {
-		Monkey placed = ((BuyTile) selectedTile).toPlace;
-		if (placed.isPlacableAt(target.x, target.y, map)) {
-			placed.x = target.x;
-			placed.y = target.y;
-			placed.framePos = inFrameSpace(placed.x, placed.y);
-			map[target.x][target.y] = placed;
-			ArrayList<Integer[]> toBlock = placed.getOccupiedTiles();
-			for (Integer[] coordinate : toBlock) {
-				int cx = coordinate[0];
-				int cy = coordinate[1];
-				if (map[cx][cy] instanceof Empty)
-					map[cx][cy] = new Obstructed(cx, cy);
-			}
-			money -= ((BuyTile) selectedTile).cost;
-			((BuyTile) selectedTile).reset();
-			this.monkeys.add(placed);
-		}
-		selectedTile = null;
-		placing = false;
 	}
 
 	/**

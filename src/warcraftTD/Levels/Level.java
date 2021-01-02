@@ -38,7 +38,7 @@ public abstract class Level {
 
         map[27][11] = new BuyDartMonkey(27, 11);
         map[26][11] = new BuyDartMonkey(26, 11);
-        map[27][10] = new BuyDartMonkey(27, 10);
-        map[26][10] = new BuyDartMonkey(26, 10);
+        map[27][12] = new BuyDartMonkey(27, 10);
+        map[26][12] = new BuyDartMonkey(26, 10);
     }
 }
