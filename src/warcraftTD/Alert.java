@@ -11,27 +11,31 @@ public class Alert {
     private ArrayDeque<String> queue;
     private Font font;
     private int duration;
-    private int easingDuration;
+    private int fadingDuration;
     private double offsetDistance;
 
     private int tickCounter;
 
-    public Alert(Position pos, int duration, Color color, Font font, int easingDuration, double offsetDistance,
+    public Alert(Position pos, int duration, Color color, Font font, int fadingDuration, double offsetDistance,
             float size) {
         this.startPos = new Position(pos);
         this.pos = new Position(pos);
         this.duration = duration;
         this.color = color;
-        this.easingDuration = easingDuration;
+        this.fadingDuration = fadingDuration;
         this.offsetDistance = offsetDistance;
         this.queue = new ArrayDeque<String>();
         this.font = font.deriveFont(size);
-        tickCounter = 0;
+        tickCounter = duration;
     }
 
     public void add(String str) {
         if (!queue.contains(str))
             queue.add(str);
+    }
+
+    public boolean isEmpty() {
+        return queue.isEmpty();
     }
 
     private void reset() {
@@ -45,8 +49,8 @@ public class Alert {
             tickCounter -= 1;
 
             // easing animation for the color alpha when the text will diseppear
-            if (tickCounter < easingDuration && tickCounter >= 0) {
-                double x = (double) tickCounter / (double) easingDuration;
+            if (tickCounter < fadingDuration && tickCounter >= 0) {
+                double x = (double) tickCounter / (double) fadingDuration;
                 double alphaEaseFunction = 1 - Math.pow(1 - x, 3); // ease Out Cubic
                 color = new Color(color.getRed(), color.getGreen(), color.getBlue(), (int) (alphaEaseFunction * 255));
             }

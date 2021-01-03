@@ -111,14 +111,6 @@ public class World {
 		this.squareHeight = (double) 1 / nbSquareY;
 		StdDraw.setCanvasSize(width, height);
 		StdDraw.enableDoubleBuffering();
-
-		mainAlert.add(" ");
-		mainAlert.add(" ");
-		mainAlert.add("Welcome to our game!");
-		mainAlert.add("Enjoy!");
-		mainAlert.add("Press \"S\" to start the next wave");
-		mainAlert.add("Press \"D\" to toggle the DEBUG MODE");
-		mainAlert.add("Enjoy!");
 	}
 
 	public void loadFont() {
@@ -178,10 +170,18 @@ public class World {
 		Bloon b;
 		while (i.hasNext()) {
 			b = i.next();
-			if (b.reached == true) {
+			if (b.reached == true) { // kill on reach
 				this.life -= b.power;
 				i.remove();
-			} else if (b.hp <= 0) {
+			} else if (b.hp <= 0) { // remove on bloon death
+
+				// Affiche une petite alert textuel pour montré le nombre d'argent gagné en
+				// tuant le bloon
+				Alert gainAlert = new Alert(b.pos, 170, new Color(225, 232, 21, 255), this.font, 60, 0.1, 20);
+				gainAlert.add("+" + b.power + " $");
+				alerts.add(gainAlert);
+
+				// Supprime le bloon
 				i.remove();
 				for (Bloon toAdd : b.onDeath(bloons)) {
 					i.add(toAdd);
@@ -200,7 +200,10 @@ public class World {
 		Alert a;
 		while (i.hasNext()) {
 			a = i.next();
-			a.tick();
+			if (a.isEmpty()) {
+				i.remove();
+			} else
+				a.tick();
 		}
 	}
 
@@ -456,8 +459,8 @@ public class World {
 	 */
 	public void tick() {
 		this.waves.update();
-		tickAlerts();
 		tickBloons();
+		tickAlerts();
 	}
 
 	/**
