@@ -5,6 +5,7 @@ import java.util.List;
 
 import warcraftTD.Position;
 import warcraftTD.Tiles.Panel;
+import warcraftTD.Tiles.PlayButton;
 import warcraftTD.Tiles.Tile;
 import warcraftTD.Tiles.BuyTiles.*;
 
@@ -35,6 +36,11 @@ public abstract class Level {
         for (int y = 0; y < 18; y++)
             for (int x = 25; x < 31; x++)
                 map[x][y] = new Panel(x, y);
+
+        map[23][0] = new PlayButton(23, 0);
+        map[23][1] = new PlayButton(23, 1);
+        map[24][1] = new PlayButton(24, 1);
+        map[24][0] = new PlayButton(24, 0);
 
         map[27][11] = new BuyDartMonkey(27, 11);
         map[26][11] = new BuyDartMonkey(26, 11);

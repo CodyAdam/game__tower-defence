@@ -4,6 +4,7 @@ import warcraftTD.Bloons.Bloon;
 import warcraftTD.Levels.Level;
 import warcraftTD.Tiles.Empty;
 import warcraftTD.Tiles.Obstructed;
+import warcraftTD.Tiles.PlayButton;
 import warcraftTD.Tiles.Tile;
 import warcraftTD.Tiles.BuyTiles.BuyTile;
 import warcraftTD.Tiles.Monkeys.Monkey;
@@ -509,6 +510,14 @@ public class World {
 				selectedTile = null;
 			} else
 				placing = true;
+		else if (selectedTile instanceof PlayButton) {
+			if (waves.isRunning())
+				mainAlert.add("You can't start another wave now!");
+			else {
+				waves.startNextWave();
+				mainAlert.add(waves.getName() + " has started!");
+			}
+		}
 	}
 
 	/**
@@ -557,7 +566,6 @@ public class World {
 			}
 			if (StdDraw.isMousePressed()) {
 				mouseClick(StdDraw.mouseX(), StdDraw.mouseY());
-				StdDraw.pause(50);
 			}
 
 			// FPS Counter
