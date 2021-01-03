@@ -297,27 +297,6 @@ public class World {
 	 * Affiche également les information de débugage en mode DEBUG
 	 */
 	public void drawInfos() {
-		if (debug) { // ############ DEBUG DRAWING ############
-			squareWidth = (double) 1 / nbSquareX;
-			squareHeight = (double) 1 / nbSquareY;
-			double alignLeft = 0.025;
-			double mouseX = Math.round(StdDraw.mouseX() * 1000) / (double) 1000;
-			double mouseY = Math.round(StdDraw.mouseY() * 1000) / (double) 1000;
-			Position mouseGrid = inGridSpace(mouseX, mouseY);
-
-			StdDraw.setFont(); // set default font
-			StdDraw.setPenColor(StdDraw.WHITE);
-			StdDraw.textLeft(alignLeft, 0.19, "Debug info : ");
-			StdDraw.textLeft(alignLeft, 0.16, "FPS : " + fps);
-			StdDraw.textLeft(alignLeft, 0.14, "Life : " + this.life);
-			StdDraw.textLeft(alignLeft, 0.12, "Mouse Pos (In frame space) : " + mouseX + ", " + mouseY);
-			StdDraw.textLeft(alignLeft, 0.10,
-					"Mouse Pos (In grid space) : " + (int) mouseGrid.x + ", " + (int) mouseGrid.y);
-			StdDraw.textLeft(alignLeft, 0.08, "On Mouse Tile : " + getMouseTile().getClass().getName());
-			StdDraw.textLeft(alignLeft, 0.06, "Number of Bloons : " + bloons.size());
-			StdDraw.textLeft(alignLeft, 0.04, "Number of Tower : " + monkeys.size());
-		}
-
 		// Constants
 		final Color CAN_BUY = new Color(126, 217, 42, 255);
 		final Color CANT_BUY = new Color(248, 46, 46, 255);
@@ -361,6 +340,30 @@ public class World {
 		// ############ Draw speedup button ############
 		StdDraw.picture(0.76, 0.92, gameSpeed == 1 ? Assets.buttonSpeedup0 : Assets.buttonSpeedup1);
 
+		if (debug) { // ############ DEBUG DRAWING ############
+			squareWidth = (double) 1 / nbSquareX;
+			squareHeight = (double) 1 / nbSquareY;
+			final double ALIGN_LEFT = 0.02;
+			double mouseX = Math.round(StdDraw.mouseX() * 1000) / (double) 1000;
+			double mouseY = Math.round(StdDraw.mouseY() * 1000) / (double) 1000;
+			Position mouseGrid = inGridSpace(mouseX, mouseY);
+
+			StdDraw.setFont(); // set default font
+			StdDraw.setPenColor(StdDraw.WHITE);
+			StdDraw.textLeft(ALIGN_LEFT, 0.19, "Debug info : ");
+			StdDraw.textLeft(ALIGN_LEFT, 0.16, "FPS : " + fps);
+			StdDraw.textLeft(ALIGN_LEFT, 0.14, "Game Speed : " + this.gameSpeed);
+			StdDraw.textLeft(ALIGN_LEFT, 0.12, "Mouse Pos (In frame space) : " + mouseX + ", " + mouseY);
+			StdDraw.textLeft(ALIGN_LEFT, 0.10,
+					"Mouse Pos (In grid space) : " + (int) mouseGrid.x + ", " + (int) mouseGrid.y);
+			StdDraw.textLeft(ALIGN_LEFT, 0.08, "On Mouse Tile : " + getMouseTile().getClass().getName());
+			StdDraw.textLeft(ALIGN_LEFT, 0.06, "Number of Bloons : " + bloons.size());
+			StdDraw.textLeft(ALIGN_LEFT, 0.04, "Number of Tower : " + monkeys.size());
+		} else {
+			StdDraw.setPenColor(SHADOW);
+			StdDraw.setFont(); // set default font
+			StdDraw.textLeft(0.02, 0.04, "Press 'D' to enter DEBUG MODE");
+		}
 	}
 
 	/**
@@ -453,9 +456,10 @@ public class World {
 		switch (key) {
 			case 's':
 				if (waves.isRunning())
-					System.out.println("You can't start another one now, a wave is currently running!");
+					mainAlert.add("You can't start another wave now!");
 				else {
 					waves.startNextWave();
+					mainAlert.add(waves.getName() + " has started!");
 				}
 				break;
 			case 'd':
@@ -463,13 +467,10 @@ public class World {
 				debug = !debug;
 				break;
 			case 'k':
-				for (Bloon b : bloons) {
-					b.hp -= 1;
-				}
-				break;
-			case 'l':
-				for (Bloon b : bloons) {
-					b.hp = 0;
+				if (debug) {
+					for (Bloon b : bloons) {
+						b.hp = 0;
+					}
 				}
 				break;
 			case 'q':
@@ -515,7 +516,7 @@ public class World {
 	 * déplacements des monstres et les attaques des tours. (Ne draw rien)
 	 */
 	public void tick() {
-		this.waves.update();
+		waves.update();
 		tickBloons();
 		tickMonkeys();
 		tickAlerts();
@@ -528,9 +529,9 @@ public class World {
 		drawBackground();
 		drawGrid();
 		drawPath();
-		drawInfos();
 		drawBloons();
 		drawMonkeys();
+		drawInfos();
 		drawMouse();
 		drawAlerts();
 		StdDraw.show();
