@@ -51,11 +51,8 @@ public class Waves {
                     System.err.println("The started wave is empty");
             else {
                 int nextIndex = 1 + waves.indexOf(currentWave);
-                if (nextIndex >= waves.size())
-                    System.err.println("There is no more waves in the queue!");
-                else {
+                if (nextIndex < waves.size()) {
                     currentWave = waves.get(1 + waves.indexOf(currentWave));
-                    System.out.println("Starting : " + currentWave.name);
                     running = true;
                 }
             }
