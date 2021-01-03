@@ -74,7 +74,7 @@ public class World {
 	char key;
 
 	// Condition pour activer le mode DEBUG --> activation avec "D"
-	boolean debug = true;
+	boolean debug = false;
 
 	// Condition pour terminer la partie
 	boolean end = false;
@@ -336,11 +336,11 @@ public class World {
 
 		// ############ Draw play button ############
 		if (!waves.isRunning()) {
-			StdDraw.picture(0.76, 0.08, Assets.buttonPlay);
+			StdDraw.picture(0.764, 0.071d, Assets.buttonPlay);
 		}
 
 		// ############ Draw speedup button ############
-		StdDraw.picture(0.76, 0.92, gameSpeed == 1 ? Assets.buttonSpeedup0 : Assets.buttonSpeedup1);
+		StdDraw.picture(0.764, 0.929, gameSpeed == 1 ? Assets.buttonSpeedup0 : Assets.buttonSpeedup1);
 
 		if (debug) { // ############ DEBUG DRAWING ############
 			squareWidth = (double) 1 / nbSquareX;
@@ -468,7 +468,6 @@ public class World {
 				}
 				break;
 			case 'q':
-				System.out.println("Exiting.");
 				exit();
 				break;
 		}

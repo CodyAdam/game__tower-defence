@@ -45,7 +45,6 @@ public class Waves {
             if (currentWave == null)
                 if (waves != null && waves.size() > 0) {
                     currentWave = waves.get(0);
-                    System.out.println("Starting : " + currentWave.name);
                     running = true;
                 } else
                     System.err.println("The started wave is empty");
