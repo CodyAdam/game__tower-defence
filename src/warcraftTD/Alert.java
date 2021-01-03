@@ -15,7 +15,7 @@ public class Alert {
     private double offsetDistance;
 
     private Color shadowColor = new Color(0, 0, 0, 150);
-    private final double SHADOW_OFFSET = 0.008;
+    private final double SHADOW_OFFSET = 0.005;
 
     private int tickCounter;
 
