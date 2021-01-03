@@ -402,7 +402,7 @@ public class World {
 		Monkey m;
 		while (i.hasNext()) {
 			m = i.next();
-			m.draw();
+			m.draw(selectedTile);
 		}
 	}
 

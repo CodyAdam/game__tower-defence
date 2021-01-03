@@ -4,11 +4,13 @@
 
 ## TODO
 
--   [ ] commandes de "triche" en mode DEBUG
--   [ ] Améliorations
+-   [ ] Make bloons go under the bridge!!
+-   [ ] Replace In grid space with the new position
+-   [ ] Remove inside World In grid pos
 -   [ ] Projectiles class
--   [ ] Make buttons work
+-   [ ] Améliorations
 -   [ ] Ability to remove towers
+-   [ ] commandes de "triche" en mode DEBUG
 
 ## Concept du projet :
 
@@ -52,6 +54,7 @@ En tant que joueur, nous posons des singes sur le terrain dans le but de se déf
 -   Possibilité pour le joueur d'accélérer le temps et jouer en vitesse x2.5
 -   Système de grille évolué avec prévisualisation des emplacements disponible interactive quand une tour souhaite être placée
 -   Système de tile (tuile en français) couplé à la grille, tout objet intéractif du jeu est représenté par une tile à l'éxception des ballons
+-   Ajout de passages pour les ballons dans des tunnels, empéchant les tours de les attaquers
 
 ## Touches utiles en jeu :
 

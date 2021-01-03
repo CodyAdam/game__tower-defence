@@ -7,7 +7,7 @@ public class DartMonkey extends Monkey {
     public DartMonkey(int x, int y) {
         super(x, y);
         cooldown = 60;
-        range = 0.2;
+        range = 10;
         sprite = Assets.dartMonkey;
     }
 

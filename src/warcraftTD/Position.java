@@ -4,6 +4,9 @@ public class Position {
 	public double x;
 	public double y;
 
+	private final int nbSquareX = 31;
+	private final int nbSquareY = 18;
+
 	/**
 	 * Classe qui permet d'avoir la position sur l'axe des x et des y des monstres
 	 * et des tours
@@ -44,9 +47,36 @@ public class Position {
 	 * @return
 	 */
 	public double distInGridSpace(Position p) {
-		final double nbSquareX = 31;
-		final double nbSquareY = 18;
 		return Math.sqrt(Math.pow((x - p.x) * nbSquareX, 2) + Math.pow((y - p.y) * nbSquareY, 2));
+	}
+
+	/**
+	 * @param x coordonnée x dans la grille
+	 * @param y coordonnée y dans la grille
+	 * @return Position, les coordonée dans l'espace de la fenêtre
+	 * @note coordonnées compris entre 0 et 1
+	 */
+	public Position inFrameSpace() {
+		double squareWidth = (double) 1 / nbSquareX;
+		double squareHeight = (double) 1 / nbSquareY;
+		return new Position(x * squareWidth + squareWidth / 2, y * squareHeight + squareHeight / 2);
+	}
+
+	/**
+	 * @param x coordonnée x dans la fenêtre
+	 * @param y coordonnée y dans la fenêtre
+	 * @return Position, les coordonée dans l'espace de la grille
+	 * @note coordonnées compris entre 0 et taille max de la grille horizontalement
+	 *       puis verticalement
+	 */
+	public Position inGridSpace() {
+		double squareWidth = (double) 1 / nbSquareX;
+		double squareHeight = (double) 1 / nbSquareY;
+
+		x = Math.round((x - x % squareWidth) / squareWidth);
+		y = Math.round((y - y % squareHeight) / squareHeight);
+
+		return new Position(x, y);
 	}
 
 	/**

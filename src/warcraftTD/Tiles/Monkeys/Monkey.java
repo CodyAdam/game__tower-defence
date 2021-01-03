@@ -10,12 +10,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Monkey extends Tile {
-    public String sprite;
-    public Position framePos;
-    public double range;
-    public int cooldown;
-    public double rotation;
-    protected int timer;
+    public String sprite; // le chemin vers l'image de la tour
+    public Position framePos; // Position de la tour dans le référenciel de la fenêtre
+    public double range; // Rayon de tir en nombre de tile
+    public int cooldown; // le temps de recharchement du tir
+    public double rotation; // orientation de la tour
+    protected int timer; // timer pour savoir quand tirer
 
     public Monkey(int x, int y) {
         super(x, y);
@@ -24,6 +24,10 @@ public abstract class Monkey extends Tile {
         gridColor = new Color(200, 100, 0, 140);
         rotation = 0;
         timer = 0;
+    }
+
+    protected boolean inRange(Bloon target) {
+        return framePos.distInGridSpace(target.pos) <= range;
     }
 
     protected Bloon getClosiest(List<Bloon> bloons) {
@@ -77,6 +81,8 @@ public abstract class Monkey extends Tile {
     public void tick(List<Bloon> bloons) {
         if (!bloons.isEmpty() && timer <= 0) {
             Bloon target = getClosiest(bloons);
+            if (!inRange(target))
+                target = null;
             if (target != null) {
                 shootAt(target);
                 timer = cooldown;
@@ -87,7 +93,11 @@ public abstract class Monkey extends Tile {
 
     protected abstract void shootAt(Bloon bloons);
 
-    public void draw() {
+    public void draw(Tile selectedTile) {
+        if (selectedTile == this) {
+            Position range = new Position(this.range, this.range).inFrameSpace();
+            StdDraw.ellipse(framePos.x, framePos.y, range.x, range.y);
+        }
         StdDraw.picture(framePos.x, framePos.y, sprite, rotation);
     }
 }
