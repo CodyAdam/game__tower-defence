@@ -55,9 +55,12 @@ En tant que joueur, nous posons des singes sur le terrain dans le but de se déf
 
 ## Touches utiles en jeu :
 
+-   [Q] Quitte le jeu
 -   [D] alterne avec le mode DEBUG
+
+-   [K] en mode DEBUG uniquement : tue tout les ballons à l'écran
 
 ## Bibliographie :
 
 -   Sprites utiliser : [Jeu Bloons TD 5](https://store.steampowered.com/app/306020Bloons_TD_5/)
--   Police utiliser : [Fredoka One (Regular)](https://fonts.google.com/specimen/Fredoka+Onehttps://fonts.google.com/specimen/Fredoka+One)
+-   Police utiliser : [Fredoka One (Regular)](https://fonts.google.com/specimen/Fredoka+One)

@@ -68,8 +68,8 @@ public class Waves {
                 tickCounter++;
                 if (tickCounter >= currentWave.queue.getFirst().waitTicks) {
                     bloonsList.add(currentWave.queue.removeFirst().bloon); // Fait spawn le premier ballon de la queue
-                                                                           // et le
-                    // suprime de la queue puis relance le compteur
+                                                                           // et le suprime de la queue puis relance le
+                                                                           // compteur
                     tickCounter = 0;
                 }
             }
