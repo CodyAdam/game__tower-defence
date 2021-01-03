@@ -49,7 +49,7 @@ En tant que joueur, nous posons des singes sur le terrain dans le but de se déf
 -   Ajout d'une interface visuelle interactive d'achat et d'amélioration. Le jeu ce joue à la souris
 -   Système de popup textuel animée avec du [easing](https://easings.net/fr)
 -   Amélioration de la classe Position par l'ajout de fonctions utiles
--   Possibilité pour le joueur d'accélérer le temps et jouer en vitesse x2
+-   Possibilité pour le joueur d'accélérer le temps et jouer en vitesse x2.5
 -   Système de grille évolué avec prévisualisation des emplacements disponible interactive quand une tour souhaite être placée
 -   Système de tile (tuile en français) couplé à la grille, tout objet intéractif du jeu est représenté par une tile à l'éxception des ballons
 

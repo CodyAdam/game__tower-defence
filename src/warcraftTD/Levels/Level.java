@@ -6,6 +6,7 @@ import java.util.List;
 import warcraftTD.Position;
 import warcraftTD.Tiles.Panel;
 import warcraftTD.Tiles.PlayButton;
+import warcraftTD.Tiles.SpeedupButton;
 import warcraftTD.Tiles.Tile;
 import warcraftTD.Tiles.BuyTiles.*;
 
@@ -41,6 +42,11 @@ public abstract class Level {
         map[23][1] = new PlayButton(23, 1);
         map[24][1] = new PlayButton(24, 1);
         map[24][0] = new PlayButton(24, 0);
+
+        map[23][17] = new SpeedupButton(23, 17);
+        map[23][16] = new SpeedupButton(23, 16);
+        map[24][16] = new SpeedupButton(24, 16);
+        map[24][17] = new SpeedupButton(24, 17);
 
         map[27][11] = new BuyDartMonkey(27, 11);
         map[26][11] = new BuyDartMonkey(26, 11);

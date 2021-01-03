@@ -5,6 +5,7 @@ import warcraftTD.Levels.Level;
 import warcraftTD.Tiles.Empty;
 import warcraftTD.Tiles.Obstructed;
 import warcraftTD.Tiles.PlayButton;
+import warcraftTD.Tiles.SpeedupButton;
 import warcraftTD.Tiles.Tile;
 import warcraftTD.Tiles.BuyTiles.BuyTile;
 import warcraftTD.Tiles.Monkeys.Monkey;
@@ -455,14 +456,6 @@ public class World {
 		key = Character.toLowerCase(key);
 		this.key = key;
 		switch (key) {
-			case 's':
-				if (waves.isRunning())
-					mainAlert.add("You can't start another wave now!");
-				else {
-					waves.startNextWave();
-					mainAlert.add(waves.getName() + " has started!");
-				}
-				break;
 			case 'd':
 				mainAlert.add("DEBUG MODE : " + (!debug ? "Activated" : "Desactivated"));
 				debug = !debug;
@@ -517,6 +510,8 @@ public class World {
 				waves.startNextWave();
 				mainAlert.add(waves.getName() + " has started!");
 			}
+		} else if (selectedTile instanceof SpeedupButton) {
+			gameSpeed = gameSpeed == 1 ? 2.5 : 1;
 		}
 	}
 
