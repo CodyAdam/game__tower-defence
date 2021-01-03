@@ -2,6 +2,8 @@ package warcraftTD.Bloons;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import warcraftTD.Assets;
 import warcraftTD.Position;
 import warcraftTD.StdDraw;
 
@@ -12,7 +14,7 @@ public class RedAirBloon extends Bloon {
 		this.speed *= 0.25;
 		this.hp = 700;
 		this.power = 3164;
-		this.imgPath = "/Assets/Sprites/Bloons/RedAirBloon.png";
+		this.imgPath = Assets.redAirBloon;
 		this.center = new Position(0.5, 0.5);
 		this.spawnOnDeath = new ArrayList<Bloon>();
 

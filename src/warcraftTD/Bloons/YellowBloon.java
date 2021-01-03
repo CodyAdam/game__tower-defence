@@ -2,6 +2,8 @@ package warcraftTD.Bloons;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import warcraftTD.Assets;
 import warcraftTD.Position;
 
 public class YellowBloon extends Bloon {
@@ -11,7 +13,7 @@ public class YellowBloon extends Bloon {
 		this.speed *= 3.2;
 		this.hp = 1;
 		this.power = 4;
-		this.imgPath = "/Assets/Sprites/Bloons/Yellow.png";
+		this.imgPath = Assets.yellowBloon;
 		this.center = new Position(0.5, 0.5);
 		this.spawnOnDeath = new ArrayList<Bloon>();
 

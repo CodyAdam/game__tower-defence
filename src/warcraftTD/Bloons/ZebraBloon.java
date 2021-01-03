@@ -2,6 +2,8 @@ package warcraftTD.Bloons;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import warcraftTD.Assets;
 import warcraftTD.Position;
 
 public class ZebraBloon extends Bloon {
@@ -11,7 +13,7 @@ public class ZebraBloon extends Bloon {
 		this.speed *= 1.8;
 		this.hp = 1;
 		this.power = 23;
-		this.imgPath = "/Assets/Sprites/Bloons/Zebra.png";
+		this.imgPath = Assets.zebraBloon;
 		this.center = new Position(0.5, 0.5);
 		this.spawnOnDeath = new ArrayList<Bloon>();
 

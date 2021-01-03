@@ -21,7 +21,7 @@ public class Alert {
 
     public Alert(Position pos, int duration, Color color, Font font, int fadingDuration, double offsetDistance,
             float size) {
-        this.startPos = new Position(pos);
+        this.startPos = new Position(pos.x + Math.random() * 0.03, pos.y + Math.random() * 0.03);
         this.pos = new Position(pos);
         this.duration = duration;
         this.color = color;
