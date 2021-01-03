@@ -98,7 +98,7 @@ public class World {
 	public World(Level level, int width, int height) {
 		loadFont();
 
-		this.mainAlert = new Alert(new Position(0.5, 0.6), 170, new Color(31, 2, 2, 255), this.font, 60, 0.1, 40);
+		this.mainAlert = new Alert(new Position(0.5, 0.6), 120, new Color(250, 250, 250, 255), this.font, 60, 0.1, 40);
 		this.level = level;
 		this.waves = new Waves(level.pathing, this.bloons);
 		this.map = level.map;
@@ -178,7 +178,7 @@ public class World {
 				// Affiche une petite alert textuel pour montré le nombre d'argent gagné en
 				// tuant le bloon
 				Alert gainAlert = new Alert(b.pos, 170, new Color(225, 232, 21, 255), this.font, 60, 0.1, 20);
-				gainAlert.add("+" + b.power + " $");
+				gainAlert.add("+" + b.power + "$");
 				alerts.add(gainAlert);
 
 				// Supprime le bloon
@@ -211,13 +211,14 @@ public class World {
 	 * Définit le décors du plateau de jeu.
 	 */
 	public void drawBackground() {
-		// Draw LEVEL
+		// Draw level background
 		double bgSize = (double) 1000 / ((double) 1240 * 2);
 		StdDraw.picture(bgSize, 0.5, level.spritePath, (2 * bgSize), 1);
 
-		// Draw HUD
+		// Draw right side panel
 		double panelSize = (double) 240 / ((double) 1240 * 2);
 		StdDraw.picture(1 - panelSize, 0.5, Assets.panel, panelSize * 2, 1);
+
 	}
 
 	/**
@@ -278,12 +279,12 @@ public class World {
 
 	/**
 	 * Affiche certaines informations sur l'écran telles que les points de vie du
-	 * joueur ou son or
+	 * joueur ou son or. Tout ce qui est en relation avec l'interface
 	 * 
 	 * Affiche également les information de débugage en mode DEBUG
 	 */
 	public void drawInfos() {
-		if (debug) {
+		if (debug) { // ############ DEBUG DRAWING ############
 			squareWidth = (double) 1 / nbSquareX;
 			squareHeight = (double) 1 / nbSquareY;
 			double alignLeft = 0.025;
@@ -303,6 +304,47 @@ public class World {
 			StdDraw.textLeft(alignLeft, 0.06, "Number of Bloons : " + bloons.size());
 			StdDraw.textLeft(alignLeft, 0.04, "Number of Tower : " + monkeys.size());
 		}
+
+		// Constants
+		final Color CAN_BUY = new Color(126, 217, 42, 255);
+		final Color CANT_BUY = new Color(248, 46, 46, 255);
+		final Color SHADOW = new Color(0, 0, 0, 150);
+		final Color MAIN_TEXT = new Color(250, 250, 250, 255);
+		final double SHADOW_OFFSET = 0.008;
+
+		// ############ DRAWING TOWER PRICES ############
+
+		font.deriveFont(20f); // font size
+		StdDraw.setFont(font);
+		int cost;
+
+		// for the Dart monkey tower
+		cost = ((BuyTile) map[26][12]).cost;
+		StdDraw.setPenColor(SHADOW);
+		StdDraw.text(0.868, 0.631 - SHADOW_OFFSET, cost + "$");
+		StdDraw.setPenColor(cost <= money ? CAN_BUY : CANT_BUY);
+		StdDraw.text(0.868, 0.631, cost + "$");
+
+		// ############ Drawing life and money counter with shadow ############
+
+		font = font.deriveFont(32f); // font size
+
+		StdDraw.setFont(font);
+		StdDraw.picture(0.03, 0.876, Assets.moneyLife);
+		StdDraw.setPenColor(SHADOW);
+		StdDraw.textLeft(0.054, 0.906 - SHADOW_OFFSET, money + "");
+		StdDraw.textLeft(0.054, 0.846 - SHADOW_OFFSET, life + "");
+		StdDraw.setPenColor(MAIN_TEXT);
+		StdDraw.textLeft(0.054, 0.906, money + "");
+		StdDraw.textLeft(0.054, 0.846, life + "");
+
+		// ############ Draw play button ############
+		if (!waves.isRunning()) {
+			StdDraw.picture(0.76, 0.08, Assets.buttonPlay);
+		}
+
+		// ############ Draw speedup button ############
+		StdDraw.picture(0.76, 0.92, gameSpeed == 1 ? Assets.buttonSpeedup0 : Assets.buttonSpeedup1);
 
 	}
 
@@ -395,10 +437,10 @@ public class World {
 		this.key = key;
 		switch (key) {
 			case 's':
-				if (this.waves.isRunning())
+				if (waves.isRunning())
 					System.out.println("You can't start another one now, a wave is currently running!");
 				else {
-					this.waves.startNextWave();
+					waves.startNextWave();
 				}
 				break;
 			case 'd':

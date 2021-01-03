@@ -14,6 +14,9 @@ public class Alert {
     private int fadingDuration;
     private double offsetDistance;
 
+    private Color shadowColor = new Color(0, 0, 0, 150);
+    private final double SHADOW_OFFSET = 0.008;
+
     private int tickCounter;
 
     public Alert(Position pos, int duration, Color color, Font font, int fadingDuration, double offsetDistance,
@@ -40,6 +43,7 @@ public class Alert {
 
     private void reset() {
         color = new Color(color.getRed(), color.getGreen(), color.getBlue(), (255));
+        shadowColor = new Color(shadowColor.getRed(), shadowColor.getGreen(), shadowColor.getBlue(), (150));
         tickCounter = duration;
         this.pos = new Position(startPos);
     }
@@ -53,6 +57,8 @@ public class Alert {
                 double x = (double) tickCounter / (double) fadingDuration;
                 double alphaEaseFunction = 1 - Math.pow(1 - x, 3); // ease Out Cubic
                 color = new Color(color.getRed(), color.getGreen(), color.getBlue(), (int) (alphaEaseFunction * 255));
+                shadowColor = new Color(shadowColor.getRed(), shadowColor.getGreen(), shadowColor.getBlue(),
+                        (int) (alphaEaseFunction * 150));
             }
 
             // easing animation for the text position
@@ -64,13 +70,21 @@ public class Alert {
 
     public void draw() {
         if (!queue.isEmpty()) {
+
             StdDraw.setPenColor(color);
             StdDraw.setFont(font);
             if (tickCounter <= 0) {
+                StdDraw.setPenColor(shadowColor);
+                StdDraw.text(pos.x, pos.y - SHADOW_OFFSET, queue.getFirst());
+                StdDraw.setPenColor(color);
                 StdDraw.text(pos.x, pos.y, queue.remove());
                 reset();
-            } else
+            } else {
+                StdDraw.setPenColor(shadowColor);
+                StdDraw.text(pos.x, pos.y - SHADOW_OFFSET, queue.getFirst());
+                StdDraw.setPenColor(color);
                 StdDraw.text(pos.x, pos.y, queue.getFirst());
+            }
         }
     }
 }
