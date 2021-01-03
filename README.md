@@ -12,9 +12,9 @@
 
 ## Concept du projet :
 
-Durant mon enfance j'ai beaucoup jouer au jeu tower defénse appeler Bloons TD 5 c'est pourquoi moi et mon binôme, avons eu l'idée de faire une récréation simplifier de ce jeu avec les outils mis à notre disposition.
+Durant mon enfance j'ai beaucoup jouer au jeu tower defénse appeler Bloons TD 5 c'est pourquoi moi et mon binôme, avons eu l'idée de faire une récréation simplifier de ce jeu avec les outils mis à notre disposition, ce qui à été un challenge enrichissant.
 
-Tous les sprites sont issus de ce même jeu, nous vous renvoyions donc vers la page Steam si vous voulez en savoir plus : [Bloons TD 5 sur Steam](https://store.steampowered.com/app/306020Bloons_TD_5/)
+Tous les assets sont issus de ce même jeu à l'éxception de la police d'écriture, nous vous renvoyions donc vers la page Steam si vous voulez en savoir plus : [Bloons TD 5 sur Steam](https://store.steampowered.com/app/306020Bloons_TD_5/)
 
 ## Concept du gameplay :
 
@@ -37,18 +37,20 @@ En tant que joueur, nous posons des singes sur le terrain dans le but de se déf
 
 ## Changement effectué sur le projet par défaut :
 
--   Les ennemies ont été renommé en tant que "Bloon" et les tours en tant que "Singe"
+-   Les ennemies ont été renommé en tant que "Bloon" et les tours en tant que "Monkey"
 -   Fenêtre de résolution de 1240 x 720 px
 -   Grille de 31 x 18 tuiles (une tuile fait 40 x 40 px)
 -   Sprite des tours et ennemies customiser
--   Arrière plan customiser (pas de tuile mais en une seul image)
+-   Arrière plan customiser (pas de tuile mais une seul image)
 -   Police customiser (voir bibliographie)
 -   Changement total des unités ennemies et alliées (Bomb et Arrow Tower remplacés par les différents singes et les monstres sont remplacés par le système de Bloons)
 -   Système de niveaux avec chacun des "pathing", environnements et difficultés différentes
--   Système de grille évolué avec prévisualisation des emplacements disponible interactive quand une tour souhaite être placée
-    ![Image d'explication de la grille](/explication_grille.png)
 -   Un mode débug avancé avec un affichage de multiples informations et accès à des commandes de "triche"
--   Ajout d'une interface visuelle interactive d'achat et d'amélioration sur le panel de droite
+-   Ajout d'une interface visuelle interactive d'achat et d'amélioration. Le jeu ce joue à la souris
+-   Système de popup textuel animée avec du [easing](https://easings.net/fr)
+-   Amélioration de la classe Position par l'ajout de fonctions utiles
+-   Système de grille évolué avec prévisualisation des emplacements disponible interactive quand une tour souhaite être placée
+-   Système de tile (tuile en français) couplé à la grille, tout objet intéractif du jeu est représenté par une tile à l'éxception des ballons
 
 ## Touches utiles en jeu :
 
@@ -56,4 +58,5 @@ En tant que joueur, nous posons des singes sur le terrain dans le but de se déf
 
 ## Bibliographie :
 
--   Police utiliser : Langar-Regular.ttf
+-   Sprites utiliser : [Jeu Bloons TD 5](https://store.steampowered.com/app/306020Bloons_TD_5/)
+-   Police utiliser : [Fredoka One (Regular)](https://fonts.google.com/specimen/Fredoka+Onehttps://fonts.google.com/specimen/Fredoka+One)

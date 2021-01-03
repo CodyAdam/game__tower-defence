@@ -26,6 +26,15 @@ public class Waves {
         waves.add(new WaveTesting(pathing));
     }
 
+    public String getName() {
+        if (waves.isEmpty())
+            return "VICTORY!";
+        else if (currentWave == null)
+            return "Press the play button to start!";
+        else
+            return currentWave.name;
+    }
+
     public boolean isRunning() {
         return running;
     }

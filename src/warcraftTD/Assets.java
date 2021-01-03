@@ -18,7 +18,10 @@ public class Assets {
     public static String level1 = "/Assets/Sprites/monkey_lane_thumb.jpg";
 
     // towers
-    public static String dartMonkey = "/Assets/Sprites/test.png";
+    public static String dartMonkey = "/Assets/Sprites/Towers/DartMonkey.png";
+
+    // projectiles
+    public static String dart = "/Assets/Sprites/Towers/Dart.png";
 
     // bloons
     public static String blueAirBloon = "/Assets/Sprites/Bloons/BlueAirBloon.png";

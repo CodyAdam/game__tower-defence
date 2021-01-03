@@ -26,13 +26,27 @@ public class Position {
 	}
 
 	/**
-	 * Mesure la distance euclidienne entre 2 positions.
+	 * Mesure la distance euclidienne entre 2 positions dans le référenciel de la
+	 * fenêtre (entre 0 et 1).
 	 * 
 	 * @param p
 	 * @return
 	 */
-	public double dist(Position p) {
+	public double distInFrameSpace(Position p) {
 		return Math.sqrt(Math.pow(x - p.x, 2) + Math.pow(y - p.y, 2));
+	}
+
+	/**
+	 * Mesure la distance euclidienne entre 2 positions dans le référenciel de la
+	 * grille.
+	 * 
+	 * @param p
+	 * @return
+	 */
+	public double distInGridSpace(Position p) {
+		final double nbSquareX = 31;
+		final double nbSquareY = 18;
+		return Math.sqrt(Math.pow((x - p.x) * nbSquareX, 2) + Math.pow((y - p.y) * nbSquareY, 2));
 	}
 
 	/**
@@ -69,7 +83,7 @@ public class Position {
 	 */
 	public double norm() {
 		Position zero = new Position(0, 0);
-		return dist(zero);
+		return distInFrameSpace(zero);
 	}
 
 	/**

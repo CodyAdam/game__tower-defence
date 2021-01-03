@@ -193,6 +193,18 @@ public class World {
 	}
 
 	/**
+	 * update toutes les tours de la liste sans les draw
+	 */
+	public void tickMonkeys() {
+		ListIterator<Monkey> i = monkeys.listIterator();
+		Monkey m;
+		while (i.hasNext()) {
+			m = i.next();
+			m.tick(bloons);
+		}
+	}
+
+	/**
 	 * draw tout les bloons
 	 */
 	public void tickAlerts() {
@@ -326,16 +338,18 @@ public class World {
 		StdDraw.setPenColor(cost <= money ? CAN_BUY : CANT_BUY);
 		StdDraw.text(0.868, 0.631, cost + "$");
 
-		// ############ Drawing life and money counter with shadow ############
+		// ############ Drawing wave, life and money counter with shadow ############
 
 		font = font.deriveFont(32f); // font size
 
 		StdDraw.setFont(font);
 		StdDraw.picture(0.03, 0.876, Assets.moneyLife);
 		StdDraw.setPenColor(SHADOW);
+		StdDraw.textLeft(0.017, 0.966 - SHADOW_OFFSET, waves.getName());
 		StdDraw.textLeft(0.054, 0.906 - SHADOW_OFFSET, money + "");
 		StdDraw.textLeft(0.054, 0.846 - SHADOW_OFFSET, life + "");
 		StdDraw.setPenColor(MAIN_TEXT);
+		StdDraw.textLeft(0.017, 0.966, waves.getName());
 		StdDraw.textLeft(0.054, 0.906, money + "");
 		StdDraw.textLeft(0.054, 0.846, life + "");
 
@@ -359,7 +373,7 @@ public class World {
 			Position mousePos = new Position(StdDraw.mouseX(), StdDraw.mouseY());
 			String image = ((BuyTile) selectedTile).toPlace.sprite;
 			if (image != null)
-				StdDraw.picture(mousePos.x, mousePos.y, image, squareWidth, squareHeight);
+				StdDraw.picture(mousePos.x, mousePos.y, image);
 		}
 	}
 
@@ -503,6 +517,7 @@ public class World {
 	public void tick() {
 		this.waves.update();
 		tickBloons();
+		tickMonkeys();
 		tickAlerts();
 	}
 
