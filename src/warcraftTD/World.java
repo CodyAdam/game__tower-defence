@@ -15,6 +15,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.io.File;
 import java.io.FileInputStream;
+import java.net.URL;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.ArrayList;
@@ -117,8 +118,8 @@ public class World {
 
 	public void loadFont() {
 		try {
-			Font font = Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File(Assets.font)))
-					.deriveFont(Font.PLAIN, 24);
+			URL url = StdDraw.class.getResource(Assets.font);
+			Font font = Font.createFont(Font.TRUETYPE_FONT, url.openStream()).deriveFont(Font.PLAIN, 24);
 			this.font = font;
 		} catch (Exception e) {
 			System.err.println(e);
