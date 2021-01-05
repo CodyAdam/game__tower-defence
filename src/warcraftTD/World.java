@@ -378,7 +378,7 @@ public class World {
 			placed.y = target.y;
 			placed.framePos = new Position(placed.x, placed.y).inFrameSpace();
 			map[target.x][target.y] = placed;
-			ArrayList<Integer[]> toBlock = placed.getOccupiedTiles();
+			ArrayList<Integer[]> toBlock = placed.getAdjacent(); // liste des cases qui deviendrons occupé
 			for (Integer[] coordinate : toBlock) {
 				int cx = coordinate[0];
 				int cy = coordinate[1];

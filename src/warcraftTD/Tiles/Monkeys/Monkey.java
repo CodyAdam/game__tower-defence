@@ -36,14 +36,14 @@ public abstract class Monkey extends Tile {
 
     /**
      * @param bloons la liste de tout les ballons
-     * @return le Bloon le plus proche de cet tour
+     * @return le Bloon le plus proche de cet tour dans le rayon d'attaque
      */
     protected Bloon getClosiest(List<Bloon> bloons) {
         Bloon ans = null;
         double dist = -1;
         for (Bloon b : bloons) {
             double x = this.framePos.distInGridSpace(b.pos);
-            if (x < dist || dist == -1) {
+            if (inRange(b) && (x < dist || dist == -1)) {
                 dist = x;
                 ans = b;
             }
@@ -53,13 +53,29 @@ public abstract class Monkey extends Tile {
 
     /**
      * @param bloons la liste de tout les ballons
-     * @return le Bloon le plus loins dans le chemin
+     * @return le Bloon le plus loins dans le chemin dans le rayon d'attaque
      */
     protected Bloon getFurthest(List<Bloon> bloons) {
         Bloon ans = null;
         double max = -1;
         for (Bloon b : bloons) {
-            if (x > max || max == -1) {
+            if (inRange(b) && (x > max || max == -1)) {
+                max = x;
+                ans = b;
+            }
+        }
+        return ans;
+    }
+
+    /**
+     * @param bloons la liste de tout les ballons
+     * @return le Bloon le plus fort dans le rayon d'attaque
+     */
+    protected Bloon getStrongest(List<Bloon> bloons) {
+        Bloon ans = null;
+        double max = -1;
+        for (Bloon b : bloons) {
+            if (inRange(b) && (x > max || max == -1)) {
                 max = x;
                 ans = b;
             }
@@ -90,10 +106,10 @@ public abstract class Monkey extends Tile {
     /**
      * @return revoi les coordonnées des cases adjacentes de la tour
      */
-    public ArrayList<Integer[]> getOccupiedTiles() {
+    public ArrayList<Integer[]> getAdjacent() {
         ArrayList<Integer[]> list = new ArrayList<Integer[]>();
 
-        if (x + 1 >= 0 && x + 1 < 25 && y >= 0 && y < 18)
+        if (x + 1 >= 0 && x + 1 < 25 && y >= 0 && y < 18) // ne rend pas les cases si elle sont hors grille
             list.add(new Integer[] { x + 1, y });
         if (x >= 0 && x < 25 && y + 1 >= 0 && y + 1 < 18)
             list.add(new Integer[] { x, y + 1 });
@@ -111,8 +127,6 @@ public abstract class Monkey extends Tile {
     public void tick(List<Bloon> bloons) {
         if (!bloons.isEmpty() && timer <= 0) {
             Bloon target = getFurthest(bloons);
-            if (!inRange(target))
-                target = null;
             if (target != null) {
                 shootAt(target);
                 timer = cooldown;

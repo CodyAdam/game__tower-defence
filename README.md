@@ -5,7 +5,6 @@
 ## TODO
 
 -   [ ] Make bloons go under the bridge!!
--   [ ] Replace In grid space with the new position
 -   [ ] Remove inside World In grid pos
 -   [ ] Projectiles class
 -   [ ] Améliorations
