@@ -32,7 +32,7 @@ public class World {
 	Level level;// Le niveau actuel
 
 	int life = 200;// Nombre de points de vie du joueur
-	int money = 600;// Quantité d'argent
+	int money = 2200;// Quantité d'argent
 	Font font;// La police du texte
 
 	// grille qui determine qu'est-ce que qu'il y a sur la carte
@@ -209,8 +209,8 @@ public class World {
 
 			StdDraw.setPenRadius(0.001);
 			Color line = new Color(0, 0, 0, 80);
-			Color isPlacable = StdDraw.GREEN;
-			Color isNotPlacable = StdDraw.RED;
+			Color isPlacable = new Color(0, 255, 0, 150);
+			Color isNotPlacable = new Color(255, 0, 0, 150);
 
 			for (int y = 0; y < nbSquareY; y++) {
 				for (int x = 0; x < nbSquareX; x++) {
@@ -301,11 +301,11 @@ public class World {
 			StdDraw.setPenColor(StdDraw.WHITE);
 			StdDraw.textLeft(ALIGN_LEFT, 0.19, "Debug info : ");
 			StdDraw.textLeft(ALIGN_LEFT, 0.16, "FPS : " + fps);
+			StdDraw.textLeft(ALIGN_LEFT, 0.08, "On Mouse Tile : " + getMouseTile().getClass().getName());
 			StdDraw.textLeft(ALIGN_LEFT, 0.14, "Game Speed : " + this.gameSpeed);
 			StdDraw.textLeft(ALIGN_LEFT, 0.12, "Mouse Pos (In frame space) : " + mouseX + ", " + mouseY);
 			StdDraw.textLeft(ALIGN_LEFT, 0.10,
 					"Mouse Pos (In grid space) : " + (int) mouseGrid.x + ", " + (int) mouseGrid.y);
-			StdDraw.textLeft(ALIGN_LEFT, 0.08, "On Mouse Tile : " + getMouseTile().getClass().getName());
 			StdDraw.textLeft(ALIGN_LEFT, 0.06, "Number of Bloons : " + bloons.size());
 			StdDraw.textLeft(ALIGN_LEFT, 0.04, "Number of Tower : " + monkeys.size());
 		} else {
@@ -347,8 +347,12 @@ public class World {
 	public void drawMonkeys() {
 		Iterator<Monkey> i = monkeys.iterator();
 		Monkey m;
+		if (selectedTile instanceof Monkey)
+			((Monkey) selectedTile).draw(selectedTile);
 		while (i.hasNext()) {
 			m = i.next();
+			if (m == selectedTile)
+				continue;
 			m.draw(selectedTile);
 		}
 	}

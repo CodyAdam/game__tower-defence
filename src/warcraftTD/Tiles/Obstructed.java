@@ -7,6 +7,6 @@ public class Obstructed extends Tile {
     public Obstructed(int x, int y) {
         super(x, y);
         isAvaliable = false;
-        gridColor = new Color(100, 0, 0, 140);
+        gridColor = new Color(90, 0, 0, 170);
     }
 }

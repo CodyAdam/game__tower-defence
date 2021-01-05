@@ -165,9 +165,12 @@ public abstract class Monkey extends Tile {
     protected abstract void shootAt(Bloon bloons);
 
     public void draw(Tile selectedTile) {
-        if (selectedTile == this) {
+        if (selectedTile == this) { // Affiche le rayon si la tour est sélectionnée
             Position range = new Position(this.range, this.range).inFrameSpace();
+            StdDraw.setPenColor(new Color(252, 3, 65, 110));
             StdDraw.ellipse(framePos.x, framePos.y, range.x, range.y);
+            StdDraw.setPenColor(new Color(252, 3, 65, 60));
+            StdDraw.filledEllipse(framePos.x, framePos.y, range.x, range.y);
         }
         StdDraw.picture(framePos.x, framePos.y, sprite, rotation);
     }

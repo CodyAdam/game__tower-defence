@@ -11,7 +11,7 @@ public class BuyDartMonkey extends BuyTile {
         cost = 300;
         isAvaliable = false;
         toPlace = new DartMonkey(x, y);
-        gridColor = new Color(163, 247, 245, 30);
+        gridColor = new Color(203, 247, 245, 110);
     }
 
     public void reset() {
