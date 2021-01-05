@@ -15,7 +15,6 @@ public class BlueAirBloon extends Bloon {
 		this.hp = 200;
 		this.power = 616;
 		this.imgPath = Assets.blueAirBloon;
-		this.center = new Position(0.5, 0.5);
 		this.spawnOnDeath = new ArrayList<Bloon>();
 
 		this.spawnOnDeath.add(new CeramicBloon(pathing));

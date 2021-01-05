@@ -14,7 +14,6 @@ public class GreenBloon extends Bloon {
 		this.hp = 1;
 		this.power = 1;
 		this.imgPath = Assets.greenBloon;
-		this.center = new Position(0.5, 0.5);
 		this.spawnOnDeath = new ArrayList<Bloon>();
 
 		this.spawnOnDeath.add(new BlueBloon(pathing));

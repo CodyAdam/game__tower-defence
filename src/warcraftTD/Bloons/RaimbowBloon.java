@@ -14,7 +14,6 @@ public class RaimbowBloon extends Bloon {
 		this.hp = 1;
 		this.power = 47;
 		this.imgPath = Assets.raimbowBloon;
-		this.center = new Position(0.5, 0.5);
 		this.spawnOnDeath = new ArrayList<Bloon>();
 
 		this.spawnOnDeath.add(new ZebraBloon(pathing));

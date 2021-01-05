@@ -15,7 +15,6 @@ public class CeramicBloon extends Bloon {
 		this.hp = 10;
 		this.power = 95;
 		this.imgPath = Assets.ceramicBloon0;
-		this.center = new Position(0.5, 0.5);
 		this.spawnOnDeath = new ArrayList<Bloon>();
 
 		this.spawnOnDeath.add(new RaimbowBloon(pathing));

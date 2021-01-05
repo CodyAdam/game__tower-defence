@@ -26,16 +26,24 @@ public abstract class Monkey extends Tile {
         timer = 0;
     }
 
+    /**
+     * @param target le Ballon à comparer
+     * @return est-ce que la "target" est dans le rayon de tir de la tour ?
+     */
     protected boolean inRange(Bloon target) {
         return framePos.distInGridSpace(target.pos) <= range;
     }
 
+    /**
+     * @param bloons la liste de tout les ballons
+     * @return le Bloon le plus proche de cet tour
+     */
     protected Bloon getClosiest(List<Bloon> bloons) {
         Bloon ans = null;
         double dist = -1;
         for (Bloon b : bloons) {
             double x = this.framePos.distInGridSpace(b.pos);
-            if (dist > x || dist == -1) {
+            if (x < dist || dist == -1) {
                 dist = x;
                 ans = b;
             }
@@ -43,8 +51,30 @@ public abstract class Monkey extends Tile {
         return ans;
     }
 
-    public boolean isPlacableAt(int cx, int cy, Tile[][] map) {
+    /**
+     * @param bloons la liste de tout les ballons
+     * @return le Bloon le plus loins dans le chemin
+     */
+    protected Bloon getFurthest(List<Bloon> bloons) {
+        Bloon ans = null;
+        double max = -1;
+        for (Bloon b : bloons) {
+            if (x > max || max == -1) {
+                max = x;
+                ans = b;
+            }
+        }
+        return ans;
+    }
 
+    /**
+     * @param cx  la coordonnée X de la grille
+     * @param cy  la coordonnée Y de la grille
+     * @param map la grille avec ses tuiles
+     * @return est-ce que l'emplacement (cx, cy) est un emplacement valide pour
+     *         placer cette tour ?
+     */
+    public boolean isPlacableAt(int cx, int cy, Tile[][] map) {
         boolean answer = (map[cx][cy] instanceof Empty);
         if (cx + 1 >= 0 && cx + 1 < 25)
             answer = answer && map[cx + 1][cy].isAvaliable;
@@ -80,7 +110,7 @@ public abstract class Monkey extends Tile {
 
     public void tick(List<Bloon> bloons) {
         if (!bloons.isEmpty() && timer <= 0) {
-            Bloon target = getClosiest(bloons);
+            Bloon target = getFurthest(bloons);
             if (!inRange(target))
                 target = null;
             if (target != null) {

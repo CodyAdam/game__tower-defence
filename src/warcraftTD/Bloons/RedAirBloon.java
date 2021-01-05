@@ -15,7 +15,6 @@ public class RedAirBloon extends Bloon {
 		this.hp = 700;
 		this.power = 3164;
 		this.imgPath = Assets.redAirBloon;
-		this.center = new Position(0.5, 0.5);
 		this.spawnOnDeath = new ArrayList<Bloon>();
 
 		this.spawnOnDeath.add(new BlueAirBloon(pathing));

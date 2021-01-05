@@ -13,8 +13,6 @@ import warcraftTD.Waves.Waves;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.io.File;
-import java.io.FileInputStream;
 import java.net.URL;
 import java.util.List;
 import java.util.ListIterator;
@@ -23,42 +21,24 @@ import java.util.Iterator;
 
 public class World {
 
-	// l'ensemble des monstres
-	List<Bloon> bloons = new ArrayList<Bloon>();
+	List<Bloon> bloons = new ArrayList<Bloon>(); // l'ensemble des monstres
+	List<Monkey> monkeys = new ArrayList<Monkey>(); // l'ensemble des tours
+	List<Alert> alerts = new ArrayList<Alert>(); // l'ensemble des alert (pop-up textuel) utiliser pour les gains
+													// d'argent ou
+													// améliorations de tours
+	Alert mainAlert; // l'objet d'alert général pour toutes les info importantes qui serons afficher
+						// au milieu de l'écran
+	Waves waves;// Le gestionnaire de vagues
+	Level level;// Le niveau actuel
 
-	// l'ensemble des tours
-	List<Monkey> monkeys = new ArrayList<Monkey>();
-
-	// l'ensemble des alert (pop-up textuel) utiliser pour les gains d'argent ou
-	// améliorations de tours
-	List<Alert> alerts = new ArrayList<Alert>();
-	// l'objet d'alert général pour toutes les info importantes qui serons afficher
-	// au milieu de l'écran
-	Alert mainAlert;
-
-	// Nombre de points de vie du joueur
-	int life = 200;
-
-	// Quantité d'argent
-	int money = 600;
-
-	// Le niveau actuel
-	Level level;
-
-	// La police du texte
-	Font font;
-
-	// Le gestionnaire de vagues
-	Waves waves;
+	int life = 200;// Nombre de points de vie du joueur
+	int money = 600;// Quantité d'argent
+	Font font;// La police du texte
 
 	// grille qui determine qu'est-ce que qu'il y a sur la carte
 	// (ex : SingeXXX, SingeYYY, Rien, Route ou Arbre ou rochers, UI, etc...)
 	Tile[][] map;
-
-	// La tuile qui est actuelement selectionné peut être sois une BuyTile ou Monkey
-	Tile selectedTile;
-
-	boolean placing;
+	Tile selectedTile;// La tuile qui est actuelement selectionné peut être sois une BuyTile ou Monkey
 
 	// Information sur la taille du plateau de jeu
 	int width;
@@ -68,35 +48,26 @@ public class World {
 	double squareWidth;
 	double squareHeight;
 
-	// La vitesse à laquelle s'écoule le jeu
-	double gameSpeed = 1.0;
-
-	// Commande sur laquelle le joueur appuie (sur le clavier)
-	char key;
-
-	// Condition pour activer le mode DEBUG --> activation avec "D"
-	boolean debug = false;
-
-	// Condition pour terminer la partie
-	boolean end = false;
+	double gameSpeed = 1.0;// La vitesse à laquelle s'écoule le jeu
+	char key;// Commande sur laquelle le joueur appuie (sur le clavier)
+	boolean placing; // Est-ce que le joueur est en train de placer une tour ?
+	boolean debug = false;// Condition pour activer le mode DEBUG --> activation avec "D"
+	boolean end = false;// Condition pour terminer la partie
 
 	// compte le nombre de tps (tick per second) et fps (frames per second)
 	int fps;
 	int fpsCount = 0;
 	long tpsTimerStart = System.nanoTime();
 	long fpsTimerStart = System.nanoTime();
-	final long TARGET_TPS = 1000000000 / 60; // on veut avoir 60 tps constant
+	final long TARGET_TPS = 1000000000 / 60; // on veut avoir 60 tps constant (sauf quand le jeu est accéléré)
 
 	/**
 	 * Initialisation du monde en fonction de la largeur, la hauteur et le nombre de
 	 * cases données
 	 * 
-	 * @param width
-	 * @param height
-	 * @param nbSquareX
-	 * @param nbSquareY
-	 * @param startSquareX
-	 * @param startSquareY
+	 * @param level  le niveau à chargé
+	 * @param width  largeur de la taille de la fenêtre
+	 * @param height hauteur de la taille de la fenêtre
 	 */
 	public World(Level level, int width, int height) {
 		loadFont();
@@ -116,6 +87,9 @@ public class World {
 		StdDraw.enableDoubleBuffering();
 	}
 
+	/**
+	 * Charge la police du jeu
+	 */
 	public void loadFont() {
 		try {
 			URL url = StdDraw.class.getResource(Assets.font);
@@ -127,39 +101,11 @@ public class World {
 	}
 
 	/**
-	 * @param x coordonnée x dans la grille
-	 * @param y coordonnée y dans la grille
-	 * @return Position, les coordonée dans l'espace de la fenêtre
-	 * @note coordonnées compris entre 0 et 1
-	 */
-	public Position inFrameSpace(double x, double y) {
-		squareWidth = (double) 1 / nbSquareX;
-		squareHeight = (double) 1 / nbSquareY;
-		return new Position(x * squareWidth + squareWidth / 2, y * squareHeight + squareHeight / 2);
-	}
-
-	/**
-	 * @param x coordonnée x dans la fenêtre
-	 * @param y coordonnée y dans la fenêtre
-	 * @return Position, les coordonée dans l'espace de la grille
-	 * @note coordonnées compris entre 0 et taille max de la grille horizontalement
-	 *       puis verticalement
-	 */
-	public Position inGridSpace(double x, double y) {
-		squareWidth = (double) 1 / nbSquareX;
-		squareHeight = (double) 1 / nbSquareY;
-
-		x = Math.round((x - x % squareWidth) / squareWidth);
-		y = Math.round((y - y % squareHeight) / squareHeight);
-
-		return new Position(x, y);
-	}
-
-	/**
 	 * @return la Tile de la grille qui se trouve à la position de la souris
 	 */
 	public Tile getMouseTile() {
-		Position pos = inGridSpace(StdDraw.mouseX(), StdDraw.mouseY());
+
+		Position pos = new Position(StdDraw.mouseX(), StdDraw.mouseY()).inGridSpace();
 		pos.x = Math.max(0, Math.min(nbSquareX - 1, pos.x)); // Clamp value pour évité IndexOutOfBounds
 		pos.y = Math.max(0, Math.min(nbSquareY - 1, pos.y)); // Clamp value pour évité IndexOutOfBounds
 		return map[(int) pos.x][(int) pos.y];
@@ -208,7 +154,7 @@ public class World {
 	}
 
 	/**
-	 * draw tout les bloons
+	 * Affiche tout les bloons
 	 */
 	public void tickAlerts() {
 		mainAlert.tick();
@@ -268,11 +214,11 @@ public class World {
 
 			for (int y = 0; y < nbSquareY; y++) {
 				for (int x = 0; x < nbSquareX; x++) {
-					Position pos = inFrameSpace(x, y);
+					Position pos = new Position(x, y).inFrameSpace();
 					Color squarreColor = map[x][y].gridColor;
 
 					if (placing) {
-						Position mouseGrid = inGridSpace(StdDraw.mouseX(), StdDraw.mouseY());
+						Position mouseGrid = new Position(StdDraw.mouseX(), StdDraw.mouseY()).inGridSpace();
 						if ((x == mouseGrid.x && y == mouseGrid.y) || (x + 1 == mouseGrid.x && y == mouseGrid.y)
 								|| (x == mouseGrid.x && y + 1 == mouseGrid.y)
 								|| (x - 1 == mouseGrid.x && y == mouseGrid.y)
@@ -307,7 +253,7 @@ public class World {
 		final Color MAIN_TEXT = new Color(250, 250, 250, 255);
 		final double SHADOW_OFFSET = 0.008;
 
-		// ############ DRAWING TOWER PRICES ############
+		// ############ Draw tower prices ############
 
 		font.deriveFont(20f); // font size
 		StdDraw.setFont(font);
@@ -349,7 +295,7 @@ public class World {
 			final double ALIGN_LEFT = 0.02;
 			double mouseX = Math.round(StdDraw.mouseX() * 1000) / (double) 1000;
 			double mouseY = Math.round(StdDraw.mouseY() * 1000) / (double) 1000;
-			Position mouseGrid = inGridSpace(mouseX, mouseY);
+			Position mouseGrid = new Position(mouseX, mouseY).inGridSpace();
 
 			StdDraw.setFont(); // set default font
 			StdDraw.setPenColor(StdDraw.WHITE);
@@ -430,7 +376,7 @@ public class World {
 		if (placed.isPlacableAt(target.x, target.y, map)) {
 			placed.x = target.x;
 			placed.y = target.y;
-			placed.framePos = inFrameSpace(placed.x, placed.y);
+			placed.framePos = new Position(placed.x, placed.y).inFrameSpace();
 			map[target.x][target.y] = placed;
 			ArrayList<Integer[]> toBlock = placed.getOccupiedTiles();
 			for (Integer[] coordinate : toBlock) {
