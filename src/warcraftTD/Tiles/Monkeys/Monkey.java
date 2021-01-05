@@ -42,25 +42,9 @@ public abstract class Monkey extends Tile {
         Bloon ans = null;
         double dist = -1;
         for (Bloon b : bloons) {
-            double x = this.framePos.distInGridSpace(b.pos);
-            if (inRange(b) && (x < dist || dist == -1)) {
-                dist = x;
-                ans = b;
-            }
-        }
-        return ans;
-    }
-
-    /**
-     * @param bloons la liste de tout les ballons
-     * @return le Bloon le plus loins dans le chemin dans le rayon d'attaque
-     */
-    protected Bloon getFurthest(List<Bloon> bloons) {
-        Bloon ans = null;
-        double max = -1;
-        for (Bloon b : bloons) {
-            if (inRange(b) && (x > max || max == -1)) {
-                max = x;
+            double value = this.framePos.distInGridSpace(b.pos);
+            if (inRange(b) && (value < dist || dist == -1)) {
+                dist = value;
                 ans = b;
             }
         }
@@ -75,8 +59,43 @@ public abstract class Monkey extends Tile {
         Bloon ans = null;
         double max = -1;
         for (Bloon b : bloons) {
-            if (inRange(b) && (x > max || max == -1)) {
-                max = x;
+            double value = b.power;
+            if (inRange(b) && (value > max || max == -1)) {
+                max = value;
+                ans = b;
+            }
+        }
+        return ans;
+    }
+
+    /**
+     * @param bloons la liste de tout les ballons
+     * @return le Bloon le plus loins dans le chemin dans le rayon d'attaque
+     */
+    protected Bloon getFirst(List<Bloon> bloons) {
+        Bloon ans = null;
+        double max = -1;
+        for (Bloon b : bloons) {
+            double value = b.traveledDistance;
+            if (inRange(b) && (value > max || max == -1)) {
+                max = value;
+                ans = b;
+            }
+        }
+        return ans;
+    }
+
+    /**
+     * @param bloons la liste de tout les ballons
+     * @return le Bloon le moins loins dans le chemin dans le rayon d'attaque
+     */
+    protected Bloon getLast(List<Bloon> bloons) {
+        Bloon ans = null;
+        double max = -1;
+        for (Bloon b : bloons) {
+            double value = b.traveledDistance;
+            if (inRange(b) && (value < max || max == -1)) {
+                max = value;
                 ans = b;
             }
         }
@@ -120,13 +139,18 @@ public abstract class Monkey extends Tile {
         return list;
     }
 
+    /**
+     * Modifie l'angle de la tour pour l'orienté vers la "target"
+     * 
+     * @param target un Bloon
+     */
     protected void turnToward(Bloon target) {
         rotation = this.framePos.minus(target.pos).angle() + 90;
     }
 
     public void tick(List<Bloon> bloons) {
         if (!bloons.isEmpty() && timer <= 0) {
-            Bloon target = getFurthest(bloons);
+            Bloon target = getFirst(bloons);
             if (target != null) {
                 shootAt(target);
                 timer = cooldown;
@@ -135,6 +159,9 @@ public abstract class Monkey extends Tile {
         timer -= 1;
     }
 
+    /**
+     * Permet au différentes tours de tirer
+     */
     protected abstract void shootAt(Bloon bloons);
 
     public void draw(Tile selectedTile) {
