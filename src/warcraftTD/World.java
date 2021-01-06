@@ -422,6 +422,15 @@ public class World {
 					}
 				}
 				break;
+			case 'm':
+				if (debug) {
+					Alert gainAlert = new Alert(new Position(StdDraw.mouseX(), StdDraw.mouseY()), 100,
+							new Color(225, 232, 21, 255), this.font, 60, 0.05, 20);
+					gainAlert.add("+1000$");
+					alerts.add(gainAlert);
+					money += 1000;
+				}
+				break;
 			case 'b':
 				double mouseX = Math.round(StdDraw.mouseX() * 1000) / (double) 1000;
 				double mouseY = Math.round(StdDraw.mouseY() * 1000) / (double) 1000;

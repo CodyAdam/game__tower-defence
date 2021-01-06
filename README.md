@@ -5,11 +5,9 @@
 ## TODO
 
 -   [ ] Make bloons go under the bridge!!
--   [ ] Remove inside World In grid pos
 -   [ ] Projectiles class
 -   [ ] Améliorations
 -   [ ] Ability to remove towers
--   [ ] commandes de "triche" en mode DEBUG
 
 ## Concept du projet :
 
@@ -60,7 +58,10 @@ En tant que joueur, nous posons des singes sur le terrain dans le but de se déf
 -   [Q] Quitte le jeu
 -   [D] alterne avec le mode DEBUG
 
+##### Triche / débuging :
+
 -   [K] en mode DEBUG uniquement : tue tout les ballons à l'écran
+-   [M] en mode DEBUG uniquement : fait gagner 1000$
 
 ## Bibliographie :
 
