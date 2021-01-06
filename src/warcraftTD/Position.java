@@ -70,11 +70,27 @@ public class Position {
 	 *       puis verticalement
 	 */
 	public Position inGridSpace() {
+		return inGridSpace(true);
+	}
+
+	/**
+	 * @param x coordonnée x dans la fenêtre
+	 * @param y coordonnée y dans la fenêtre
+	 * @return Position, les coordonée dans l'espace de la grille
+	 * @note coordonnées compris entre 0 et taille max de la grille horizontalement
+	 *       puis verticalement
+	 */
+	public Position inGridSpace(boolean round) {
 		double squareWidth = (double) 1 / nbSquareX;
 		double squareHeight = (double) 1 / nbSquareY;
 
-		x = Math.round((x - x % squareWidth) / squareWidth);
-		y = Math.round((y - y % squareHeight) / squareHeight);
+		if (round) {
+			x = Math.round((x - x % squareWidth) / squareWidth);
+			y = Math.round((y - y % squareHeight) / squareHeight);
+		} else {
+			x = x / squareWidth;
+			y = y / squareHeight;
+		}
 
 		return new Position(x, y);
 	}
@@ -120,7 +136,8 @@ public class Position {
 	 * @return rend le vecteur position mais normalisé (norme = 1)
 	 */
 	public Position normalized() {
-		return new Position(x / norm(), y / norm());
+		double norm = norm();
+		return new Position(x / norm, y / norm);
 	}
 
 	/**

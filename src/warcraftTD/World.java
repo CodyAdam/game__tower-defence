@@ -305,11 +305,11 @@ public class World {
 			StdDraw.setPenColor(StdDraw.WHITE);
 			StdDraw.textLeft(ALIGN_LEFT, 0.19, "Debug info : ");
 			StdDraw.textLeft(ALIGN_LEFT, 0.16, "FPS : " + fps);
-			StdDraw.textLeft(ALIGN_LEFT, 0.14, "On Mouse Tile : " + getMouseTile().getClass().getName());
-			StdDraw.textLeft(ALIGN_LEFT, 0.12, "Game Speed : " + this.gameSpeed);
-			StdDraw.textLeft(ALIGN_LEFT, 0.10, "Mouse Pos (In frame space) : " + mouseX + ", " + mouseY);
+			StdDraw.textLeft(ALIGN_LEFT, 0.14, "On mouse Tile : " + getMouseTile().getClass().getName());
+			StdDraw.textLeft(ALIGN_LEFT, 0.12, "Game speed : " + this.gameSpeed);
+			StdDraw.textLeft(ALIGN_LEFT, 0.10, "Mouse pos (in frame space) : " + mouseX + ", " + mouseY);
 			StdDraw.textLeft(ALIGN_LEFT, 0.08,
-					"Mouse Pos (In grid space) : " + (int) mouseGrid.x + ", " + (int) mouseGrid.y);
+					"Mouse Pos (in grid space) : " + (int) mouseGrid.x + ", " + (int) mouseGrid.y);
 			StdDraw.textLeft(ALIGN_LEFT, 0.06, "Number of Bloons : " + bloons.size());
 			StdDraw.textLeft(ALIGN_LEFT, 0.04, "Number of Tower : " + monkeys.size());
 		} else {
@@ -434,7 +434,7 @@ public class World {
 			case 'b':
 				double mouseX = Math.round(StdDraw.mouseX() * 1000) / (double) 1000;
 				double mouseY = Math.round(StdDraw.mouseY() * 1000) / (double) 1000;
-				System.out.println(mouseX + ", " + mouseY + "));");
+				System.out.println("pathing.add(new Position(" + mouseX + ", " + mouseY + "));");
 				break;
 			case 'q':
 				exit();

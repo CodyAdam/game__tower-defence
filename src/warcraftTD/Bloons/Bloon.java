@@ -17,12 +17,12 @@ public abstract class Bloon {
 	public double traveledDistance = 0;// Compteur de distance déplacé pour savoir quelle Bloons est en tête
 	public List<Bloon> spawnOnDeath;// liste des Bloons à faire apparaitre quand le bloon actuel meurt
 	public ArrayDeque<Position> pathing;// Queue de Position qui sont les point par lequel le Bloon doit passer
+	// public double speed = 0.00225; // Vitesse du bloon
 	public double speed = 0.00225; // Vitesse du bloon
-	private final double SPEED_RATIO = ((double) 1240 / 720); // la fenêtre n'étant pas carré la vitesse X n'est pas la
+	private final double SPEED_RATIO = ((double) 720 / 1240); // la fenêtre n'étant pas carré la vitesse X n'est pas la
 																// même que Y donc nous égalisont avevc cette constante
 																// pour que le ballon ce déplace à la même vitesse
-																// horizontalement et
-																// verticalement
+																// horizontalement et verticalement
 	private final double ON_DEATH_RADIUS = 0.04;// Rayons dans lequel les bloons apparaissent
 
 	/**
@@ -63,14 +63,14 @@ public abstract class Bloon {
 
 		// Mesure le vecteur direction
 		Position dir = this.pathing.getFirst().minus(pos);
+		double dirNorm = dir.norm();
+		dir = dir.normalized();
 
 		// Mesure le vecteur vitesse
-		Position speedVec = new Position(dir.normalized().x * speed / SPEED_RATIO, dir.normalized().y * speed);
-
-		double dirNorm = dir.norm();
+		Position speedVec = dir.multi(Math.sqrt(Math.pow(dir.x * SPEED_RATIO, 2) + Math.pow(dir.y, 2))).multi(speed);
 		double speedNorm = speedVec.norm();
 
-		if (dirNorm < speedNorm) { // Le Bloon à atteint le waypoint alors on passe au suivant
+		if (dirNorm < speedNorm) { // Le Bloon à atteint le waypoint alors on passe au waypoint suivant
 			traveledDistance += speedNorm - dirNorm;
 			pos.x = this.pathing.getFirst().x;
 			pos.y = this.pathing.getFirst().y;

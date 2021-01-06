@@ -17,8 +17,8 @@ public class Waves {
     public Waves(List<Position> pathing, List<Bloon> bloons) {
         this.bloonsList = bloons;
         waves = new ArrayList<Wave>();
+        waves.add(new WaveTest2(pathing));
         waves.add(new Wave1(pathing));
-        waves.add(new WaveTesting(pathing));
         waves.add(new WaveTesting(pathing));
         waves.add(new WaveTesting(pathing));
         waves.add(new WaveTesting(pathing));

@@ -6,8 +6,8 @@ import warcraftTD.Levels.Level1;
 public class Main {
 
 	public static void main(String[] args) {
-		final int WIDTH = 1240; // ne pas modifier
-		final int HEIGHT = 720; // ne pas modifier
+		final int WIDTH = 1240; // modifier cette valeur va étirer la fenêtre
+		final int HEIGHT = 720; // modifier cette valeur va étirer la fenêtre
 
 		Level startingLevel = new Level1();
 
