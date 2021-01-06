@@ -59,6 +59,7 @@ public class World {
 	int fpsCount = 0;
 	long tpsTimerStart = System.nanoTime();
 	long fpsTimerStart = System.nanoTime();
+	long tpsCounter = 0;
 	final long TARGET_TPS = 1000000000 / 60; // on veut avoir 60 tps constant (sauf quand le jeu est accéléré)
 
 	/**
@@ -187,14 +188,16 @@ public class World {
 	 * Affiche le chemin que vas suivre les Bloons
 	 */
 	public void drawPath() {
-		StdDraw.setPenColor(new Color(206, 255, 10, 128));
-		StdDraw.setPenRadius(0.01);
-		if (debug) {
+		if (debug || placing) {
+			StdDraw.setPenColor(new Color(66, 55, 55, 200));
 			List<Position> pathing = level.pathing;
-			for (int i = 0; i < pathing.size(); i++) {
-				if (i + 1 < pathing.size()) {
-					StdDraw.line(pathing.get(i).x, pathing.get(i).y, pathing.get(i + 1).x, pathing.get(i + 1).y);
-				}
+			for (int i = 0; i < pathing.size() - 1; i++) {
+				if ((long) (tpsCounter / 9) % pathing.size() == i)
+					StdDraw.setPenRadius(0.015);
+				else
+					StdDraw.setPenRadius(0.01);
+
+				StdDraw.line(pathing.get(i).x, pathing.get(i).y, pathing.get(i + 1).x, pathing.get(i + 1).y);
 			}
 		}
 	}
@@ -301,10 +304,10 @@ public class World {
 			StdDraw.setPenColor(StdDraw.WHITE);
 			StdDraw.textLeft(ALIGN_LEFT, 0.19, "Debug info : ");
 			StdDraw.textLeft(ALIGN_LEFT, 0.16, "FPS : " + fps);
-			StdDraw.textLeft(ALIGN_LEFT, 0.08, "On Mouse Tile : " + getMouseTile().getClass().getName());
-			StdDraw.textLeft(ALIGN_LEFT, 0.14, "Game Speed : " + this.gameSpeed);
-			StdDraw.textLeft(ALIGN_LEFT, 0.12, "Mouse Pos (In frame space) : " + mouseX + ", " + mouseY);
-			StdDraw.textLeft(ALIGN_LEFT, 0.10,
+			StdDraw.textLeft(ALIGN_LEFT, 0.14, "On Mouse Tile : " + getMouseTile().getClass().getName());
+			StdDraw.textLeft(ALIGN_LEFT, 0.12, "Game Speed : " + this.gameSpeed);
+			StdDraw.textLeft(ALIGN_LEFT, 0.10, "Mouse Pos (In frame space) : " + mouseX + ", " + mouseY);
+			StdDraw.textLeft(ALIGN_LEFT, 0.08,
 					"Mouse Pos (In grid space) : " + (int) mouseGrid.x + ", " + (int) mouseGrid.y);
 			StdDraw.textLeft(ALIGN_LEFT, 0.06, "Number of Bloons : " + bloons.size());
 			StdDraw.textLeft(ALIGN_LEFT, 0.04, "Number of Tower : " + monkeys.size());
@@ -347,14 +350,14 @@ public class World {
 	public void drawMonkeys() {
 		Iterator<Monkey> i = monkeys.iterator();
 		Monkey m;
-		if (selectedTile instanceof Monkey)
-			((Monkey) selectedTile).draw(selectedTile);
 		while (i.hasNext()) {
 			m = i.next();
 			if (m == selectedTile)
 				continue;
 			m.draw(selectedTile);
 		}
+		if (selectedTile instanceof Monkey)
+			((Monkey) selectedTile).draw(selectedTile);
 	}
 
 	/**
@@ -417,6 +420,11 @@ public class World {
 						b.hp = 0;
 					}
 				}
+				break;
+			case 'b':
+				double mouseX = Math.round(StdDraw.mouseX() * 1000) / (double) 1000;
+				double mouseY = Math.round(StdDraw.mouseY() * 1000) / (double) 1000;
+				System.out.println(mouseX + ", " + mouseY + "));");
 				break;
 			case 'q':
 				exit();
@@ -502,6 +510,7 @@ public class World {
 
 			while (tpsTimerStart - System.nanoTime() < TARGET_TPS / gameSpeed) {
 				tpsTimerStart += TARGET_TPS / gameSpeed;
+				tpsCounter++;
 				tick();
 			}
 			draw();
