@@ -3,6 +3,7 @@ package warcraftTD.Tiles.Monkeys;
 import warcraftTD.Position;
 import warcraftTD.StdDraw;
 import warcraftTD.Bloons.Bloon;
+import warcraftTD.Projectiles.Projectile;
 import warcraftTD.Tiles.Empty;
 import warcraftTD.Tiles.Tile;
 import java.awt.Color;
@@ -11,7 +12,7 @@ import java.util.List;
 
 public abstract class Monkey extends Tile {
     public String sprite; // le chemin vers l'image de la tour
-    public Position framePos; // Position de la tour dans le référenciel de la fenêtre
+    public Position pos; // Position de la tour dans le référenciel de la fenêtre
     public double range; // Rayon de tir en nombre de tile
     public int cooldown; // le temps de recharchement du tir
     public double rotation; // orientation de la tour
@@ -19,7 +20,7 @@ public abstract class Monkey extends Tile {
 
     public Monkey(int x, int y) {
         super(x, y);
-        this.framePos = new Position(0, 0);
+        this.pos = new Position(0, 0);
         isAvaliable = false;
         gridColor = new Color(200, 100, 0, 140);
         rotation = 0;
@@ -31,18 +32,18 @@ public abstract class Monkey extends Tile {
      * @return est-ce que la "target" est dans le rayon de tir de la tour ?
      */
     protected boolean inRange(Bloon target) {
-        return framePos.distInGridSpace(target.pos) <= range;
+        return pos.distInGridSpace(target.pos) <= range;
     }
 
     /**
-     * @param bloons la liste de tout les ballons
+     * @param bloons la liste de tous les ballons
      * @return le Bloon le plus proche de cet tour dans le rayon d'attaque
      */
     protected Bloon getClosiest(List<Bloon> bloons) {
         Bloon ans = null;
         double dist = -1;
         for (Bloon b : bloons) {
-            double value = this.framePos.distInGridSpace(b.pos);
+            double value = this.pos.distInGridSpace(b.pos);
             if (inRange(b) && b.targetable && (value < dist || dist == -1)) {
                 dist = value;
                 ans = b;
@@ -52,7 +53,7 @@ public abstract class Monkey extends Tile {
     }
 
     /**
-     * @param bloons la liste de tout les ballons
+     * @param bloons la liste de tous les ballons
      * @return le Bloon le plus fort dans le rayon d'attaque
      */
     protected Bloon getStrongest(List<Bloon> bloons) {
@@ -69,7 +70,7 @@ public abstract class Monkey extends Tile {
     }
 
     /**
-     * @param bloons la liste de tout les ballons
+     * @param bloons la liste de tous les ballons
      * @return le Bloon le plus loins dans le chemin dans le rayon d'attaque
      */
     protected Bloon getFirst(List<Bloon> bloons) {
@@ -86,7 +87,7 @@ public abstract class Monkey extends Tile {
     }
 
     /**
-     * @param bloons la liste de tout les ballons
+     * @param bloons la liste de tous les ballons
      * @return le Bloon le moins loins dans le chemin dans le rayon d'attaque
      */
     protected Bloon getLast(List<Bloon> bloons) {
@@ -145,34 +146,35 @@ public abstract class Monkey extends Tile {
      * @param target un Bloon
      */
     protected void turnToward(Bloon target) {
-        rotation = this.framePos.minus(target.pos).angle() + 90;
+        rotation = this.pos.minus(target.pos).angle() + 90;
     }
 
-    public void tick(List<Bloon> bloons) {
+    public void tick(List<Bloon> bloons, List<Projectile> projectiles) {
         if (!bloons.isEmpty() && timer <= 0) {
             Bloon target = getFirst(bloons);
             if (target != null) {
-                shootAt(target);
+                shootAt(target, projectiles);
                 timer = cooldown;
             }
         }
         timer -= 1;
     }
 
-    /**
-     * Permet au différentes tours de tirer
-     */
-    protected abstract void shootAt(Bloon bloons);
-
     public void draw(Tile selectedTile) {
         if (selectedTile == this) { // Affiche le rayon si la tour est sélectionnée
             Position range = new Position(this.range, this.range).inFrameSpace();
             StdDraw.setPenRadius(0.01);
             StdDraw.setPenColor(new Color(252, 3, 65, 110));
-            StdDraw.ellipse(framePos.x, framePos.y, range.x, range.y);
+            StdDraw.ellipse(pos.x, pos.y, range.x, range.y);
             StdDraw.setPenColor(new Color(252, 3, 65, 60));
-            StdDraw.filledEllipse(framePos.x, framePos.y, range.x, range.y);
+            StdDraw.filledEllipse(pos.x, pos.y, range.x, range.y);
         }
-        StdDraw.picture(framePos.x, framePos.y, sprite, rotation);
+        StdDraw.picture(pos.x, pos.y, sprite, rotation);
     }
+
+    /**
+     * Permet au différentes tours de tirer
+     */
+    protected abstract void shootAt(Bloon bloons, List<Projectile> projectiles);
+
 }

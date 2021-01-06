@@ -2,7 +2,7 @@ package warcraftTD;
 
 public class Assets {
 
-    // Répertorie les chemins de tout les assets du jeu
+    // Répertorie les chemins de tous les assets du jeu
 
     public static String test = "/Assets/Sprites/test.png";
 

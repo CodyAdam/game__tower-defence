@@ -130,6 +130,16 @@ public class Position {
 	}
 
 	/**
+	 * additionne deux vecteur position
+	 * 
+	 * @param p la position à additionner à "this"
+	 * @return la position qui correspon à l'addition de (this + p)
+	 */
+	public Position plus(Position p) {
+		return new Position(this.x + p.x, this.y + p.y);
+	}
+
+	/**
 	 * multiplie deux vecteur position
 	 * 
 	 * @param i la valeur par laquelle multiplier "this"
@@ -142,16 +152,24 @@ public class Position {
 	/**
 	 * @return Donne la norme du vecteur position
 	 */
-	public double norm() {
+	public double normInFrameSpace() {
 		Position zero = new Position(0, 0);
 		return distInFrameSpace(zero);
+	}
+
+	/**
+	 * @return Donne la norme du vecteur position
+	 */
+	public double normInGridSpace() {
+		Position zero = new Position(0, 0);
+		return distInGridSpace(zero);
 	}
 
 	/**
 	 * @return rend le vecteur position mais normalisé (norme = 1)
 	 */
 	public Position normalized() {
-		double norm = norm();
+		double norm = normInFrameSpace();
 		return new Position(x / norm, y / norm);
 	}
 

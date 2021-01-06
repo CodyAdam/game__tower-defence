@@ -25,8 +25,8 @@ public class Level1 extends Level {
         pathing.add(new Position(0.313, 0.086));
         pathing.add(new Position(0.466, 0.088));
         pathing.add(new Position(0.485, 0.117));
-        pathing.add(new Position(0.484, 0.154, true)); // UNDER BRIDGE
-        pathing.add(new Position(0.485, 0.447));
+        pathing.add(new Position(0.484, 0.154));
+        pathing.add(new Position(0.485, 0.447, true)); // UNDER BRIDGE
         pathing.add(new Position(0.485, 0.736));
         pathing.add(new Position(0.458, 0.771));
         pathing.add(new Position(0.185, 0.769));
@@ -45,8 +45,8 @@ public class Level1 extends Level {
         pathing.add(new Position(0.589, 0.556));
         pathing.add(new Position(0.589, 0.336));
         pathing.add(new Position(0.56, 0.292));
-        pathing.add(new Position(0.386, 0.292, true));// UNDER BRIDGE
-        pathing.add(new Position(0.2, 0.292));
+        pathing.add(new Position(0.386, 0.292));
+        pathing.add(new Position(0.2, 0.292, true));// UNDER BRIDGE
         pathing.add(new Position(0.177, 0.29));
         pathing.add(new Position(0.156, 0.24));
         pathing.add(new Position(0.156, 0.001));

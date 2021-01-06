@@ -2,6 +2,7 @@ package warcraftTD;
 
 import warcraftTD.Bloons.Bloon;
 import warcraftTD.Levels.Level;
+import warcraftTD.Projectiles.Projectile;
 import warcraftTD.Tiles.Empty;
 import warcraftTD.Tiles.Obstructed;
 import warcraftTD.Tiles.PlayButton;
@@ -23,6 +24,7 @@ public class World {
 
 	List<Bloon> bloons = new ArrayList<Bloon>(); // l'ensemble des monstres
 	List<Monkey> monkeys = new ArrayList<Monkey>(); // l'ensemble des tours
+	List<Projectile> projectiles = new ArrayList<Projectile>(); // l'ensemble des tours
 	List<Alert> alerts = new ArrayList<Alert>(); // l'ensemble des alert (pop-up textuel) utiliser pour les gains
 													// d'argent ou
 													// améliorations de tours
@@ -113,7 +115,7 @@ public class World {
 	}
 
 	/**
-	 * update tout les bloons de la liste sans les draw
+	 * update tous les bloons de la liste sans les draw
 	 */
 	public void tickBloons() {
 		ListIterator<Bloon> i = bloons.listIterator();
@@ -150,12 +152,26 @@ public class World {
 		Monkey m;
 		while (i.hasNext()) {
 			m = i.next();
-			m.tick(bloons);
+			m.tick(bloons, projectiles);
 		}
 	}
 
 	/**
-	 * Affiche tout les bloons
+	 * update tous les projectiles sans les draw
+	 */
+	public void tickProjectiles() {
+		ListIterator<Projectile> i = projectiles.listIterator();
+		Projectile p;
+		while (i.hasNext()) {
+			p = i.next();
+			if (p.remove)
+				i.remove();
+			p.tick(bloons);
+		}
+	}
+
+	/**
+	 * Affiche tous les bloons
 	 */
 	public void tickAlerts() {
 		mainAlert.tick();
@@ -199,10 +215,10 @@ public class World {
 				Position next = pathing.get(i + 1);
 
 				double x = Math.sin((i - (double) tpsCounter) / ANIMATION_DELAY) / 2 + 0.5;
-				if (current.bool)
-					StdDraw.setPenColor(new Color(245, 241, 34, 100 + (int) (x * 155)));
+				if (next.bool)
+					StdDraw.setPenColor(new Color(245, 241, 34, 50 + (int) (x * 205)));
 				else
-					StdDraw.setPenColor(new Color(95, 50, 50, 100 + (int) (x * 155)));
+					StdDraw.setPenColor(new Color(95, 50, 50, 50 + (int) (x * 205)));
 				StdDraw.line(current.x, current.y, next.x, next.y);
 			}
 		}
@@ -308,15 +324,16 @@ public class World {
 
 			StdDraw.setFont(); // set default font
 			StdDraw.setPenColor(StdDraw.WHITE);
-			StdDraw.textLeft(ALIGN_LEFT, 0.19, "Debug info : ");
-			StdDraw.textLeft(ALIGN_LEFT, 0.16, "FPS : " + fps);
-			StdDraw.textLeft(ALIGN_LEFT, 0.14, "On mouse Tile : " + getMouseTile().getClass().getName());
-			StdDraw.textLeft(ALIGN_LEFT, 0.12, "Game speed : " + this.gameSpeed);
-			StdDraw.textLeft(ALIGN_LEFT, 0.10, "Mouse pos (in frame space) : " + mouseX + ", " + mouseY);
-			StdDraw.textLeft(ALIGN_LEFT, 0.08,
+			StdDraw.textLeft(ALIGN_LEFT, 0.21, "Debug info : ");
+			StdDraw.textLeft(ALIGN_LEFT, 0.18, "FPS : " + fps);
+			StdDraw.textLeft(ALIGN_LEFT, 0.16, "On mouse Tile : " + getMouseTile().getClass().getName());
+			StdDraw.textLeft(ALIGN_LEFT, 0.14, "Game speed : " + this.gameSpeed);
+			StdDraw.textLeft(ALIGN_LEFT, 0.12, "Mouse pos (in frame space) : " + mouseX + ", " + mouseY);
+			StdDraw.textLeft(ALIGN_LEFT, 0.10,
 					"Mouse Pos (in grid space) : " + (int) mouseGrid.x + ", " + (int) mouseGrid.y);
-			StdDraw.textLeft(ALIGN_LEFT, 0.06, "Number of Bloons : " + bloons.size());
-			StdDraw.textLeft(ALIGN_LEFT, 0.04, "Number of Tower : " + monkeys.size());
+			StdDraw.textLeft(ALIGN_LEFT, 0.08, "Number of bloons : " + bloons.size());
+			StdDraw.textLeft(ALIGN_LEFT, 0.06, "Number of tower : " + monkeys.size());
+			StdDraw.textLeft(ALIGN_LEFT, 0.04, "Number of projetiles : " + projectiles.size());
 		} else {
 			StdDraw.setPenColor(SHADOW);
 			StdDraw.setFont(); // set default font
@@ -339,7 +356,7 @@ public class World {
 	}
 
 	/**
-	 * draw tout les bloons
+	 * draw tous les bloons
 	 */
 	public void drawBloons() {
 		Iterator<Bloon> i = bloons.iterator();
@@ -347,6 +364,18 @@ public class World {
 		while (i.hasNext()) {
 			m = i.next();
 			m.draw();
+		}
+	}
+
+	/**
+	 * draw tous les projectiles
+	 */
+	public void drawProjectiles() {
+		Iterator<Projectile> i = projectiles.iterator();
+		Projectile p;
+		while (i.hasNext()) {
+			p = i.next();
+			p.draw();
 		}
 	}
 
@@ -389,7 +418,7 @@ public class World {
 		if (placed.isPlacableAt(target.x, target.y, map)) {
 			placed.x = target.x;
 			placed.y = target.y;
-			placed.framePos = new Position(placed.x, placed.y).inFrameSpace();
+			placed.pos = new Position(placed.x, placed.y).inFrameSpace();
 			map[target.x][target.y] = placed;
 			ArrayList<Integer[]> toBlock = placed.getAdjacent(); // liste des cases qui deviendrons occupé
 			for (Integer[] coordinate : toBlock) {
@@ -495,6 +524,7 @@ public class World {
 	public void tick() {
 		waves.update();
 		tickBloons();
+		tickProjectiles();
 		tickMonkeys();
 		tickAlerts();
 	}
@@ -503,14 +533,22 @@ public class World {
 	 * Affiche tout le contenu du jeu
 	 */
 	public void draw() {
+		// arriere plan
 		drawBackground();
 		drawGrid();
 		drawPath();
-		drawBloons();
+
+		// second plan
+		drawProjectiles();
 		drawMonkeys();
+		drawBloons();
+
+		// premier plan
 		drawInfos();
 		drawMouse();
 		drawAlerts();
+
+		// Affiche le tout
 		StdDraw.show();
 	}
 

@@ -1,5 +1,6 @@
 package warcraftTD.Bloons;
 
+import java.awt.Color;
 import java.util.ArrayDeque;
 import java.util.List;
 
@@ -18,7 +19,7 @@ public abstract class Bloon {
 	public double traveledDistance = 0;// Compteur de distance déplacé pour savoir quelle Bloons est en tête
 	public List<Bloon> spawnOnDeath;// liste des Bloons à faire apparaitre quand le bloon actuel meurt
 	public ArrayDeque<Position> pathing;// Queue de Position qui sont les point par lequel le Bloon doit passer
-	// public double speed = 0.00225; // Vitesse du bloon
+	public double hitboxRadius = 0.5; // rayon de hitbox en grid space
 	public double speed = 0.00225; // Vitesse du bloon
 	private final double SPEED_RATIO = ((double) 720 / 1240); // la fenêtre n'étant pas carré la vitesse X n'est pas la
 																// même que Y donc nous égalisont avevc cette constante
@@ -57,20 +58,14 @@ public abstract class Bloon {
 	 * prochaine position.
 	 */
 	public void move() {
-		if (this.pathing.isEmpty()) {
-			reached = true;
-			return;
-		}
-		targetable = !pathing.getFirst().bool; // Under a bridge ?
-
 		// Mesure le vecteur direction
 		Position dir = pathing.getFirst().minus(pos);
-		double dirNorm = dir.norm();
+		double dirNorm = dir.normInFrameSpace();
 		dir = dir.normalized();
 
 		// Mesure le vecteur vitesse
 		Position speedVec = dir.multi(Math.sqrt(Math.pow(dir.x * SPEED_RATIO, 2) + Math.pow(dir.y, 2))).multi(speed);
-		double speedNorm = speedVec.norm();
+		double speedNorm = speedVec.normInFrameSpace();
 
 		if (dirNorm < speedNorm) { // Le Bloon à atteint le waypoint alors on passe au waypoint suivant
 			traveledDistance += speedNorm - dirNorm;
@@ -79,24 +74,41 @@ public abstract class Bloon {
 			pathing.removeFirst();
 		} else {
 			traveledDistance += speedNorm;
-			pos.x += speedVec.x;
-			pos.y += speedVec.y;
+			pos = pos.plus(speedVec);
 		}
-	}
-
-	/**
-	 * Affiche un monstre qui change de couleur au cours du temps Le monstre est
-	 * représenté par un cercle de couleur bleue ou grise
-	 */
-	public void draw() {
-		if (targetable)
-			StdDraw.picture(this.pos.x, this.pos.y, this.sprite);
 	}
 
 	/**
 	 * À chaque tick déplace puis affiche le bloons
 	 */
 	public void tick() {
+		if (pathing.isEmpty()) {
+			reached = true;
+			return;
+		}
+		targetable = !pathing.getFirst().bool; // Under a bridge ?
 		move();
 	}
+
+	/**
+	 * Affiche un monstre, et si le mode debug est actif, affiche la hitbox
+	 */
+	public void draw(boolean debug) {
+		if (targetable) {
+			StdDraw.picture(pos.x, pos.y, sprite);
+		}
+		if (debug) { // Draw hitbox on debug
+			Position range = new Position(hitboxRadius, hitboxRadius).inFrameSpace();
+			StdDraw.setPenRadius(0.005);
+			StdDraw.setPenColor(new Color(252, 3, 65, 110));
+			StdDraw.ellipse(pos.x, pos.y, range.x, range.y);
+			StdDraw.setPenColor(new Color(252, 3, 65, 60));
+			StdDraw.filledEllipse(pos.x, pos.y, range.x, range.y);
+		}
+	}
+
+	public void draw() {
+		draw(false);
+	}
+
 }
