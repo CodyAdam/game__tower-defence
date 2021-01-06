@@ -189,14 +189,14 @@ public class World {
 	 */
 	public void drawPath() {
 		if (debug || placing) {
-			final double PATH_MAX_RADIUS = 0.025;
-			final int ANIMATION_DELAY = 7;
+			final double PATH_RADIUS = 0.01;
+			final int ANIMATION_DELAY = 10;
 
-			StdDraw.setPenColor(new Color(66, 55, 55, 200));
 			List<Position> pathing = level.pathing;
+			StdDraw.setPenRadius(PATH_RADIUS);
 			for (int i = 0; i < pathing.size() - 1; i++) {
-				double x = Math.sin((double) tpsCounter / ANIMATION_DELAY) / 2 + 1;
-				StdDraw.setPenRadius(x * PATH_MAX_RADIUS);
+				double x = Math.sin((i - (double) tpsCounter) / ANIMATION_DELAY) / 2 + 0.5;
+				StdDraw.setPenColor(new Color(95, 50, 50, 100 + (int) (x * 155)));
 
 				StdDraw.line(pathing.get(i).x, pathing.get(i).y, pathing.get(i + 1).x, pathing.get(i + 1).y);
 			}
