@@ -21,6 +21,7 @@ public abstract class Bloon {
 	public ArrayDeque<Position> pathing;// Queue de Position qui sont les point par lequel le Bloon doit passer
 	public double hitboxRadius = 0.5; // rayon de hitbox en grid space
 	public double speed = 0.00225; // Vitesse du bloon
+	public int money = 1; // Vitesse du bloon
 	private final double SPEED_RATIO = ((double) 720 / 1240); // la fenêtre n'étant pas carré la vitesse X n'est pas la
 																// même que Y donc nous égalisont avevc cette constante
 																// pour que le ballon ce déplace à la même vitesse

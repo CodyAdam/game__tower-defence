@@ -132,7 +132,7 @@ public class World {
 				Alert gainAlert = new Alert(b.pos, 100, new Color(225, 232, 21, 255), this.font, 60, 0.05, 20);
 				gainAlert.add("+" + b.power + "$");
 				alerts.add(gainAlert);
-				money += b.power;
+				money += b.money;
 
 				// Supprime le bloon
 				i.remove();

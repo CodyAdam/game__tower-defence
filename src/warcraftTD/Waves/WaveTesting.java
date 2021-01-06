@@ -7,7 +7,7 @@ import warcraftTD.Bloons.*;
 
 public class WaveTesting extends Wave {
     public WaveTesting(List<Position> pathing) {
-        super("Wave Test");
+        super("Wave for testing all bloons");
         queue.add(new Pair(30, new RedBloon(pathing)));
         queue.add(new Pair(30, new BlueBloon(pathing)));
         queue.add(new Pair(30, new GreenBloon(pathing)));

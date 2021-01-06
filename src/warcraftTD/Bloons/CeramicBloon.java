@@ -14,6 +14,7 @@ public class CeramicBloon extends Bloon {
 		this.speed *= 2.5;
 		this.hp = 10;
 		this.power = 95;
+		this.money = 10;
 		this.sprite = Assets.ceramicBloon0;
 		this.spawnOnDeath = new ArrayList<Bloon>();
 

@@ -161,7 +161,7 @@ public abstract class Monkey extends Tile {
     }
 
     public void draw(Tile selectedTile) {
-        if (selectedTile == this) { // Affiche le rayon si la tour est sélectionnée
+        if (selectedTile == this) { // Affiche le rayon si la tour est sélectionnée ou en train d'etre pose
             Position range = new Position(this.range, this.range).inFrameSpace();
             StdDraw.setPenRadius(0.01);
             StdDraw.setPenColor(new Color(252, 3, 65, 110));
