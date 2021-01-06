@@ -185,7 +185,7 @@ public class World {
 	}
 
 	/**
-	 * Affiche le chemin que vas suivre les Bloons
+	 * Affiche le chemin que vas suivre les Bloons avec une petite animation
 	 */
 	public void drawPath() {
 		if (debug || placing) {
