@@ -13,7 +13,7 @@ public class GreenBloon extends Bloon {
 		this.speed *= 1.8;
 		this.hp = 1;
 		this.power = 1;
-		this.imgPath = Assets.greenBloon;
+		this.sprite = Assets.greenBloon;
 		this.spawnOnDeath = new ArrayList<Bloon>();
 
 		this.spawnOnDeath.add(new BlueBloon(pathing));

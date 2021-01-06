@@ -43,7 +43,7 @@ public abstract class Monkey extends Tile {
         double dist = -1;
         for (Bloon b : bloons) {
             double value = this.framePos.distInGridSpace(b.pos);
-            if (inRange(b) && (value < dist || dist == -1)) {
+            if (inRange(b) && b.targetable && (value < dist || dist == -1)) {
                 dist = value;
                 ans = b;
             }
@@ -60,7 +60,7 @@ public abstract class Monkey extends Tile {
         double max = -1;
         for (Bloon b : bloons) {
             double value = b.power;
-            if (inRange(b) && (value > max || max == -1)) {
+            if (inRange(b) && b.targetable && (value > max || max == -1)) {
                 max = value;
                 ans = b;
             }
@@ -77,7 +77,7 @@ public abstract class Monkey extends Tile {
         double max = -1;
         for (Bloon b : bloons) {
             double value = b.traveledDistance;
-            if (inRange(b) && (value > max || max == -1)) {
+            if (inRange(b) && b.targetable && (value > max || max == -1)) {
                 max = value;
                 ans = b;
             }
@@ -94,7 +94,7 @@ public abstract class Monkey extends Tile {
         double max = -1;
         for (Bloon b : bloons) {
             double value = b.traveledDistance;
-            if (inRange(b) && (value < max || max == -1)) {
+            if (inRange(b) && b.targetable && (value < max || max == -1)) {
                 max = value;
                 ans = b;
             }

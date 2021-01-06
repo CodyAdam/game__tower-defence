@@ -14,7 +14,7 @@ public class CeramicBloon extends Bloon {
 		this.speed *= 2.5;
 		this.hp = 10;
 		this.power = 95;
-		this.imgPath = Assets.ceramicBloon0;
+		this.sprite = Assets.ceramicBloon0;
 		this.spawnOnDeath = new ArrayList<Bloon>();
 
 		this.spawnOnDeath.add(new RaimbowBloon(pathing));
@@ -23,18 +23,20 @@ public class CeramicBloon extends Bloon {
 
 	@Override
 	public void draw() {
-		String image;
-		if (hp > 8)
-			image = imgPath;
-		else if (hp > 6)
-			image = Assets.ceramicBloon1;
-		else if (hp > 4)
-			image = Assets.ceramicBloon2;
-		else if (hp > 2)
-			image = Assets.ceramicBloon3;
-		else
-			image = Assets.ceramicBloon4;
+		if (targetable) { // affiche un Bloon plus ou moins dégradé en fonction de ses points de vie
+			String image;
+			if (hp > 8)
+				image = sprite;
+			else if (hp > 6)
+				image = Assets.ceramicBloon1;
+			else if (hp > 4)
+				image = Assets.ceramicBloon2;
+			else if (hp > 2)
+				image = Assets.ceramicBloon3;
+			else
+				image = Assets.ceramicBloon4;
 
-		StdDraw.picture(this.pos.x, this.pos.y, image);
+			StdDraw.picture(this.pos.x, this.pos.y, image);
+		}
 	}
 }

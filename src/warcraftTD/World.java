@@ -195,10 +195,15 @@ public class World {
 			List<Position> pathing = level.pathing;
 			StdDraw.setPenRadius(PATH_RADIUS);
 			for (int i = 0; i < pathing.size() - 1; i++) {
-				double x = Math.sin((i - (double) tpsCounter) / ANIMATION_DELAY) / 2 + 0.5;
-				StdDraw.setPenColor(new Color(95, 50, 50, 100 + (int) (x * 155)));
+				Position current = pathing.get(i);
+				Position next = pathing.get(i + 1);
 
-				StdDraw.line(pathing.get(i).x, pathing.get(i).y, pathing.get(i + 1).x, pathing.get(i + 1).y);
+				double x = Math.sin((i - (double) tpsCounter) / ANIMATION_DELAY) / 2 + 0.5;
+				if (current.bool)
+					StdDraw.setPenColor(new Color(245, 241, 34, 100 + (int) (x * 155)));
+				else
+					StdDraw.setPenColor(new Color(95, 50, 50, 100 + (int) (x * 155)));
+				StdDraw.line(current.x, current.y, next.x, next.y);
 			}
 		}
 	}

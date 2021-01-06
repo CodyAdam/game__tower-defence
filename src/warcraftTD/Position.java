@@ -3,6 +3,7 @@ package warcraftTD;
 public class Position {
 	public double x;
 	public double y;
+	public boolean bool;
 
 	private final int nbSquareX = 31;
 	private final int nbSquareY = 18;
@@ -17,6 +18,20 @@ public class Position {
 	public Position(double x, double y) {
 		this.x = x;
 		this.y = y;
+		this.bool = false;
+	}
+
+	/**
+	 * Classe qui permet d'avoir la position sur l'axe des x et des y des monstres
+	 * et des tours
+	 * 
+	 * @param x
+	 * @param y
+	 */
+	public Position(double x, double y, boolean bool) {
+		this.x = x;
+		this.y = y;
+		this.bool = bool;
 	}
 
 	public Position(Position p) {

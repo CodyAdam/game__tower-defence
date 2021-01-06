@@ -12,8 +12,9 @@ public abstract class Bloon {
 	public int hp; // Points de vie du ballon (<1 == mort)
 	public int power; // Nombre de points de vie que le joueur perd quand le Bloon arrive à la fin du
 						// chemin et aussi le nombre d'argent gagner quand il éclate
-	public String imgPath; // Chemin vers l'image du ballons
+	public String sprite; // Chemin vers l'image du ballons
 	public boolean reached = false;// Boolean pour savoir si le bloon à atteint le "chateau" du joueur
+	public boolean targetable = true;// Boolean pour savoir si le bloon à atteint le "chateau" du joueur
 	public double traveledDistance = 0;// Compteur de distance déplacé pour savoir quelle Bloons est en tête
 	public List<Bloon> spawnOnDeath;// liste des Bloons à faire apparaitre quand le bloon actuel meurt
 	public ArrayDeque<Position> pathing;// Queue de Position qui sont les point par lequel le Bloon doit passer
@@ -60,9 +61,10 @@ public abstract class Bloon {
 			reached = true;
 			return;
 		}
+		targetable = !pathing.getFirst().bool; // Under a bridge ?
 
 		// Mesure le vecteur direction
-		Position dir = this.pathing.getFirst().minus(pos);
+		Position dir = pathing.getFirst().minus(pos);
 		double dirNorm = dir.norm();
 		dir = dir.normalized();
 
@@ -72,9 +74,9 @@ public abstract class Bloon {
 
 		if (dirNorm < speedNorm) { // Le Bloon à atteint le waypoint alors on passe au waypoint suivant
 			traveledDistance += speedNorm - dirNorm;
-			pos.x = this.pathing.getFirst().x;
-			pos.y = this.pathing.getFirst().y;
-			this.pathing.removeFirst();
+			pos.x = pathing.getFirst().x;
+			pos.y = pathing.getFirst().y;
+			pathing.removeFirst();
 		} else {
 			traveledDistance += speedNorm;
 			pos.x += speedVec.x;
@@ -87,7 +89,8 @@ public abstract class Bloon {
 	 * représenté par un cercle de couleur bleue ou grise
 	 */
 	public void draw() {
-		StdDraw.picture(this.pos.x, this.pos.y, this.imgPath);
+		if (targetable)
+			StdDraw.picture(this.pos.x, this.pos.y, this.sprite);
 	}
 
 	/**

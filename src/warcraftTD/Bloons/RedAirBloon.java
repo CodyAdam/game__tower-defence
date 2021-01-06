@@ -14,7 +14,7 @@ public class RedAirBloon extends Bloon {
 		this.speed *= 0.25;
 		this.hp = 700;
 		this.power = 3164;
-		this.imgPath = Assets.redAirBloon;
+		this.sprite = Assets.redAirBloon;
 		this.spawnOnDeath = new ArrayList<Bloon>();
 
 		this.spawnOnDeath.add(new BlueAirBloon(pathing));
@@ -25,9 +25,9 @@ public class RedAirBloon extends Bloon {
 
 	@Override
 	public void draw() { // Turn the air balloon toward the next chackpoint and draw it
-		if (!this.pathing.isEmpty()) {
+		if (!this.pathing.isEmpty() && targetable) {
 			Position dir = this.pathing.getFirst().minus(this.pos);
-			StdDraw.picture(this.pos.x, this.pos.y, this.imgPath, dir.angle() - 90);
+			StdDraw.picture(this.pos.x, this.pos.y, this.sprite, dir.angle() - 90);
 		}
 	}
 }
