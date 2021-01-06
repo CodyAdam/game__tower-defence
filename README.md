@@ -4,10 +4,12 @@
 
 ## TODO
 
--   [ ] Make bloons go under the bridge!!
--   [ ] Projectiles class
 -   [ ] Améliorations
 -   [ ] Ability to remove towers
+-   [ ] Ecran de defaite
+-   [ ] Ecran de changement de Level
+-   [ ] Level2
+-   [ ] Level generer aleatoirement
 
 ## Concept du projet :
 
