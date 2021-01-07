@@ -55,6 +55,7 @@ public class World {
 	boolean placing; // Est-ce que le joueur est en train de placer une tour ?
 	boolean debug = false;// Condition pour activer le mode DEBUG --> activation avec "D"
 	boolean end = false;// Condition pour terminer la partie
+	boolean clicking = false; // Evite le click à répétition quand on reste appuyer
 
 	// compte le nombre de tps (tick per second) et fps (frames per second)
 	int fps;
@@ -130,7 +131,7 @@ public class World {
 				// Affiche une petite alert textuel pour montré le nombre d'argent gagné en
 				// tuant le bloon
 				Alert gainAlert = new Alert(b.pos, 100, new Color(225, 232, 21, 255), this.font, 60, 0.05, 20);
-				gainAlert.add("+" + b.power + "$");
+				gainAlert.add("+" + b.money + "$");
 				alerts.add(gainAlert);
 				money += b.money;
 
@@ -332,7 +333,7 @@ public class World {
 			StdDraw.textLeft(ALIGN_LEFT, 0.10,
 					"Mouse Pos (in grid space) : " + (int) mouseGrid.x + ", " + (int) mouseGrid.y);
 			StdDraw.textLeft(ALIGN_LEFT, 0.08, "Number of bloons : " + bloons.size());
-			StdDraw.textLeft(ALIGN_LEFT, 0.06, "Number of tower : " + monkeys.size());
+			StdDraw.textLeft(ALIGN_LEFT, 0.06, "Number of towers : " + monkeys.size());
 			StdDraw.textLeft(ALIGN_LEFT, 0.04, "Number of projetiles : " + projectiles.size());
 		} else {
 			StdDraw.setPenColor(SHADOW);
@@ -492,28 +493,29 @@ public class World {
 	 * @param y
 	 */
 	public void mouseClick(double x, double y) {
-		Tile mouseTile = getMouseTile();
-		if (placing) {
-			placeMonkey(mouseTile);
-		}
-		if (mouseTile == selectedTile)
-			return;
-		selectedTile = mouseTile;
-		if (selectedTile instanceof BuyTile)
-			if (money < ((BuyTile) selectedTile).cost) {
-				mainAlert.add("You don't have enough money to purchase this!");
-				selectedTile = null;
-			} else
-				placing = true;
-		else if (selectedTile instanceof PlayButton) {
-			if (waves.isRunning())
-				mainAlert.add("You can't start another wave now!");
-			else {
-				waves.startNextWave();
-				mainAlert.add(waves.getName() + " has started!");
+		if (clicking == false) {
+			clicking = true;
+			Tile mouseTile = getMouseTile();
+			if (placing) {
+				placeMonkey(mouseTile);
 			}
-		} else if (selectedTile instanceof SpeedupButton) {
-			gameSpeed = gameSpeed == 1 ? 2.5 : 1;
+			selectedTile = mouseTile;
+			if (selectedTile instanceof BuyTile)
+				if (money < ((BuyTile) selectedTile).cost) {
+					mainAlert.add("You don't have enough money to purchase this!");
+					selectedTile = null;
+				} else
+					placing = true;
+			else if (selectedTile instanceof PlayButton) {
+				if (waves.isRunning())
+					mainAlert.add("You can't start another wave now!");
+				else {
+					waves.startNextWave();
+					mainAlert.add(waves.getName() + " has started!");
+				}
+			} else if (selectedTile instanceof SpeedupButton) {
+				gameSpeed = gameSpeed == 1 ? 2.5 : 1;
+			}
 		}
 	}
 
@@ -571,9 +573,10 @@ public class World {
 			if (StdDraw.hasNextKeyTyped()) {
 				keyPress(StdDraw.nextKeyTyped());
 			}
-			if (StdDraw.isMousePressed()) {
+			if (StdDraw.isMousePressed())
 				mouseClick(StdDraw.mouseX(), StdDraw.mouseY());
-			}
+			else
+				clicking = false;
 
 			// FPS Counter
 			if (debug) {
