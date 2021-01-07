@@ -8,7 +8,10 @@ import warcraftTD.Tiles.Empty;
 import warcraftTD.Tiles.Tile;
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+
+import javax.swing.text.html.HTML.Tag;
 
 public abstract class Monkey extends Tile {
     public String sprite; // le chemin vers l'image de la tour
@@ -17,6 +20,8 @@ public abstract class Monkey extends Tile {
     public int cooldown; // le temps de recharchement du tir
     public double rotation; // orientation de la tour
     protected int timer; // timer pour savoir quand tirer
+    protected String targetingMode;
+    private List<String> targetingModes;
 
     // système d'amélioration de la tour
     public int leftUpgrade = 0;
@@ -47,6 +52,12 @@ public abstract class Monkey extends Tile {
         timer = 0;
         leftUpgrades = new ArrayList<Upgrade>();
         rightUpgrades = new ArrayList<Upgrade>();
+        targetingModes = new LinkedList<String>();
+        targetingModes.add("First");
+        targetingModes.add("Last");
+        targetingModes.add("Strongest");
+        targetingModes.add("Closest");
+        targetingMode = targetingModes.get(0);
     }
 
     public Upgrade getNextUpgrade(boolean isLeft) {
@@ -55,6 +66,23 @@ public abstract class Monkey extends Tile {
         if (index < upgradeList.size())
             return upgradeList.get(index);
         return null;
+    }
+
+    public String getTargetingMode() {
+        return targetingMode;
+    }
+
+    public void prevTargetingMode() {
+        int i = targetingModes.indexOf(targetingMode) - 1 % targetingModes.size();
+        if (i < 0)
+            i += targetingModes.size();
+        targetingMode = targetingModes.get(i);
+    }
+
+    //
+    public void nextTargetingMode() {
+        int i = targetingModes.indexOf(targetingMode) + 1 % targetingModes.size();
+        targetingMode = targetingModes.get(i);
     }
 
     public void upgrade(boolean isLeft) {
@@ -76,7 +104,7 @@ public abstract class Monkey extends Tile {
      * @param bloons la liste de tous les ballons
      * @return le Bloon le plus proche de cet tour dans le rayon d'attaque
      */
-    protected Bloon getClosiest(List<Bloon> bloons) {
+    protected Bloon getClosest(List<Bloon> bloons) {
         Bloon ans = null;
         double dist = -1;
         for (Bloon b : bloons) {

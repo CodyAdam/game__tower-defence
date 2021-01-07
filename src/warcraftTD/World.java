@@ -280,7 +280,7 @@ public class World {
 		final Color CANT_UPGRADE = CANT_BUY;
 		final Color SHADOW = new Color(0, 0, 0, 150);
 		final Color BORDER = new Color(51, 46, 43, 255);
-		final Color MAIN_TEXT = new Color(250, 250, 250, 255);
+		final Color MAIN_TEXT = CAN_UPGRADE;
 		final Color YELLOW = new Color(255, 74, 59, 255);
 		final double SHADOW_OFFSET = 0.008;
 
@@ -370,6 +370,19 @@ public class World {
 				StdDraw.text(alignX, 0.914, "Already");
 				StdDraw.text(alignX, 0.89, "max!");
 			}
+
+			// DRAW TARGETING INDICATOR
+			alignX = 0.904;
+			alignY = 0.79;
+			font = font.deriveFont(16f); // font size
+			StdDraw.setFont(font);
+			StdDraw.setPenColor(SHADOW);
+			StdDraw.text(alignX, alignY + 0.025 - SHADOW_OFFSET / 4, "Targeting :");
+			StdDraw.text(alignX, alignY - SHADOW_OFFSET / 4, m.getTargetingMode());
+			StdDraw.setPenColor(YELLOW);
+			StdDraw.text(alignX, alignY + 0.025, "Targeting :");
+			StdDraw.setPenColor(MAIN_TEXT);
+			StdDraw.text(alignX, alignY, m.getTargetingMode());
 		}
 
 		// ############ Drawing wave, life and money counter with shadow ############
