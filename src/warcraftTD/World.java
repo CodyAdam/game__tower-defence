@@ -21,6 +21,7 @@ import warcraftTD.Waves.Waves;
 import java.awt.Color;
 import java.awt.Font;
 import java.net.URL;
+import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.ArrayList;
@@ -39,8 +40,8 @@ public class World {
 	Waves waves;// Le gestionnaire de vagues
 	Level level;// Le niveau actuel
 
-	int life = 200;// Nombre de points de vie du joueur
-	int money = 2200;// Quantité d'argent
+	int life = 150;// Nombre de points de vie du joueur
+	int money = 650;// Quantité d'argent
 	Font font;// La police du texte
 
 	// grille qui determine qu'est-ce que qu'il y a sur la carte
@@ -289,11 +290,36 @@ public class World {
 		final Color YELLOW = new Color(255, 74, 59, 255);
 		final double SHADOW_OFFSET = 0.008;
 
+		// ############ Draw play button ############
+
+		if (!waves.isRunning()) {
+			StdDraw.picture(0.764, 0.071d, Assets.buttonPlay);
+		}
+
+		// ############ Draw speedup button ############
+
+		StdDraw.picture(0.764, 0.929, gameSpeed == 1 ? Assets.buttonSpeedup0 : Assets.buttonSpeedup1);
+
 		// ############ Draw tower prices ############
 
 		font = font.deriveFont(20f); // font size
 		StdDraw.setFont(font);
 		int cost;
+
+		// ############ Drawing wave, life and money counter with shadow ############
+
+		font = font.deriveFont(32f); // font size
+
+		StdDraw.setFont(font);
+		StdDraw.picture(0.03, 0.876, Assets.moneyLife);
+		StdDraw.setPenColor(SHADOW);
+		StdDraw.textLeft(0.017, 0.966 - SHADOW_OFFSET, waves.getName());
+		StdDraw.textLeft(0.054, 0.906 - SHADOW_OFFSET, money + "");
+		StdDraw.textLeft(0.054, 0.846 - SHADOW_OFFSET, life + "");
+		StdDraw.setPenColor(MAIN_TEXT);
+		StdDraw.textLeft(0.017, 0.966, waves.getName());
+		StdDraw.textLeft(0.054, 0.906, money + "");
+		StdDraw.textLeft(0.054, 0.846, life + "");
 
 		// for the Dart monkey tower
 		cost = ((BuyTile) map[26][12]).cost;
@@ -307,20 +333,41 @@ public class World {
 		if (selectedTile instanceof Monkey) {
 			Monkey m = (Monkey) selectedTile;
 			StdDraw.setPenColor(SHADOW);
-			StdDraw.text(0.905, 0.956 - SHADOW_OFFSET / 3, "UPGRADES");
+			StdDraw.text(0.905, 0.957 - SHADOW_OFFSET / 3, "UPGRADES");
 			StdDraw.setPenColor(YELLOW);
-			StdDraw.text(0.905, 0.956, "UPGRADES");
-			font = font.deriveFont(16f); // font size
-			StdDraw.setFont(font);
+			StdDraw.text(0.905, 0.957, "UPGRADES");
 
-			// LEFT UPGRADE
 			double maxW = 0.05;
 			double h = 0.006;
 			double w = (double) maxW / m.leftUpgrades.size();
-			double alignX = 0.865;
-			double alignY = 0.870;
+			double alignY = 0.8725;
 
-			StdDraw.picture(alignX, alignY + 0.02, Assets.upgradeButton);
+			Tile tileOnMouse = getMouseTile();
+			Upgrade upgrade = m.getNextUpgrade(true);
+
+			font = font.deriveFont(15f); // font size
+			StdDraw.setFont(font);
+			if (tileOnMouse instanceof UpgradeLeft && upgrade != null) {
+				StdDraw.setPenColor(SHADOW);
+				StdDraw.textRight(0.795, StdDraw.mouseY() - SHADOW_OFFSET / 3, upgrade.description);
+				StdDraw.textRight(0.795, StdDraw.mouseY() - SHADOW_OFFSET / 3 - 0.025, upgrade.description2);
+				StdDraw.setPenColor(MAIN_TEXT);
+				StdDraw.textRight(0.795, StdDraw.mouseY(), upgrade.description);
+				StdDraw.textRight(0.795, StdDraw.mouseY() - 0.025, upgrade.description2);
+			} else if (tileOnMouse instanceof UpgradeRight && m.getNextUpgrade(false) != null) {
+				StdDraw.setPenColor(BORDER);
+				StdDraw.textRight(0.795, StdDraw.mouseY() - SHADOW_OFFSET / 3, m.getNextUpgrade(false).description);
+				StdDraw.textRight(0.795, StdDraw.mouseY() - SHADOW_OFFSET / 3 - 0.025,
+						m.getNextUpgrade(false).description2);
+				StdDraw.setPenColor(MAIN_TEXT);
+				StdDraw.textRight(0.795, StdDraw.mouseY(), m.getNextUpgrade(false).description);
+				StdDraw.textRight(0.795, StdDraw.mouseY() - 0.025, m.getNextUpgrade(false).description2);
+			}
+			font = font.deriveFont(16f); // font size
+			StdDraw.setFont(font);
+			// LEFT UPGRADE
+			double alignX = 0.865;
+			StdDraw.picture(alignX, alignY + 0.016, Assets.upgradeButton);
 			for (int i = 0; i < m.leftUpgrades.size(); i++) {
 				StdDraw.setPenColor(i < m.leftUpgrade ? CAN_BUY : CANT_BUY);
 				StdDraw.filledRectangle(alignX - (maxW / m.leftUpgrades.size()) + i * w, alignY - 0.02,
@@ -329,7 +376,7 @@ public class World {
 				StdDraw.setPenRadius(0.004);
 				StdDraw.rectangle(alignX - (maxW / m.leftUpgrades.size()) + i * w, alignY - 0.02, (w / 2) - 0.0005, h);
 			}
-			Upgrade upgrade = m.getNextUpgrade(true);
+
 			if (upgrade != null) {
 				StdDraw.setPenColor(SHADOW);
 				StdDraw.text(alignX, alignY + 0.05 - SHADOW_OFFSET / 3, upgrade.name);
@@ -347,11 +394,11 @@ public class World {
 				StdDraw.text(alignX, 0.914, "Already");
 				StdDraw.text(alignX, 0.89, "max!");
 			}
-			// RIGHT UPGRADE
-			upgrade = m.getNextUpgrade(false);
-			alignX = 0.940;
 
-			StdDraw.picture(alignX, alignY + 0.02, Assets.upgradeButton);
+			// RIGHT UPGRADE
+			alignX = 0.940;
+			upgrade = m.getNextUpgrade(false);
+			StdDraw.picture(alignX, alignY + 0.016, Assets.upgradeButton);
 			for (int i = 0; i < m.rightUpgrades.size(); i++) {
 				StdDraw.setPenColor(i < m.rightUpgrade ? CAN_BUY : CANT_BUY);
 				StdDraw.filledRectangle(alignX - (maxW / m.rightUpgrades.size()) + i * w, alignY - 0.02,
@@ -383,7 +430,7 @@ public class World {
 			alignY = 0.79;
 			StdDraw.picture(alignX - 0.052, alignY + 0.012, Assets.leftArrow);
 			StdDraw.picture(alignX + 0.052, alignY + 0.012, Assets.rightArrow);
-			font = font.deriveFont(17f); // font size
+			font = font.deriveFont(19f); // font size
 			StdDraw.setFont(font);
 			StdDraw.setPenColor(SHADOW);
 			StdDraw.text(alignX, alignY + 0.025 - SHADOW_OFFSET / 4, "TARGET");
@@ -396,31 +443,6 @@ public class World {
 			// DRAW REMOVE TOWER BUTTON
 			StdDraw.picture(0.985, 0.972, Assets.removeButton);
 		}
-
-		// ############ Drawing wave, life and money counter with shadow ############
-
-		font = font.deriveFont(32f); // font size
-
-		StdDraw.setFont(font);
-		StdDraw.picture(0.03, 0.876, Assets.moneyLife);
-		StdDraw.setPenColor(SHADOW);
-		StdDraw.textLeft(0.017, 0.966 - SHADOW_OFFSET, waves.getName());
-		StdDraw.textLeft(0.054, 0.906 - SHADOW_OFFSET, money + "");
-		StdDraw.textLeft(0.054, 0.846 - SHADOW_OFFSET, life + "");
-		StdDraw.setPenColor(MAIN_TEXT);
-		StdDraw.textLeft(0.017, 0.966, waves.getName());
-		StdDraw.textLeft(0.054, 0.906, money + "");
-		StdDraw.textLeft(0.054, 0.846, life + "");
-
-		// ############ Draw play button ############
-
-		if (!waves.isRunning()) {
-			StdDraw.picture(0.764, 0.071d, Assets.buttonPlay);
-		}
-
-		// ############ Draw speedup button ############
-
-		StdDraw.picture(0.764, 0.929, gameSpeed == 1 ? Assets.buttonSpeedup0 : Assets.buttonSpeedup1);
 
 		// ############ Draw DEBUG ############
 		if (debug) {

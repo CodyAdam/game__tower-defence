@@ -32,12 +32,22 @@ public abstract class Monkey extends Tile {
         public String name;
         public String name2;
         public String description;
+        public String description2;
         public int price;
 
         public Upgrade(String name, String name2, String description, int price) {
             this.name = name;
             this.name2 = name2;
             this.description = description;
+            this.description2 = "";
+            this.price = price;
+        }
+
+        public Upgrade(String name, String name2, String description, String description2, int price) {
+            this.name = name;
+            this.name2 = name2;
+            this.description = description;
+            this.description2 = description2;
             this.price = price;
         }
     }
@@ -54,8 +64,8 @@ public abstract class Monkey extends Tile {
         targetingModes = new LinkedList<String>();
         targetingModes.add("First");
         targetingModes.add("Last");
-        targetingModes.add("Strongest");
-        targetingModes.add("Closest");
+        targetingModes.add("Strong");
+        targetingModes.add("Close");
         targetingMode = targetingModes.get(0);
     }
 
@@ -223,10 +233,10 @@ public abstract class Monkey extends Tile {
                 case "Last":
                     target = getLast(bloons);
                     break;
-                case "Closest":
+                case "Close":
                     target = getClosest(bloons);
                     break;
-                case "Strongest":
+                case "Strong":
                     target = getStrongest(bloons);
                     break;
                 default:
