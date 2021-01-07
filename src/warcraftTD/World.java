@@ -10,6 +10,7 @@ import warcraftTD.Tiles.SpeedupButton;
 import warcraftTD.Tiles.Tile;
 import warcraftTD.Tiles.BuyTiles.BuyTile;
 import warcraftTD.Tiles.Monkeys.Monkey;
+import warcraftTD.Tiles.Monkeys.Monkey.Upgrade;
 import warcraftTD.Waves.Waves;
 
 import java.awt.Color;
@@ -205,7 +206,7 @@ public class World {
 	 * Affiche le chemin que vas suivre les Bloons avec une petite animation
 	 */
 	public void drawPath() {
-		if (debug || placing) {
+		if (debug || !waves.hasStarted()) {
 			final double PATH_RADIUS = 0.01;
 			final int ANIMATION_DELAY = 10;
 
@@ -275,13 +276,17 @@ public class World {
 		// Constants
 		final Color CAN_BUY = new Color(126, 217, 42, 255);
 		final Color CANT_BUY = new Color(248, 46, 46, 255);
+		final Color CAN_UPGRADE = new Color(245, 245, 235, 255);
+		final Color CANT_UPGRADE = CANT_BUY;
 		final Color SHADOW = new Color(0, 0, 0, 150);
+		final Color BORDER = new Color(51, 46, 43, 255);
 		final Color MAIN_TEXT = new Color(250, 250, 250, 255);
+		final Color YELLOW = new Color(255, 74, 59, 255);
 		final double SHADOW_OFFSET = 0.008;
 
 		// ############ Draw tower prices ############
 
-		font.deriveFont(20f); // font size
+		font = font.deriveFont(20f); // font size
 		StdDraw.setFont(font);
 		int cost;
 
@@ -291,6 +296,81 @@ public class World {
 		StdDraw.text(0.868, 0.631 - SHADOW_OFFSET, cost + "$");
 		StdDraw.setPenColor(cost <= money ? CAN_BUY : CANT_BUY);
 		StdDraw.text(0.868, 0.631, cost + "$");
+
+		// ############ Draw tower upgrades in the top right corner ############
+
+		if (selectedTile instanceof Monkey) {
+			Monkey m = (Monkey) selectedTile;
+			StdDraw.setPenColor(SHADOW);
+			StdDraw.text(0.905, 0.956 - SHADOW_OFFSET / 3, "UPGRADES");
+			StdDraw.setPenColor(YELLOW);
+			StdDraw.text(0.905, 0.956, "UPGRADES");
+			font = font.deriveFont(16f); // font size
+			StdDraw.setFont(font);
+
+			// LEFT UPGRADE
+			double maxW = 0.05;
+			double h = 0.005;
+			double w = (double) maxW / m.leftUpgrades.size();
+			double alignX = 0.868;
+			double alignY = 0.870;
+
+			for (int i = 0; i < m.leftUpgrades.size(); i++) {
+				StdDraw.setPenColor(i < m.leftUpgrade ? CAN_BUY : CANT_BUY);
+				StdDraw.filledRectangle(alignX - (maxW / m.leftUpgrades.size()) + i * w, alignY - 0.02,
+						(w / 2) - 0.0005, h);
+				StdDraw.setPenColor(BORDER);
+				StdDraw.setPenRadius(0.004);
+				StdDraw.rectangle(alignX - (maxW / m.leftUpgrades.size()) + i * w, alignY - 0.02, (w / 2) - 0.0005, h);
+			}
+			Upgrade upgrade = m.getNextUpgrade(true);
+			if (upgrade != null) {
+				StdDraw.setPenColor(SHADOW);
+				StdDraw.text(alignX, alignY + 0.05 - SHADOW_OFFSET / 3, upgrade.name);
+				StdDraw.text(alignX, alignY + 0.027 - SHADOW_OFFSET / 3, upgrade.name2);
+				StdDraw.text(alignX, alignY - SHADOW_OFFSET / 3, upgrade.price + "$");
+				StdDraw.setPenColor(upgrade.price <= money ? CAN_UPGRADE : CANT_UPGRADE);
+				StdDraw.text(alignX, alignY + 0.05, upgrade.name);
+				StdDraw.text(alignX, alignY + 0.027, upgrade.name2);
+				StdDraw.text(alignX, alignY, upgrade.price + "$");
+			} else {
+				StdDraw.setPenColor(SHADOW);
+				StdDraw.text(alignX, 0.914 - SHADOW_OFFSET / 3, "Already");
+				StdDraw.text(alignX, 0.89 - SHADOW_OFFSET / 3, "max!");
+				StdDraw.setPenColor(CANT_UPGRADE);
+				StdDraw.text(alignX, 0.914, "Already");
+				StdDraw.text(alignX, 0.89, "max!");
+			}
+			// RIGHT UPGRADE
+			upgrade = m.getNextUpgrade(false);
+			alignX = 0.940;
+
+			for (int i = 0; i < m.rightUpgrades.size(); i++) {
+				StdDraw.setPenColor(i < m.rightUpgrade ? CAN_BUY : CANT_BUY);
+				StdDraw.filledRectangle(alignX - (maxW / m.rightUpgrades.size()) + i * w, alignY - 0.02,
+						(w / 2) - 0.0005, h);
+				StdDraw.setPenColor(BORDER);
+				StdDraw.setPenRadius(0.004);
+				StdDraw.rectangle(alignX - (maxW / m.rightUpgrades.size()) + i * w, alignY - 0.02, (w / 2) - 0.0005, h);
+			}
+			if (upgrade != null) {
+				StdDraw.setPenColor(SHADOW);
+				StdDraw.text(alignX, alignY + 0.05 - SHADOW_OFFSET / 3, upgrade.name);
+				StdDraw.text(alignX, alignY + 0.027 - SHADOW_OFFSET / 3, upgrade.name2);
+				StdDraw.text(alignX, alignY - SHADOW_OFFSET / 3, upgrade.price + "$");
+				StdDraw.setPenColor(upgrade.price <= money ? CAN_UPGRADE : CANT_UPGRADE);
+				StdDraw.text(alignX, alignY + 0.05, upgrade.name);
+				StdDraw.text(alignX, alignY + 0.027, upgrade.name2);
+				StdDraw.text(alignX, alignY, upgrade.price + "$");
+			} else {
+				StdDraw.setPenColor(SHADOW);
+				StdDraw.text(alignX, 0.914 - SHADOW_OFFSET / 3, "Already");
+				StdDraw.text(alignX, 0.89 - SHADOW_OFFSET / 3, "max!");
+				StdDraw.setPenColor(CANT_UPGRADE);
+				StdDraw.text(alignX, 0.914, "Already");
+				StdDraw.text(alignX, 0.89, "max!");
+			}
+		}
 
 		// ############ Drawing wave, life and money counter with shadow ############
 
@@ -315,7 +395,8 @@ public class World {
 		// ############ Draw speedup button ############
 		StdDraw.picture(0.764, 0.929, gameSpeed == 1 ? Assets.buttonSpeedup0 : Assets.buttonSpeedup1);
 
-		if (debug) { // ############ DEBUG DRAWING ############
+		// ############ Draw DEBUG ############
+		if (debug) {
 			squareWidth = (double) 1 / nbSquareX;
 			squareHeight = (double) 1 / nbSquareY;
 			final double ALIGN_LEFT = 0.02;
@@ -348,11 +429,24 @@ public class World {
 	 * permettant la construction d'une tour.
 	 */
 	public void drawMouse() {
+
 		if (selectedTile != null && selectedTile instanceof BuyTile) {
+			// Affiche la tour sur la souris quand on veux la placer ainsi que sa portée
 			Position mousePos = new Position(StdDraw.mouseX(), StdDraw.mouseY());
-			String image = ((BuyTile) selectedTile).toPlace.sprite;
+			Monkey m = ((BuyTile) selectedTile).toPlace;
+			String image = m.sprite;
+
+			// Affiche la tour
 			if (image != null)
 				StdDraw.picture(mousePos.x, mousePos.y, image);
+
+			// Affiche la portée
+			Position range = new Position(m.range, m.range).inFrameSpace();
+			StdDraw.setPenRadius(0.01);
+			StdDraw.setPenColor(new Color(252, 3, 65, 110));
+			StdDraw.ellipse(mousePos.x, mousePos.y, range.x, range.y);
+			StdDraw.setPenColor(new Color(252, 3, 65, 60));
+			StdDraw.filledEllipse(mousePos.x, mousePos.y, range.x, range.y);
 		}
 	}
 

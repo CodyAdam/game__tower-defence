@@ -41,6 +41,10 @@ public class Waves {
         return running;
     }
 
+    public boolean hasStarted() {
+        return currentWave != null;
+    }
+
     public void startNextWave() {
 
         if (!running) {

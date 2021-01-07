@@ -18,13 +18,50 @@ public abstract class Monkey extends Tile {
     public double rotation; // orientation de la tour
     protected int timer; // timer pour savoir quand tirer
 
+    // système d'amélioration de la tour
+    public int leftUpgrade = 0;
+    public int rightUpgrade = 0;
+    public List<Upgrade> leftUpgrades;
+    public List<Upgrade> rightUpgrades;
+
+    public class Upgrade {
+        public String name;
+        public String name2;
+        public String description;
+        public int price;
+
+        public Upgrade(String name, String name2, String description, int price) {
+            this.name = name;
+            this.name2 = name2;
+            this.description = description;
+            this.price = price;
+        }
+    }
+
     public Monkey(int x, int y) {
         super(x, y);
-        this.pos = new Position(0, 0);
+        pos = new Position(0, 0);
         isAvaliable = false;
         gridColor = new Color(200, 100, 0, 140);
         rotation = 0;
         timer = 0;
+        leftUpgrades = new ArrayList<Upgrade>();
+        rightUpgrades = new ArrayList<Upgrade>();
+    }
+
+    public Upgrade getNextUpgrade(boolean isLeft) {
+        int index = isLeft ? leftUpgrade : rightUpgrade;
+        List<Upgrade> upgradeList = isLeft ? leftUpgrades : rightUpgrades;
+        if (index < upgradeList.size())
+            return upgradeList.get(index);
+        return null;
+    }
+
+    public void upgrade(boolean isLeft) {
+        if (isLeft)
+            leftUpgrade++;
+        else
+            rightUpgrade++;
     }
 
     /**
