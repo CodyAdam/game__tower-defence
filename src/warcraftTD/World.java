@@ -315,6 +315,7 @@ public class World {
 			double alignX = 0.868;
 			double alignY = 0.870;
 
+			StdDraw.picture(alignX - 0.001, alignY + 0.02, Assets.upgradeButton);
 			for (int i = 0; i < m.leftUpgrades.size(); i++) {
 				StdDraw.setPenColor(i < m.leftUpgrade ? CAN_BUY : CANT_BUY);
 				StdDraw.filledRectangle(alignX - (maxW / m.leftUpgrades.size()) + i * w, alignY - 0.02,
@@ -345,6 +346,7 @@ public class World {
 			upgrade = m.getNextUpgrade(false);
 			alignX = 0.940;
 
+			StdDraw.picture(alignX + 0.001, alignY + 0.02, Assets.upgradeButton);
 			for (int i = 0; i < m.rightUpgrades.size(); i++) {
 				StdDraw.setPenColor(i < m.rightUpgrade ? CAN_BUY : CANT_BUY);
 				StdDraw.filledRectangle(alignX - (maxW / m.rightUpgrades.size()) + i * w, alignY - 0.02,
@@ -374,13 +376,15 @@ public class World {
 			// DRAW TARGETING INDICATOR
 			alignX = 0.904;
 			alignY = 0.79;
-			font = font.deriveFont(16f); // font size
+			StdDraw.picture(alignX - 0.052, alignY + 0.012, Assets.leftArrow);
+			StdDraw.picture(alignX + 0.052, alignY + 0.012, Assets.rightArrow);
+			font = font.deriveFont(17f); // font size
 			StdDraw.setFont(font);
 			StdDraw.setPenColor(SHADOW);
-			StdDraw.text(alignX, alignY + 0.025 - SHADOW_OFFSET / 4, "Targeting :");
+			StdDraw.text(alignX, alignY + 0.025 - SHADOW_OFFSET / 4, "TARGET");
 			StdDraw.text(alignX, alignY - SHADOW_OFFSET / 4, m.getTargetingMode());
 			StdDraw.setPenColor(YELLOW);
-			StdDraw.text(alignX, alignY + 0.025, "Targeting :");
+			StdDraw.text(alignX, alignY + 0.025, "TARGET");
 			StdDraw.setPenColor(MAIN_TEXT);
 			StdDraw.text(alignX, alignY, m.getTargetingMode());
 		}

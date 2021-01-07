@@ -11,8 +11,6 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-import javax.swing.text.html.HTML.Tag;
-
 public abstract class Monkey extends Tile {
     public String sprite; // le chemin vers l'image de la tour
     public Position pos; // Position de la tour dans le référenciel de la fenêtre
