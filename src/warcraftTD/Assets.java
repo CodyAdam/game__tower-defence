@@ -12,7 +12,7 @@ public class Assets {
     public static String rightArrow = "/Assets/Sprites/HUD/right_arrow.png";
     public static String moneyLife = "/Assets/Sprites/HUD/money_life.png";
     public static String upgradeButton = "/Assets/Sprites/HUD/upgrade_box.png";
-    public static String trashButton = "/Assets/Sprites/HUD/trash.png";
+    public static String removeButton = "/Assets/Sprites/HUD/trash.png";
     public static String buttonSpeedup0 = "/Assets/Sprites/HUD/button_speedup_0.png";
     public static String buttonSpeedup1 = "/Assets/Sprites/HUD/button_speedup_1.png";
     public static String buttonPlay = "/Assets/Sprites/HUD/button_play.png";

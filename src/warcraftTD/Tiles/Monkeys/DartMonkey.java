@@ -13,7 +13,7 @@ public class DartMonkey extends Monkey {
         cooldown = 60;
         range = 4;
         sprite = Assets.dartMonkey;
-        leftUpgrade = 1;
+        cost = 200;
         leftUpgrades.add(new Upgrade("Long range ", "darts", "Makes the Dart Monkey shoot further than normal", 90));
         leftUpgrades.add(new Upgrade("Enhanced ", "Eyesight",
                 "Further increases attack range and allows Dart Monkey to see Camo Bloons", 100));

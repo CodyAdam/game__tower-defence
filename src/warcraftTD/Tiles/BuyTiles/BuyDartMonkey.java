@@ -8,9 +8,9 @@ public class BuyDartMonkey extends BuyTile {
 
     public BuyDartMonkey(int x, int y) {
         super(x, y);
-        cost = 200;
         isAvaliable = false;
         toPlace = new DartMonkey(x, y);
+        cost = toPlace.cost;
         gridColor = new Color(203, 247, 245, 110);
     }
 

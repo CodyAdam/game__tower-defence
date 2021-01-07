@@ -4,10 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import warcraftTD.Position;
+import warcraftTD.Tiles.ChangeTargetLeft;
+import warcraftTD.Tiles.ChangeTargetRight;
 import warcraftTD.Tiles.Panel;
 import warcraftTD.Tiles.PlayButton;
+import warcraftTD.Tiles.RemoveTower;
 import warcraftTD.Tiles.SpeedupButton;
 import warcraftTD.Tiles.Tile;
+import warcraftTD.Tiles.UpgradeLeft;
+import warcraftTD.Tiles.UpgradeRight;
 import warcraftTD.Tiles.BuyTiles.*;
 
 public abstract class Level {
@@ -38,6 +43,8 @@ public abstract class Level {
             for (int x = 25; x < 31; x++)
                 map[x][y] = new Panel(x, y);
 
+        // Set the HUD tiless to the correct location
+
         map[23][0] = new PlayButton(23, 0);
         map[23][1] = new PlayButton(23, 1);
         map[24][1] = new PlayButton(24, 1);
@@ -52,5 +59,20 @@ public abstract class Level {
         map[26][11] = new BuyDartMonkey(26, 11);
         map[27][12] = new BuyDartMonkey(27, 10);
         map[26][12] = new BuyDartMonkey(26, 10);
+
+        map[26][14] = new ChangeTargetLeft(26, 14);
+        map[29][14] = new ChangeTargetRight(29, 14);
+
+        map[30][17] = new RemoveTower(30, 17);
+
+        map[26][15] = new UpgradeLeft(26, 15);
+        map[26][16] = new UpgradeLeft(26, 16);
+        map[27][16] = new UpgradeLeft(27, 16);
+        map[27][15] = new UpgradeLeft(27, 15);
+
+        map[28][15] = new UpgradeRight(28, 15);
+        map[28][16] = new UpgradeRight(28, 16);
+        map[29][16] = new UpgradeRight(29, 16);
+        map[29][15] = new UpgradeRight(29, 15);
     }
 }

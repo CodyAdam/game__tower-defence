@@ -20,6 +20,7 @@ public abstract class Monkey extends Tile {
     protected int timer; // timer pour savoir quand tirer
     protected String targetingMode;
     private List<String> targetingModes;
+    public int cost; // prix pour placer la tour
 
     // système d'amélioration de la tour
     public int leftUpgrade = 0;
@@ -71,7 +72,7 @@ public abstract class Monkey extends Tile {
     }
 
     public void prevTargetingMode() {
-        int i = targetingModes.indexOf(targetingMode) - 1 % targetingModes.size();
+        int i = (targetingModes.indexOf(targetingMode) - 1) % targetingModes.size();
         if (i < 0)
             i += targetingModes.size();
         targetingMode = targetingModes.get(i);
@@ -79,7 +80,7 @@ public abstract class Monkey extends Tile {
 
     //
     public void nextTargetingMode() {
-        int i = targetingModes.indexOf(targetingMode) + 1 % targetingModes.size();
+        int i = (targetingModes.indexOf(targetingMode) + 1) % targetingModes.size();
         targetingMode = targetingModes.get(i);
     }
 
@@ -214,7 +215,25 @@ public abstract class Monkey extends Tile {
 
     public void tick(List<Bloon> bloons, List<Projectile> projectiles) {
         if (!bloons.isEmpty() && timer <= 0) {
-            Bloon target = getFirst(bloons);
+            Bloon target;
+            switch (targetingMode) {
+                case "First":
+                    target = getFirst(bloons);
+                    break;
+                case "Last":
+                    target = getLast(bloons);
+                    break;
+                case "Closest":
+                    target = getClosest(bloons);
+                    break;
+                case "Strongest":
+                    target = getStrongest(bloons);
+                    break;
+                default:
+                    target = null;
+                    System.err.println("ERROR : targeting mode not found");
+            }
+
             if (target != null) {
                 shootAt(target, projectiles);
                 timer = cooldown;

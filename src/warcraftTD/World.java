@@ -3,11 +3,16 @@ package warcraftTD;
 import warcraftTD.Bloons.Bloon;
 import warcraftTD.Levels.Level;
 import warcraftTD.Projectiles.Projectile;
+import warcraftTD.Tiles.ChangeTargetLeft;
+import warcraftTD.Tiles.ChangeTargetRight;
 import warcraftTD.Tiles.Empty;
 import warcraftTD.Tiles.Obstructed;
 import warcraftTD.Tiles.PlayButton;
+import warcraftTD.Tiles.RemoveTower;
 import warcraftTD.Tiles.SpeedupButton;
 import warcraftTD.Tiles.Tile;
+import warcraftTD.Tiles.UpgradeLeft;
+import warcraftTD.Tiles.UpgradeRight;
 import warcraftTD.Tiles.BuyTiles.BuyTile;
 import warcraftTD.Tiles.Monkeys.Monkey;
 import warcraftTD.Tiles.Monkeys.Monkey.Upgrade;
@@ -270,7 +275,7 @@ public class World {
 	 * Affiche certaines informations sur l'écran telles que les points de vie du
 	 * joueur ou son or. Tout ce qui est en relation avec l'interface
 	 * 
-	 * Affiche également les information de débugage en mode DEBUG
+	 * Affiche également les information de débuguage en mode DEBUG
 	 */
 	public void drawInfos() {
 		// Constants
@@ -310,12 +315,12 @@ public class World {
 
 			// LEFT UPGRADE
 			double maxW = 0.05;
-			double h = 0.005;
+			double h = 0.006;
 			double w = (double) maxW / m.leftUpgrades.size();
-			double alignX = 0.868;
+			double alignX = 0.865;
 			double alignY = 0.870;
 
-			StdDraw.picture(alignX - 0.001, alignY + 0.02, Assets.upgradeButton);
+			StdDraw.picture(alignX, alignY + 0.02, Assets.upgradeButton);
 			for (int i = 0; i < m.leftUpgrades.size(); i++) {
 				StdDraw.setPenColor(i < m.leftUpgrade ? CAN_BUY : CANT_BUY);
 				StdDraw.filledRectangle(alignX - (maxW / m.leftUpgrades.size()) + i * w, alignY - 0.02,
@@ -346,7 +351,7 @@ public class World {
 			upgrade = m.getNextUpgrade(false);
 			alignX = 0.940;
 
-			StdDraw.picture(alignX + 0.001, alignY + 0.02, Assets.upgradeButton);
+			StdDraw.picture(alignX, alignY + 0.02, Assets.upgradeButton);
 			for (int i = 0; i < m.rightUpgrades.size(); i++) {
 				StdDraw.setPenColor(i < m.rightUpgrade ? CAN_BUY : CANT_BUY);
 				StdDraw.filledRectangle(alignX - (maxW / m.rightUpgrades.size()) + i * w, alignY - 0.02,
@@ -387,6 +392,9 @@ public class World {
 			StdDraw.text(alignX, alignY + 0.025, "TARGET");
 			StdDraw.setPenColor(MAIN_TEXT);
 			StdDraw.text(alignX, alignY, m.getTargetingMode());
+
+			// DRAW REMOVE TOWER BUTTON
+			StdDraw.picture(0.985, 0.972, Assets.removeButton);
 		}
 
 		// ############ Drawing wave, life and money counter with shadow ############
@@ -405,11 +413,13 @@ public class World {
 		StdDraw.textLeft(0.054, 0.846, life + "");
 
 		// ############ Draw play button ############
+
 		if (!waves.isRunning()) {
 			StdDraw.picture(0.764, 0.071d, Assets.buttonPlay);
 		}
 
 		// ############ Draw speedup button ############
+
 		StdDraw.picture(0.764, 0.929, gameSpeed == 1 ? Assets.buttonSpeedup0 : Assets.buttonSpeedup1);
 
 		// ############ Draw DEBUG ############
@@ -532,7 +542,7 @@ public class World {
 			placed.y = target.y;
 			placed.pos = new Position(placed.x, placed.y).inFrameSpace();
 			map[target.x][target.y] = placed;
-			ArrayList<Integer[]> toBlock = placed.getAdjacent(); // liste des cases qui deviendrons occupé
+			ArrayList<Integer[]> toBlock = placed.getAdjacent(); // liste des cases qui deviendront occupé
 			for (Integer[] coordinate : toBlock) {
 				int cx = coordinate[0];
 				int cy = coordinate[1];
@@ -545,6 +555,28 @@ public class World {
 		}
 		selectedTile = null;
 		placing = false;
+	}
+
+	private void removeMonkey(Monkey target) {
+		// On clear les cases sur la grille qui était occupée par cette tour
+		ArrayList<Integer[]> toClear = target.getAdjacent(); // liste des cases qui deviendront vide
+		map[target.x][target.y] = new Empty(target.x, target.y);
+		for (Integer[] coordinate : toClear) {
+			int cx = coordinate[0];
+			int cy = coordinate[1];
+			if (map[cx][cy] instanceof Obstructed)
+				map[cx][cy] = new Empty(cx, cy);
+		}
+
+		// on re-donne au joueur 2/3 du prix d'origine de placement
+		money += (int) (2 * target.cost / 3);
+		Alert gainMoney = new Alert(target.pos, 100, new Color(225, 232, 21, 255), this.font, 60, 0.05, 20);
+		gainMoney.add("+" + (int) (2 * target.cost / 3) + "$");
+		alerts.add(gainMoney);
+
+		// on suprime la tour du jeu
+		monkeys.remove(selectedTile);
+		selectedTile = null;
 	}
 
 	/**
@@ -610,6 +642,39 @@ public class World {
 			if (placing) {
 				placeMonkey(mouseTile);
 			}
+			if (selectedTile instanceof Monkey) { // Interaction avec l'interface d'amélioration
+				Monkey m = (Monkey) selectedTile;
+				if (mouseTile instanceof ChangeTargetLeft) { // clicked on change targeting to next
+					m.prevTargetingMode();
+					return;
+				} else if (mouseTile instanceof ChangeTargetRight) { // clicked on change targeting to previous
+					m.nextTargetingMode();
+					return;
+				} else if (mouseTile instanceof RemoveTower) { // clicked on remove tower
+					removeMonkey(m);
+					return;
+				} else if (mouseTile instanceof UpgradeRight) { // clicked on upgrade left side tower
+					Upgrade up = m.getNextUpgrade(false);
+					if (up != null)
+						if (up.price <= money) {
+							mainAlert.add("Upgraded : " + up.name + " " + up.name2);
+							m.upgrade(false);
+						} else {
+							mainAlert.add("You don't have enough money to purchase this!");
+						}
+					return;
+				} else if (mouseTile instanceof UpgradeLeft) { // clicked on upgrade right side tower
+					Upgrade up = m.getNextUpgrade(true);
+					if (up != null)
+						if (up.price <= money) {
+							mainAlert.add("Upgraded : " + up.name + " " + up.name2);
+							m.upgrade(true);
+						} else {
+							mainAlert.add("You don't have enough money to purchase this!");
+						}
+					return;
+				}
+			}
 			selectedTile = mouseTile;
 			if (selectedTile instanceof BuyTile)
 				if (money < ((BuyTile) selectedTile).cost) {
@@ -628,6 +693,7 @@ public class World {
 				gameSpeed = gameSpeed == 1 ? 2.5 : 1;
 			}
 		}
+
 	}
 
 	/**
