@@ -18,7 +18,6 @@ public abstract class Projectile {
     private double rotation = 0; // rotation du sprite
     private double traveledDistance = 0;
     public Set<String> types;
-
     private final double SPEED_RATIO = ((double) 720 / 1240); // la fenêtre n'étant pas carré la vitesse X n'est pas la
                                                               // même que Y donc nous égalisont avevc cette constante
                                                               // pour que le ballon ce déplace à la même vitesse

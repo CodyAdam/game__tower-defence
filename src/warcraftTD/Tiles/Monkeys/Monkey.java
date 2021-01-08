@@ -18,9 +18,10 @@ public abstract class Monkey extends Tile {
     public int cooldown; // le temps de recharchement du tir
     public double rotation; // orientation de la tour
     protected int timer; // timer pour savoir quand tirer
-    protected String targetingMode;
-    private List<String> targetingModes;
     public int cost; // prix pour placer la tour
+
+    protected String targetingMode;// variable permetant de choisir quel énemie ciblé
+    private List<String> targetingModes;// liste des types de ciblage
 
     // système d'amélioration de la tour
     public int leftUpgrade = 0;
@@ -28,6 +29,9 @@ public abstract class Monkey extends Tile {
     public List<Upgrade> leftUpgrades;
     public List<Upgrade> rightUpgrades;
 
+    /**
+     * Classe qui représente une amélioration de tour avec toutes ses informations
+     */
     public class Upgrade {
         public String name;
         public String name2;
@@ -69,6 +73,10 @@ public abstract class Monkey extends Tile {
         targetingMode = targetingModes.get(0);
     }
 
+    /**
+     * @param isLeft est-ce qu'il s'agit de l'upgrade
+     * @return rend la prochaine upgrade
+     */
     public Upgrade getNextUpgrade(boolean isLeft) {
         int index = isLeft ? leftUpgrade : rightUpgrade;
         List<Upgrade> upgradeList = isLeft ? leftUpgrades : rightUpgrades;
@@ -77,10 +85,28 @@ public abstract class Monkey extends Tile {
         return null;
     }
 
+    /**
+     * Upgrade la tour
+     * 
+     * @param isLeft est-ce qu'il s'agit de l'upgrade
+     */
+    public void upgrade(boolean isLeft) {
+        if (isLeft)
+            leftUpgrade++;
+        else
+            rightUpgrade++;
+    }
+
+    /**
+     * @return rend le mode de ciblage
+     */
     public String getTargetingMode() {
         return targetingMode;
     }
 
+    /**
+     * Change le mode de ciblage au mode précédent
+     */
     public void prevTargetingMode() {
         int i = (targetingModes.indexOf(targetingMode) - 1) % targetingModes.size();
         if (i < 0)
@@ -88,17 +114,12 @@ public abstract class Monkey extends Tile {
         targetingMode = targetingModes.get(i);
     }
 
-    //
+    /**
+     * Change le mode de ciblage au mode suivant
+     */
     public void nextTargetingMode() {
         int i = (targetingModes.indexOf(targetingMode) + 1) % targetingModes.size();
         targetingMode = targetingModes.get(i);
-    }
-
-    public void upgrade(boolean isLeft) {
-        if (isLeft)
-            leftUpgrade++;
-        else
-            rightUpgrade++;
     }
 
     /**
@@ -223,6 +244,9 @@ public abstract class Monkey extends Tile {
         rotation = this.pos.minus(target.pos).angle() + 90;
     }
 
+    /**
+     * Update ka tour
+     */
     public void tick(List<Bloon> bloons, List<Projectile> projectiles) {
         if (!bloons.isEmpty() && timer <= 0) {
             Bloon target;
@@ -252,6 +276,9 @@ public abstract class Monkey extends Tile {
         timer -= 1;
     }
 
+    /**
+     * Affiche la tour
+     */
     public void draw(Tile selectedTile) {
         if (selectedTile == this) { // Affiche le rayon si la tour est sélectionnée ou en train d'etre pose
             Position range = new Position(this.range, this.range).inFrameSpace();

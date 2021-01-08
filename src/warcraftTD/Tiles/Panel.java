@@ -2,6 +2,9 @@ package warcraftTD.Tiles;
 
 import java.awt.Color;
 
+/**
+ * Tile utiliser dans la grille pour savoir ou ce trouve le panel de droite
+ */
 public class Panel extends Tile {
 
     public Panel(int x, int y) {
