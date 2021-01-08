@@ -1,8 +1,9 @@
 package warcraftTD.Projectiles;
 
 import java.awt.Color;
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import warcraftTD.Position;
 import warcraftTD.StdDraw;
@@ -16,7 +17,7 @@ public abstract class Projectile {
     private String sprite;
     private double rotation = 0; // rotation du sprite
     private double traveledDistance = 0;
-    private List<String> types;
+    public Set<String> types;
 
     private final double SPEED_RATIO = ((double) 720 / 1240); // la fenêtre n'étant pas carré la vitesse X n'est pas la
                                                               // même que Y donc nous égalisont avevc cette constante
@@ -29,7 +30,7 @@ public abstract class Projectile {
     public double hitboxRadius = 0.25; // rayon de hitbox en grid space
 
     public Projectile(Position startingPos, Position direction, double velocity, String imgPath) {
-        types = new ArrayList<String>();
+        types = new HashSet<String>();
         this.pos = new Position(startingPos);
         this.dir = new Position(direction).normalized();
         this.velocity = velocity;
