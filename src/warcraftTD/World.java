@@ -123,7 +123,7 @@ public class World {
 	}
 
 	/**
-	 * update tous les bloons de la liste sans les draw
+	 * Update tous les bloons de la liste sans les afficher
 	 */
 	public void tickBloons() {
 		ListIterator<Bloon> i = bloons.listIterator();
@@ -153,7 +153,7 @@ public class World {
 	}
 
 	/**
-	 * update toutes les tours de la liste sans les draw
+	 * Update toutes les tours de la liste sans les afficher
 	 */
 	public void tickMonkeys() {
 		ListIterator<Monkey> i = monkeys.listIterator();
@@ -165,7 +165,7 @@ public class World {
 	}
 
 	/**
-	 * update tous les projectiles sans les draw
+	 * Update tous les projectiles sans les afficher
 	 */
 	public void tickProjectiles() {
 		ListIterator<Projectile> i = projectiles.listIterator();
@@ -179,7 +179,7 @@ public class World {
 	}
 
 	/**
-	 * Affiche tous les bloons
+	 * Update toutes les alertes sans les afficher
 	 */
 	public void tickAlerts() {
 		mainAlert.tick();
@@ -195,7 +195,8 @@ public class World {
 	}
 
 	/**
-	 * Définit le décors du plateau de jeu.
+	 * Affiche le décors du plateau de jeu. Soit : le background et le panel de
+	 * droite
 	 */
 	public void drawBackground() {
 		// Draw level background
@@ -209,7 +210,8 @@ public class World {
 	}
 
 	/**
-	 * Affiche le chemin que vas suivre les Bloons avec une petite animation
+	 * Affiche le chemin que vas suivre les Bloons avec une petite animation.
+	 * Affiche uniquement en mode Debug
 	 */
 	public void drawPath() {
 		if (debug || !waves.hasStarted()) {

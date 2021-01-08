@@ -7,7 +7,7 @@
 -   [ ] Implementation des upgrade Dartmonkey
 -   [ ] Ajout de tours
 -   [ ] Ecran de defaite
--   [ ] Ecran de changement de Level
+-   [ ] Menu de selection de niveaux
 -   [ ] Level2
 -   [ ] Level generer aleatoirement
 
