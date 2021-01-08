@@ -4,8 +4,8 @@
 
 ## TODO
 
--   [ ] Améliorations
--   [ ] Ability to remove towers
+-   [ ] Implementation des upgrade Dartmonkey
+-   [ ] Ajout de tours
 -   [ ] Ecran de defaite
 -   [ ] Ecran de changement de Level
 -   [ ] Level2
@@ -44,16 +44,19 @@ En tant que joueur, nous posons des singes sur le terrain dans le but de se déf
 -   Sprite des tours et ennemies customiser
 -   Arrière plan customiser (pas de tuile mais une seul image)
 -   Police customiser (voir bibliographie)
--   Changement total des unités ennemies et alliées (Bomb et Arrow Tower remplacés par les différents singes et les monstres sont remplacés par le système de Bloons)
+-   Changement total des unités ennemies et alliées (Bomb et Arrow Tower remplacés par les différents Singes et les monstres sont remplacés par le système de Bloons)
 -   Système de niveaux avec chacun des "pathing", environnements et difficultés différentes
 -   Un mode débug avancé avec un affichage de multiples informations et accès à des commandes de "triche"
 -   Ajout d'une interface visuelle interactive d'achat et d'amélioration. Le jeu ce joue à la souris
--   Système de popup textuel animée avec du [easing](https://easings.net/fr)
+-   Système de popup textuel animée avec du [easing](https://easings.net/fr) modulable
 -   Amélioration de la classe Position par l'ajout de fonctions utiles
 -   Possibilité pour le joueur d'accélérer le temps et jouer en vitesse x2.5
 -   Système de grille évolué avec prévisualisation des emplacements disponible interactive quand une tour souhaite être placée
--   Système de tile (tuile en français) couplé à la grille, tout objet intéractif du jeu est représenté par une tile à l'éxception des ballons
+-   Système de tile (tuile en français) couplé à la grille, tout objet intéractif du jeu est représenté par une tile dans la grille à l'éxception des ballons
 -   Ajout de passages pour les ballons dans des tunnels, empéchant les tours de les attaquers
+-   Système de projectiles, avec un capteur de colision modulable
+-   Système d'amélioration de tour (via l'interface graphique)
+-   Système de changement de cible (via l'interface graphique)
 
 ## Touches utiles en jeu :
 
