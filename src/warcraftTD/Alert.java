@@ -4,20 +4,26 @@ import java.awt.Color;
 import java.awt.Font;
 import java.util.ArrayDeque;
 
+/**
+ * Objet qui représente une alerte textuel qui va afficher à l'écran un file de
+ * phrases chacune leur tour pendant une courte période
+ */
 public class Alert {
-    private Position pos;
-    private Position startPos;
+
+    private Position startPos; // position de départ
+    private Position pos; // position actuel tu texte (utiliser pour l'effet animé)
     private Color color;
-    private ArrayDeque<String> queue;
+    private ArrayDeque<String> queue; // La file de String
     private Font font;
-    private int duration;
-    private int fadingDuration;
-    private double offsetDistance;
+    private int duration; // temps d'affichage de chaque élément de la file
+    private int fadingDuration; // durée de l'animation de disparition
+    private double offsetDistance; // distance parcouru dans l'animation de translation
 
     private Color shadowColor = new Color(0, 0, 0, 150);
     private final double SHADOW_OFFSET = 0.005;
 
-    private int tickCounter;
+    private int tickCounter; // Timer utilisé pour les animations et pour savoir quand passé au prochain
+                             // élément de la file
 
     public Alert(Position pos, int duration, Color color, Font font, int fadingDuration, double offsetDistance,
             float size) {
@@ -32,15 +38,27 @@ public class Alert {
         tickCounter = duration;
     }
 
+    /**
+     * Ajoute une nouvelle ligne de texte dans la file
+     * 
+     * @param str le String à ajouter
+     */
     public void add(String str) {
         if (!queue.contains(str))
             queue.add(str);
     }
 
+    /**
+     * @return est-ce que la file est vide ?
+     */
     public boolean isEmpty() {
         return queue.isEmpty();
     }
 
+    /**
+     * quand un élément a fini sont animation on réinitialise la couleur, la
+     * position et le timer
+     */
     private void reset() {
         color = new Color(color.getRed(), color.getGreen(), color.getBlue(), (255));
         shadowColor = new Color(shadowColor.getRed(), shadowColor.getGreen(), shadowColor.getBlue(), (150));
@@ -48,6 +66,9 @@ public class Alert {
         this.pos = new Position(startPos);
     }
 
+    /**
+     * Update l'objet
+     */
     public void tick() {
         if (!queue.isEmpty()) {
             tickCounter -= 1;
@@ -68,9 +89,11 @@ public class Alert {
         }
     }
 
+    /**
+     * Affiche le texte à la bonne position et couleur
+     */
     public void draw() {
         if (!queue.isEmpty()) {
-
             StdDraw.setPenColor(color);
             StdDraw.setFont(font);
             if (tickCounter <= 0) {

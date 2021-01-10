@@ -1,12 +1,14 @@
 package warcraftTD;
 
+/**
+ * Classe static utilisée pour facilement avoir accès à tous les assets du jeu
+ * (images, polices et autres)
+ */
 public class Assets {
 
     // Répertorie les chemins de tous les assets du jeu
 
-    public static String test = "/Assets/Sprites/test.png";
-
-    // hud
+    // hud elements
     public static String panel = "/Assets/Sprites/HUD/panel.png";
     public static String leftArrow = "/Assets/Sprites/HUD/left_arrow.png";
     public static String rightArrow = "/Assets/Sprites/HUD/right_arrow.png";
@@ -23,9 +25,14 @@ public class Assets {
 
     // towers
     public static String dartMonkey = "/Assets/Sprites/Towers/DartMonkey.png";
+    public static String dartMonkeySpikeOPult0 = "/Assets/Sprites/Towers/DartMonkey_Spike-o-pult_0.png";
+    public static String dartMonkeySpikeOPult1 = "/Assets/Sprites/Towers/DartMonkey_Spike-o-pult_1.png";
+    public static String dartMonkeySpikeOPult2 = "/Assets/Sprites/Towers/DartMonkey_Spike-o-pult_2.png";
 
     // projectiles
     public static String dart = "/Assets/Sprites/Towers/Dart.png";
+    public static String pike0 = "/Assets/Sprites/Towers/Pike_0.png";
+    public static String pike1 = "/Assets/Sprites/Towers/Pike_1.png";
 
     // bloons
     public static String blueAirBloon = "/Assets/Sprites/Bloons/BlueAirBloon.png";

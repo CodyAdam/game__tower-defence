@@ -4,6 +4,9 @@ import java.util.ArrayDeque;
 
 import warcraftTD.Bloons.Bloon;
 
+/**
+ * Classe parente de toutes les vagues du jeu
+ */
 public abstract class Wave {
 
     protected class Pair {

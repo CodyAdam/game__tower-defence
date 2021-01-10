@@ -16,7 +16,7 @@ import warcraftTD.Tiles.UpgradeRight;
 import warcraftTD.Tiles.BuyTiles.BuyTile;
 import warcraftTD.Tiles.Monkeys.Monkey;
 import warcraftTD.Tiles.Monkeys.Monkey.Upgrade;
-import warcraftTD.Waves.Waves;
+import warcraftTD.Waves.WaveManager;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -36,7 +36,7 @@ public class World {
 													// améliorations de tours
 	Alert mainAlert; // l'objet d'alert général pour toutes les info importantes qui serons afficher
 						// au milieu de l'écran
-	Waves waves;// Le gestionnaire de vagues
+	WaveManager waves;// Le gestionnaire de vagues
 	Level level;// Le niveau actuel
 
 	int life = 150;// Nombre de points de vie du joueur
@@ -84,7 +84,7 @@ public class World {
 
 		this.mainAlert = new Alert(new Position(0.5, 0.6), 120, new Color(250, 250, 250, 255), this.font, 60, 0.1, 40);
 		this.level = level;
-		this.waves = new Waves(level.pathing, this.bloons);
+		this.waves = new WaveManager(level.pathing, this.bloons);
 		this.map = level.map;
 
 		this.width = width;
@@ -281,14 +281,11 @@ public class World {
 	 */
 	public void drawInfos() {
 		// Constants
-		final Color CAN_BUY = new Color(126, 217, 42, 255);
+		final Color CAN_BUY = new Color(92, 255, 84, 255);
 		final Color CANT_BUY = new Color(248, 46, 46, 255);
-		final Color CAN_UPGRADE = new Color(245, 245, 235, 255);
-		final Color CANT_UPGRADE = CANT_BUY;
 		final Color SHADOW = new Color(0, 0, 0, 150);
 		final Color BORDER = new Color(51, 46, 43, 255);
-		final Color MAIN_TEXT = CAN_UPGRADE;
-		final Color YELLOW = new Color(255, 74, 59, 255);
+		final Color MAIN_TEXT = new Color(245, 245, 235, 255);
 		final double SHADOW_OFFSET = 0.008;
 
 		// ############ Draw play button ############
@@ -310,8 +307,8 @@ public class World {
 		// ############ Drawing wave, life and money counter with shadow ############
 
 		font = font.deriveFont(32f); // font size
-
 		StdDraw.setFont(font);
+
 		StdDraw.picture(0.03, 0.876, Assets.moneyLife);
 		StdDraw.setPenColor(SHADOW);
 		StdDraw.textLeft(0.017, 0.966 - SHADOW_OFFSET, waves.getName());
@@ -332,10 +329,12 @@ public class World {
 		// ############ Draw tower upgrades in the top right corner ############
 
 		if (selectedTile instanceof Monkey) {
+			font = font.deriveFont(26f); // font size
+			StdDraw.setFont(font);
 			Monkey m = (Monkey) selectedTile;
 			StdDraw.setPenColor(SHADOW);
 			StdDraw.text(0.905, 0.957 - SHADOW_OFFSET / 3, "UPGRADES");
-			StdDraw.setPenColor(YELLOW);
+			StdDraw.setPenColor(MAIN_TEXT);
 			StdDraw.text(0.905, 0.957, "UPGRADES");
 
 			double maxW = 0.05;
@@ -370,7 +369,7 @@ public class World {
 			double alignX = 0.865;
 			StdDraw.picture(alignX, alignY + 0.016, Assets.upgradeButton);
 			for (int i = 0; i < m.leftUpgrades.size(); i++) {
-				StdDraw.setPenColor(i < m.leftUpgrade ? CAN_BUY : CANT_BUY);
+				StdDraw.setPenColor(i < m.leftUpgrade ? CAN_BUY : SHADOW);
 				StdDraw.filledRectangle(alignX - (maxW / m.leftUpgrades.size()) + i * w, alignY - 0.02,
 						(w / 2) - 0.0005, h);
 				StdDraw.setPenColor(BORDER);
@@ -383,7 +382,7 @@ public class World {
 				StdDraw.text(alignX, alignY + 0.05 - SHADOW_OFFSET / 3, upgrade.name);
 				StdDraw.text(alignX, alignY + 0.027 - SHADOW_OFFSET / 3, upgrade.name2);
 				StdDraw.text(alignX, alignY - SHADOW_OFFSET / 3, upgrade.price + "$");
-				StdDraw.setPenColor(upgrade.price <= money ? CAN_UPGRADE : CANT_UPGRADE);
+				StdDraw.setPenColor(upgrade.price <= money ? CAN_BUY : CANT_BUY);
 				StdDraw.text(alignX, alignY + 0.05, upgrade.name);
 				StdDraw.text(alignX, alignY + 0.027, upgrade.name2);
 				StdDraw.text(alignX, alignY, upgrade.price + "$");
@@ -391,7 +390,7 @@ public class World {
 				StdDraw.setPenColor(SHADOW);
 				StdDraw.text(alignX, 0.914 - SHADOW_OFFSET / 3, "Already");
 				StdDraw.text(alignX, 0.89 - SHADOW_OFFSET / 3, "max!");
-				StdDraw.setPenColor(CANT_UPGRADE);
+				StdDraw.setPenColor(CANT_BUY);
 				StdDraw.text(alignX, 0.914, "Already");
 				StdDraw.text(alignX, 0.89, "max!");
 			}
@@ -401,7 +400,7 @@ public class World {
 			upgrade = m.getNextUpgrade(false);
 			StdDraw.picture(alignX, alignY + 0.016, Assets.upgradeButton);
 			for (int i = 0; i < m.rightUpgrades.size(); i++) {
-				StdDraw.setPenColor(i < m.rightUpgrade ? CAN_BUY : CANT_BUY);
+				StdDraw.setPenColor(i < m.rightUpgrade ? CAN_BUY : SHADOW);
 				StdDraw.filledRectangle(alignX - (maxW / m.rightUpgrades.size()) + i * w, alignY - 0.02,
 						(w / 2) - 0.0005, h);
 				StdDraw.setPenColor(BORDER);
@@ -413,7 +412,7 @@ public class World {
 				StdDraw.text(alignX, alignY + 0.05 - SHADOW_OFFSET / 3, upgrade.name);
 				StdDraw.text(alignX, alignY + 0.027 - SHADOW_OFFSET / 3, upgrade.name2);
 				StdDraw.text(alignX, alignY - SHADOW_OFFSET / 3, upgrade.price + "$");
-				StdDraw.setPenColor(upgrade.price <= money ? CAN_UPGRADE : CANT_UPGRADE);
+				StdDraw.setPenColor(upgrade.price <= money ? CAN_BUY : CANT_BUY);
 				StdDraw.text(alignX, alignY + 0.05, upgrade.name);
 				StdDraw.text(alignX, alignY + 0.027, upgrade.name2);
 				StdDraw.text(alignX, alignY, upgrade.price + "$");
@@ -421,7 +420,7 @@ public class World {
 				StdDraw.setPenColor(SHADOW);
 				StdDraw.text(alignX, 0.914 - SHADOW_OFFSET / 3, "Already");
 				StdDraw.text(alignX, 0.89 - SHADOW_OFFSET / 3, "max!");
-				StdDraw.setPenColor(CANT_UPGRADE);
+				StdDraw.setPenColor(CANT_BUY);
 				StdDraw.text(alignX, 0.914, "Already");
 				StdDraw.text(alignX, 0.89, "max!");
 			}
@@ -436,7 +435,7 @@ public class World {
 			StdDraw.setPenColor(SHADOW);
 			StdDraw.text(alignX, alignY + 0.025 - SHADOW_OFFSET / 4, "TARGET");
 			StdDraw.text(alignX, alignY - SHADOW_OFFSET / 4, m.getTargetingMode());
-			StdDraw.setPenColor(YELLOW);
+			StdDraw.setPenColor(MAIN_TEXT);
 			StdDraw.text(alignX, alignY + 0.025, "TARGET");
 			StdDraw.setPenColor(MAIN_TEXT);
 			StdDraw.text(alignX, alignY, m.getTargetingMode());
@@ -508,7 +507,7 @@ public class World {
 		Bloon m;
 		while (i.hasNext()) {
 			m = i.next();
-			m.draw();
+			m.draw(debug);
 		}
 	}
 
@@ -520,7 +519,7 @@ public class World {
 		Projectile p;
 		while (i.hasNext()) {
 			p = i.next();
-			p.draw();
+			p.draw(debug);
 		}
 	}
 
@@ -580,6 +579,11 @@ public class World {
 		placing = false;
 	}
 
+	/**
+	 * Supprime du jeu la tour entrée en paramètre
+	 * 
+	 * @param target la tour à supprimer
+	 */
 	private void removeMonkey(Monkey target) {
 		// On clear les cases sur la grille qui était occupée par cette tour
 		ArrayList<Integer[]> toClear = target.getAdjacent(); // liste des cases qui deviendront vide
@@ -644,7 +648,7 @@ public class World {
 	}
 
 	/**
-	 * Ferme le jeu
+	 * Fini la boucle de jeu de cette instance
 	 */
 	public void exit() {
 		end = true;

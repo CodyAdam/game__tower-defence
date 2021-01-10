@@ -1,12 +1,16 @@
 package warcraftTD;
 
+/**
+ * Classe utilitaire utilisée pour stoquer et faire des opération sur des
+ * vecteur 2D (soit des positions)
+ */
 public class Position {
 	public double x;
 	public double y;
 	public boolean bool;
 
-	private final int nbSquareX = 31;
-	private final int nbSquareY = 18;
+	private final int GRID_WIDTH = 31;
+	private final int GRID_MAX_Y = 18;
 
 	/**
 	 * Classe qui permet d'avoir la position sur l'axe des x et des y des monstres
@@ -62,7 +66,7 @@ public class Position {
 	 * @return
 	 */
 	public double distInGridSpace(Position p) {
-		return Math.sqrt(Math.pow((x - p.x) * nbSquareX, 2) + Math.pow((y - p.y) * nbSquareY, 2));
+		return Math.sqrt(Math.pow((x - p.x) * GRID_WIDTH, 2) + Math.pow((y - p.y) * GRID_MAX_Y, 2));
 	}
 
 	/**
@@ -72,8 +76,8 @@ public class Position {
 	 * @note coordonnées compris entre 0 et 1
 	 */
 	public Position inFrameSpace() {
-		double squareWidth = (double) 1 / nbSquareX;
-		double squareHeight = (double) 1 / nbSquareY;
+		double squareWidth = (double) 1 / GRID_WIDTH;
+		double squareHeight = (double) 1 / GRID_MAX_Y;
 		return new Position(x * squareWidth + squareWidth / 2, y * squareHeight + squareHeight / 2);
 	}
 
@@ -96,8 +100,8 @@ public class Position {
 	 *       puis verticalement
 	 */
 	public Position inGridSpace(boolean round) {
-		double squareWidth = (double) 1 / nbSquareX;
-		double squareHeight = (double) 1 / nbSquareY;
+		double squareWidth = (double) 1 / GRID_WIDTH;
+		double squareHeight = (double) 1 / GRID_MAX_Y;
 
 		if (round) {
 			x = Math.round((x - x % squareWidth) / squareWidth);

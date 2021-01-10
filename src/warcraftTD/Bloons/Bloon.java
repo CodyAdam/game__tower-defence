@@ -19,7 +19,7 @@ public abstract class Bloon {
 	public double traveledDistance = 0;// Compteur de distance déplacé pour savoir quelle Bloons est en tête
 	public List<Bloon> spawnOnDeath;// liste des Bloons à faire apparaitre quand le bloon actuel meurt
 	public ArrayDeque<Position> pathing;// Queue de Position qui sont les point par lequel le Bloon doit passer
-	public double hitboxRadius = 0.5; // rayon de hitbox en grid space
+	public double hitboxRadius = 0.25; // rayon de hitbox en grid space
 	public double speed = 0.00225; // Vitesse du bloon
 	public int money = 1; // Vitesse du bloon
 	private final double SPEED_RATIO = ((double) 720 / 1240); // la fenêtre n'étant pas carré la vitesse X n'est pas la
@@ -95,21 +95,22 @@ public abstract class Bloon {
 	 * Affiche un monstre, et si le mode debug est actif, affiche la hitbox
 	 */
 	public void draw(boolean debug) {
-		if (targetable) {
+		if (targetable)
 			StdDraw.picture(pos.x, pos.y, sprite);
-		}
-		if (debug) { // Draw hitbox on debug
-			Position range = new Position(hitboxRadius, hitboxRadius).inFrameSpace();
-			StdDraw.setPenRadius(0.005);
-			StdDraw.setPenColor(new Color(252, 3, 65, 110));
-			StdDraw.ellipse(pos.x, pos.y, range.x, range.y);
-			StdDraw.setPenColor(new Color(252, 3, 65, 60));
-			StdDraw.filledEllipse(pos.x, pos.y, range.x, range.y);
-		}
+
+		if (debug) // Draw hitbox on debug
+			drawHitbox();
 	}
 
-	public void draw() {
-		draw(false);
+	/**
+	 * Affiche la hitbox du ballon
+	 */
+	protected void drawHitbox() {
+		Position range = new Position(hitboxRadius, hitboxRadius).inFrameSpace();
+		StdDraw.setPenRadius(0.005);
+		StdDraw.setPenColor(new Color(3, 140, 252, 200));
+		StdDraw.ellipse(pos.x, pos.y, range.x, range.y);
+		StdDraw.setPenColor(new Color(3, 140, 252, 60));
+		StdDraw.filledEllipse(pos.x, pos.y, range.x, range.y);
 	}
-
 }

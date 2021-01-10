@@ -4,7 +4,7 @@ import warcraftTD.Tiles.Tile;
 import warcraftTD.Tiles.Monkeys.Monkey;
 
 /**
- * Tile utiliser en tant que bouton pour l'interface d'achat des tours
+ * Classe parente des tiles d'interface d'achat de tours
  */
 public abstract class BuyTile extends Tile {
     public Monkey toPlace;

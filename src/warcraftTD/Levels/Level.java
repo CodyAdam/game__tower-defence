@@ -15,6 +15,9 @@ import warcraftTD.Tiles.UpgradeLeft;
 import warcraftTD.Tiles.UpgradeRight;
 import warcraftTD.Tiles.BuyTiles.*;
 
+/**
+ * Classe parente des tous les niveaux du jeu
+ */
 public abstract class Level {
     // Répertorie le chemin de l'image du niveau
     public String spritePath;

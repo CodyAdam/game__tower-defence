@@ -6,15 +6,19 @@ import java.util.List;
 import warcraftTD.Position;
 import warcraftTD.Bloons.Bloon;
 
-public class Waves {
+/**
+ * Objet qui est utilisé en tant que gestionnaire de vagues
+ */
+public class WaveManager {
 
-    private int tickCounter = 0;
-    private boolean running = false; // Est-ce que une vague est en cours actuelement
+    private int tickCounter = 0; // compteur de temps, permettant de savoir quand lancer le prochain bloon de la
+                                 // file
+    private boolean running = false; // Est-ce que une vague est en cours actuellement
     private List<Bloon> bloonsList; // référence à la liste des ballons de World
-    private List<Wave> waves;
+    private List<Wave> waves; // Liste des vagues
     private Wave currentWave = null;
 
-    public Waves(List<Position> pathing, List<Bloon> bloons) {
+    public WaveManager(List<Position> pathing, List<Bloon> bloons) {
         this.bloonsList = bloons;
         waves = new ArrayList<Wave>();
         waves.add(new Wave1(pathing));
@@ -28,25 +32,37 @@ public class Waves {
         waves.add(new WaveTesting(pathing));
     }
 
+    /**
+     * @return le nom de la vague actuel, si aucune vague n'a été commencé, rend :
+     *         "Press the play button to start!"
+     */
     public String getName() {
         if (waves.isEmpty())
-            return "VICTORY!";
-        else if (currentWave == null)
+            return "Empty";
+        else if (!hasStarted())
             return "Press the play button to start!";
         else
             return currentWave.name;
     }
 
+    /**
+     * @return une vague est actuellement en cours ?
+     */
     public boolean isRunning() {
         return running;
     }
 
+    /**
+     * @return est-ce que la première vague à été lancé ?
+     */
     public boolean hasStarted() {
         return currentWave != null;
     }
 
+    /**
+     * Lance la prochaine vague si c'est possible
+     */
     public void startNextWave() {
-
         if (!running) {
             if (currentWave == null)
                 if (waves != null && waves.size() > 0) {
@@ -64,8 +80,11 @@ public class Waves {
         }
     }
 
+    /**
+     * Update le géstonnaire de vague
+     */
     public void update() {
-        if (currentWave != null) {
+        if (currentWave != null)
             if (currentWave.queue.isEmpty()) {
                 running = false;
                 return;
@@ -78,8 +97,6 @@ public class Waves {
                     tickCounter = 0;
                 }
             }
-
-        }
     }
 
 }

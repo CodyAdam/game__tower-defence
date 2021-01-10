@@ -7,7 +7,6 @@ import warcraftTD.Tiles.Empty;
 import warcraftTD.Tiles.Road;
 
 public class Level1 extends Level {
-
     public Level1() {
         super();
         spritePath = Assets.level1;

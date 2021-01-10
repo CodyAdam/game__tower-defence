@@ -8,16 +8,22 @@ import java.util.Set;
 import warcraftTD.Position;
 import warcraftTD.StdDraw;
 import warcraftTD.Bloons.Bloon;
+import warcraftTD.Bloons.MetalBloon;
 
+/**
+ * Classe parente de tous les projectiles
+ */
 public abstract class Projectile {
 
     private Position pos;
     private Position dir;
     private double velocity;
-    private String sprite;
+    protected String sprite;
     private double rotation = 0; // rotation du sprite
     private double traveledDistance = 0;
-    public Set<String> types;
+    public boolean canPopLead = false; // est-ce que le projectile peut éclater les ballon de métal ?
+    protected Set<Bloon> bloonsHitted; // On fait un historique des ballons touchés pour ne pas toucher plusieur fois
+                                       // le même
     private final double SPEED_RATIO = ((double) 720 / 1240); // la fenêtre n'étant pas carré la vitesse X n'est pas la
                                                               // même que Y donc nous égalisont avevc cette constante
                                                               // pour que le ballon ce déplace à la même vitesse
@@ -29,11 +35,12 @@ public abstract class Projectile {
     public double hitboxRadius = 0.25; // rayon de hitbox en grid space
 
     public Projectile(Position startingPos, Position direction, double velocity, String imgPath) {
-        types = new HashSet<String>();
         this.pos = new Position(startingPos);
         this.dir = new Position(direction).normalized();
         this.velocity = velocity;
         this.sprite = imgPath;
+
+        bloonsHitted = new HashSet<Bloon>();
     }
 
     /**
@@ -48,7 +55,7 @@ public abstract class Projectile {
      * @return est-ce que le projectile touche le bloon b ?
      */
     private boolean isColliding(Bloon b) {
-        return b.targetable && pos.distInGridSpace(b.pos) < b.hitboxRadius + hitboxRadius;
+        return b.targetable && pos.distInGridSpace(b.pos) < b.hitboxRadius * 2 + hitboxRadius * 2;
     }
 
     /**
@@ -60,21 +67,42 @@ public abstract class Projectile {
         for (Bloon b : bloons) {
             if (remove)
                 return;
-            if (isColliding(b) && b.hp > 0) {
-                b.hp -= damage;
-                if (--pierce <= 0)
-                    remove = true;
+            if (isColliding(b) && b.hp > 0 && !bloonsHitted.contains(b)) {
+                if (b instanceof MetalBloon) {
+                    if (canPopLead)
+                        hit(b);
+                } else
+                    hit(b);
             }
         }
     }
 
+    /**
+     * Applique les dégats au ballon b
+     * 
+     * @param b le ballon cible
+     */
+    protected void hit(Bloon b) {
+        bloonsHitted.add(b);
+        b.hp -= damage;
+        if (--pierce <= 0)
+            remove = true;
+    }
+
+    /**
+     * Déplace le projectiles
+     */
     private void move() {
         // Mesure le vecteur vitesse
         Position speedVec = dir.multi(Math.sqrt(Math.pow(dir.x * SPEED_RATIO, 2) + Math.pow(dir.y, 2))).multi(velocity);
+
         traveledDistance += speedVec.normInGridSpace();
         pos = pos.plus(speedVec);
     }
 
+    /**
+     * Update du projectile
+     */
     public void tick(List<Bloon> bloons) {
         if (isOutOfBound() || traveledDistance > maxRange)
             remove = true;
@@ -87,21 +115,26 @@ public abstract class Projectile {
 
     /**
      * Affiche le projectile et si le mode debug est actif, affiche la hitbox
+     * 
+     * @param debug est-ce que le mode debug est actif ?
      */
     public void draw(boolean debug) {
         StdDraw.picture(this.pos.x, this.pos.y, this.sprite, rotation);
-        if (debug) { // Draw hitbox on debug
-            Position range = new Position(hitboxRadius, hitboxRadius).inFrameSpace();
-            StdDraw.setPenRadius(0.005);
-            StdDraw.setPenColor(new Color(252, 3, 65, 110));
-            StdDraw.ellipse(pos.x, pos.y, range.x, range.y);
-            StdDraw.setPenColor(new Color(252, 3, 65, 60));
-            StdDraw.filledEllipse(pos.x, pos.y, range.x, range.y);
-        }
+
+        if (debug) // Draw hitbox on debug
+            drawHitbox();
     }
 
-    public void draw() {
-        draw(false);
+    /**
+     * Affiche la hitbox du projectile
+     */
+    private void drawHitbox() {
+        Position range = new Position(hitboxRadius, hitboxRadius).inFrameSpace();
+        StdDraw.setPenRadius(0.005);
+        StdDraw.setPenColor(new Color(227, 252, 3, 200));
+        StdDraw.ellipse(pos.x, pos.y, range.x, range.y);
+        StdDraw.setPenColor(new Color(227, 252, 3, 60));
+        StdDraw.filledEllipse(pos.x, pos.y, range.x, range.y);
     }
 
 }

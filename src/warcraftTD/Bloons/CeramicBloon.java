@@ -23,7 +23,7 @@ public class CeramicBloon extends Bloon {
 	}
 
 	@Override
-	public void draw() {
+	public void draw(boolean debug) {
 		if (targetable) { // affiche un Bloon plus ou moins dégradé en fonction de ses points de vie
 			String image;
 			if (hp > 8)
@@ -39,5 +39,7 @@ public class CeramicBloon extends Bloon {
 
 			StdDraw.picture(this.pos.x, this.pos.y, image);
 		}
+		if (debug)
+			drawHitbox();
 	}
 }
