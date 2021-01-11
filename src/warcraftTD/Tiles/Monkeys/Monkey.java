@@ -84,7 +84,10 @@ public abstract class Monkey extends Tile {
     public Upgrade getNextUpgrade(boolean isLeft) {
         int index = isLeft ? leftUpgrade : rightUpgrade;
         List<Upgrade> upgradeList = isLeft ? leftUpgrades : rightUpgrades;
-        if (index < upgradeList.size())
+
+        // si un des deux chemins est au niveau 3 alors l'autre chemin ne peu pas lui
+        // aussi être monté au niveau 3
+        if (index < upgradeList.size() && ((index == 2 && (leftUpgrade != 3 && rightUpgrade != 3)) || index != 2))
             return upgradeList.get(index);
         return null;
     }

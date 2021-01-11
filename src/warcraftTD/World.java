@@ -286,6 +286,7 @@ public class World {
 		final Color CANT_BUY = new Color(248, 46, 46, 255);
 		final Color SHADOW = new Color(0, 0, 0, 150);
 		final Color BORDER = new Color(51, 46, 43, 255);
+		final Color ULTIMATE_UPGRADE = new Color(122, 17, 114, 100);
 		final Color MAIN_TEXT = new Color(245, 245, 235, 255);
 		final double SHADOW_OFFSET = 0.008;
 
@@ -370,7 +371,10 @@ public class World {
 			double alignX = 0.865;
 			StdDraw.picture(alignX, alignY + 0.016, Assets.upgradeButton);
 			for (int i = 0; i < m.leftUpgrades.size(); i++) {
-				StdDraw.setPenColor(i < m.leftUpgrade ? CAN_BUY : SHADOW);
+				if (i == m.leftUpgrades.size() - 1)
+					StdDraw.setPenColor(i < m.leftUpgrade ? CAN_BUY : ULTIMATE_UPGRADE);
+				else
+					StdDraw.setPenColor(i < m.leftUpgrade ? CAN_BUY : SHADOW);
 				StdDraw.filledRectangle(alignX - (maxW / m.leftUpgrades.size()) + i * w, alignY - 0.02,
 						(w / 2) - 0.0005, h);
 				StdDraw.setPenColor(BORDER);
@@ -401,7 +405,10 @@ public class World {
 			upgrade = m.getNextUpgrade(false);
 			StdDraw.picture(alignX, alignY + 0.016, Assets.upgradeButton);
 			for (int i = 0; i < m.rightUpgrades.size(); i++) {
-				StdDraw.setPenColor(i < m.rightUpgrade ? CAN_BUY : SHADOW);
+				if (i == m.rightUpgrades.size() - 1)
+					StdDraw.setPenColor(i < m.rightUpgrade ? CAN_BUY : ULTIMATE_UPGRADE);
+				else
+					StdDraw.setPenColor(i < m.rightUpgrade ? CAN_BUY : SHADOW);
 				StdDraw.filledRectangle(alignX - (maxW / m.rightUpgrades.size()) + i * w, alignY - 0.02,
 						(w / 2) - 0.0005, h);
 				StdDraw.setPenColor(BORDER);

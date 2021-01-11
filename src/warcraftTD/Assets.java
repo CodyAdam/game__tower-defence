@@ -28,6 +28,7 @@ public class Assets {
     public static String dartMonkeySpikeOPult0 = "/Assets/Sprites/Towers/DartMonkey_Spike-o-pult_0.png";
     public static String dartMonkeySpikeOPult1 = "/Assets/Sprites/Towers/DartMonkey_Spike-o-pult_1.png";
     public static String dartMonkeySpikeOPult2 = "/Assets/Sprites/Towers/DartMonkey_Spike-o-pult_2.png";
+    public static String dartMonkeyTripleDart = "/Assets/Sprites/Towers/DartMonkey_TripleDart.png";
 
     // projectiles
     public static String dart = "/Assets/Sprites/Towers/Dart.png";

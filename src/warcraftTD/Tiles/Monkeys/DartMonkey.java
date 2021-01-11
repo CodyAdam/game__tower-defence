@@ -18,7 +18,7 @@ public class DartMonkey extends Monkey {
         cooldown = 50;
         range = 3;
         sprite = Assets.dartMonkey;
-        spriteOffset = new Position(0, 0);
+        spriteOffset = new Position(0, -0.0134);
         cost = 200;
         pierce = 1;
 
@@ -66,6 +66,8 @@ public class DartMonkey extends Monkey {
                 break;
             case 3:
                 cooldown = 40;
+                spriteOffset = new Position(-0.0020, -0.0069);
+                sprite = Assets.dartMonkeyTripleDart;
                 break;
         }
     }
@@ -75,16 +77,16 @@ public class DartMonkey extends Monkey {
         super.tick(bloons, projectiles);
         if (leftUpgrade == 3) {
             if (timer <= cooldown * 0.1) {
-                spriteOffset = new Position(-0.0187, -0.0327);
+                spriteOffset = new Position(0, -0.0327);
                 sprite = Assets.dartMonkeySpikeOPult0;
             } else if (timer <= cooldown * 0.2) {
-                spriteOffset = new Position(-0.0180, -0.0037);
+                spriteOffset = new Position(0, -0.0037);
                 sprite = Assets.dartMonkeySpikeOPult1;
             } else if (timer <= cooldown * 0.85) {
-                spriteOffset = new Position(-0.0214, 0.0328);
+                spriteOffset = new Position(0, 0.0328);
                 sprite = Assets.dartMonkeySpikeOPult2;
             } else if (timer <= cooldown * 0.93) {
-                spriteOffset = new Position(-0.0180, -0.0037);
+                spriteOffset = new Position(0, -0.0037);
                 sprite = Assets.dartMonkeySpikeOPult1;
             }
         }
@@ -102,8 +104,8 @@ public class DartMonkey extends Monkey {
             d.maxRange = range;
             projectiles.add(d);
             if (rightUpgrade == 3) {
-                Dart d1 = new Dart(pos, target.pos.minus(pos).rotate(30), 0.03, 1, pierce);
-                Dart d2 = new Dart(pos, target.pos.minus(pos).rotate(-30), 0.03, 1, pierce);
+                Dart d1 = new Dart(pos, target.pos.minus(pos).rotate(25d), 0.03, 1, pierce);
+                Dart d2 = new Dart(pos, target.pos.minus(pos).rotate(-25), 0.03, 1, pierce);
                 d1.maxRange = range;
                 d2.maxRange = range;
                 projectiles.add(d1);
