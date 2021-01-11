@@ -693,6 +693,7 @@ public class World {
 					Upgrade up = m.getNextUpgrade(false);
 					if (up != null)
 						if (up.price <= money) {
+							money -= up.price;
 							mainAlert.add("Upgraded : " + up.name + " " + up.name2);
 							m.upgrade(false);
 						} else {
@@ -703,6 +704,7 @@ public class World {
 					Upgrade up = m.getNextUpgrade(true);
 					if (up != null)
 						if (up.price <= money) {
+							money -= up.price;
 							mainAlert.add("Upgraded : " + up.name + " " + up.name2);
 							m.upgrade(true);
 						} else {
