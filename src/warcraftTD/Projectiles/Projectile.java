@@ -32,7 +32,7 @@ public abstract class Projectile {
     public int pierce = 1; // le nombre de ballons persable avant de disparaitre
     public boolean remove; // est-ce que ce projectile doit etre supprimer au prochain tick ?
     public int damage = 1; // damage infliger au bloon
-    public double hitboxRadius = 0.25; // rayon de hitbox en grid space
+    public double hitboxRadius = 0.75; // rayon de hitbox en grid space
 
     public Projectile(Position startingPos, Position direction, double velocity, String imgPath) {
         this.pos = new Position(startingPos);
@@ -55,7 +55,7 @@ public abstract class Projectile {
      * @return est-ce que le projectile touche le bloon b ?
      */
     private boolean isColliding(Bloon b) {
-        return b.targetable && pos.distInGridSpace(b.pos) < b.hitboxRadius * 2 + hitboxRadius * 2;
+        return b.targetable && pos.distInGridSpace(b.pos) < b.hitboxRadius + hitboxRadius;
     }
 
     /**

@@ -15,7 +15,7 @@ public class Pike extends Projectile {
         super(startingPos, direction, velocity, Assets.pike0);
         this.pierce = pierce;
         this.damage = damage;
-        this.hitboxRadius *= 1.8;
+        this.hitboxRadius *= 1.3;
     }
 
     @Override

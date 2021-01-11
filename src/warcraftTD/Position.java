@@ -13,8 +13,7 @@ public class Position {
 	private final int GRID_MAX_Y = 18;
 
 	/**
-	 * Classe qui permet d'avoir la position sur l'axe des x et des y des monstres
-	 * et des tours
+	 * Constructeur
 	 * 
 	 * @param x
 	 * @param y
@@ -26,8 +25,7 @@ public class Position {
 	}
 
 	/**
-	 * Classe qui permet d'avoir la position sur l'axe des x et des y des monstres
-	 * et des tours
+	 * Constructeur
 	 * 
 	 * @param x
 	 * @param y
@@ -38,13 +36,33 @@ public class Position {
 		this.bool = bool;
 	}
 
+	/**
+	 * Constructeur
+	 * 
+	 * @param p la position à importer
+	 */
 	public Position(Position p) {
 		x = p.x;
 		y = p.y;
 	}
 
+	/**
+	 * @param p la position à comparer
+	 * @return Est-ce la postion p est égale à cette position?
+	 */
 	public boolean equals(Position p) {
 		return x == p.x && y == p.y;
+	}
+
+	/**
+	 * @param degree le nombre de degrée à tourner (en degree)
+	 * @return la nouvelle position après rotation
+	 */
+	public Position rotate(double degree) {
+		double radiant = Math.toRadians(degree);
+		double cos = Math.cos(radiant);
+		double sin = Math.sin(radiant);
+		return new Position(x * cos + y * -sin, x * sin + y * cos);
 	}
 
 	/**
@@ -78,7 +96,7 @@ public class Position {
 	public Position inFrameSpace() {
 		double squareWidth = (double) 1 / GRID_WIDTH;
 		double squareHeight = (double) 1 / GRID_MAX_Y;
-		return new Position(x * squareWidth + squareWidth / 2, y * squareHeight + squareHeight / 2);
+		return new Position(x * squareWidth, y * squareHeight);
 	}
 
 	/**
@@ -103,15 +121,11 @@ public class Position {
 		double squareWidth = (double) 1 / GRID_WIDTH;
 		double squareHeight = (double) 1 / GRID_MAX_Y;
 
-		if (round) {
-			x = Math.round((x - x % squareWidth) / squareWidth);
-			y = Math.round((y - y % squareHeight) / squareHeight);
-		} else {
-			x = x / squareWidth;
-			y = y / squareHeight;
-		}
-
-		return new Position(x, y);
+		if (round)
+			return new Position(Math.round((x - x % squareWidth) / squareWidth),
+					Math.round((y - y % squareHeight) / squareHeight));
+		else
+			return new Position(x / squareWidth, y / squareHeight);
 	}
 
 	/**

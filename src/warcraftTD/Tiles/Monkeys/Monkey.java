@@ -16,11 +16,11 @@ import java.util.List;
  */
 public abstract class Monkey extends Tile {
     public String sprite; // le chemin vers l'image de la tour
-    public Position spriteCenter; // le centre de la tour (pour l'affichage)
+    public Position spriteOffset; // le centre de la tour (pour l'affichage)
     public Position pos; // Position de la tour dans le référenciel de la fenêtre
     public double range; // Rayon de tir en nombre de tile
     public int cooldown; // le temps de recharchement du tir
-    public double rotation; // orientation de la tour
+    public double rotation; // orientation de la tour en degree
     protected int timer; // timer pour savoir quand tirer
     public int cost; // prix pour placer la tour
 
@@ -286,8 +286,8 @@ public abstract class Monkey extends Tile {
     public void draw(Tile selectedTile) {
         if (selectedTile == this) // Affiche le rayon si la tour est sélectionnée ou en train d'etre pose
             drawRange();
-
-        StdDraw.picture(pos.x, pos.y, sprite, rotation);
+        Position offset = spriteOffset.inGridSpace(false).rotate(rotation).inFrameSpace();
+        StdDraw.picture(pos.x + offset.x, pos.y + offset.y, sprite, rotation);
     }
 
     /**

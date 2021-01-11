@@ -15,7 +15,7 @@ public class BlackAirBloon extends Bloon {
 		hp = 4000;
 		power = 16656;
 		sprite = Assets.blackAirBloon;
-		hitboxRadius *= 6;
+		hitboxRadius *= 4;
 		spawnOnDeath = new ArrayList<Bloon>();
 
 		spawnOnDeath.add(new RedAirBloon(pathing));

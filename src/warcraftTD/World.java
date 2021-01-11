@@ -56,7 +56,7 @@ public class World {
 	double squareWidth;
 	double squareHeight;
 
-	double gameSpeed = 1.0;// La vitesse à laquelle s'écoule le jeu
+	double gameSpeed = 0.4;// La vitesse à laquelle s'écoule le jeu
 	char key;// Commande sur laquelle le joueur appuie (sur le clavier)
 	boolean placing; // Est-ce que le joueur est en train de placer une tour ?
 	boolean debug = false;// Condition pour activer le mode DEBUG --> activation avec "D"
@@ -248,7 +248,8 @@ public class World {
 
 			for (int y = 0; y < nbSquareY; y++) {
 				for (int x = 0; x < nbSquareX; x++) {
-					Position pos = new Position(x, y).inFrameSpace();
+					Position pos = new Position(x, y).inFrameSpace()
+							.plus(new Position(squareWidth / 2, squareHeight / 2));
 					Color squarreColor = map[x][y].gridColor;
 
 					if (placing) {
@@ -562,7 +563,8 @@ public class World {
 		if (placed.isPlacableAt(target.x, target.y, map)) {
 			placed.x = target.x;
 			placed.y = target.y;
-			placed.pos = new Position(placed.x, placed.y).inFrameSpace();
+			placed.pos = new Position(placed.x, placed.y).inFrameSpace()
+					.plus(new Position(squareWidth / 2, squareHeight / 2));
 			map[target.x][target.y] = placed;
 			ArrayList<Integer[]> toBlock = placed.getAdjacent(); // liste des cases qui deviendront occupé
 			for (Integer[] coordinate : toBlock) {

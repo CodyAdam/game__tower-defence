@@ -14,7 +14,7 @@ public class RedAirBloon extends Bloon {
 		speed *= 0.25;
 		hp = 700;
 		power = 3164;
-		hitboxRadius *= 4.5;
+		hitboxRadius *= 3.5;
 		sprite = Assets.redAirBloon;
 		spawnOnDeath = new ArrayList<Bloon>();
 

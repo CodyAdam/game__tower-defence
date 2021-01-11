@@ -19,7 +19,7 @@ public abstract class Bloon {
 	public double traveledDistance = 0;// Compteur de distance déplacé pour savoir quelle Bloons est en tête
 	public List<Bloon> spawnOnDeath;// liste des Bloons à faire apparaitre quand le bloon actuel meurt
 	public ArrayDeque<Position> pathing;// Queue de Position qui sont les point par lequel le Bloon doit passer
-	public double hitboxRadius = 0.25; // rayon de hitbox en grid space
+	public double hitboxRadius = 0.6; // rayon de hitbox en grid space
 	public double speed = 0.00225; // Vitesse du bloon
 	public int money = 1; // Vitesse du bloon
 	private final double SPEED_RATIO = ((double) 720 / 1240); // la fenêtre n'étant pas carré la vitesse X n'est pas la

@@ -18,7 +18,7 @@ public class DartMonkey extends Monkey {
         cooldown = 50;
         range = 3;
         sprite = Assets.dartMonkey;
-        spriteCenter = new Position(0.5, 0.5);
+        spriteOffset = new Position(0, 0);
         cost = 200;
         pierce = 1;
 
@@ -32,7 +32,8 @@ public class DartMonkey extends Monkey {
 
         rightUpgrades.add(new Upgrade("Sharp", "Shots", "Can pop 1 extra bloon per shot", 140));
         rightUpgrades.add(new Upgrade("Razor Sharp", "Shots", "Can pop 2 extra bloons per shot (4 in total)", 170));
-        rightUpgrades.add(new Upgrade("Triple", "Darts", "Throws 3 darts at a time instead of 1.", 330));
+        rightUpgrades.add(new Upgrade("Triple", "Darts", "Throws 3 darts at a time instead of 1.",
+                "Also increase fire rate", 330));
     }
 
     @Override
@@ -48,6 +49,7 @@ public class DartMonkey extends Monkey {
                 range *= 1.25;
                 cooldown = 80;
                 pierce += 14;
+                spriteOffset = new Position(-0.0187, -0.0327);
                 sprite = Assets.dartMonkeySpikeOPult0;
                 break;
         }
@@ -63,7 +65,7 @@ public class DartMonkey extends Monkey {
                 pierce += 2;
                 break;
             case 3:
-
+                cooldown = 40;
                 break;
         }
     }
@@ -72,14 +74,19 @@ public class DartMonkey extends Monkey {
     public void tick(List<Bloon> bloons, List<Projectile> projectiles) {
         super.tick(bloons, projectiles);
         if (leftUpgrade == 3) {
-            if (timer <= cooldown * 0.1)
+            if (timer <= cooldown * 0.1) {
+                spriteOffset = new Position(-0.0187, -0.0327);
                 sprite = Assets.dartMonkeySpikeOPult0;
-            else if (timer <= cooldown * 0.2)
+            } else if (timer <= cooldown * 0.2) {
+                spriteOffset = new Position(-0.0180, -0.0037);
                 sprite = Assets.dartMonkeySpikeOPult1;
-            else if (timer <= cooldown * 0.85)
+            } else if (timer <= cooldown * 0.85) {
+                spriteOffset = new Position(-0.0214, 0.0328);
                 sprite = Assets.dartMonkeySpikeOPult2;
-            else if (timer <= cooldown * 0.93)
+            } else if (timer <= cooldown * 0.93) {
+                spriteOffset = new Position(-0.0180, -0.0037);
                 sprite = Assets.dartMonkeySpikeOPult1;
+            }
         }
     }
 
@@ -94,6 +101,14 @@ public class DartMonkey extends Monkey {
             Dart d = new Dart(pos, target.pos.minus(pos), 0.03, 1, pierce);
             d.maxRange = range;
             projectiles.add(d);
+            if (rightUpgrade == 3) {
+                Dart d1 = new Dart(pos, target.pos.minus(pos).rotate(30), 0.03, 1, pierce);
+                Dart d2 = new Dart(pos, target.pos.minus(pos).rotate(-30), 0.03, 1, pierce);
+                d1.maxRange = range;
+                d2.maxRange = range;
+                projectiles.add(d1);
+                projectiles.add(d2);
+            }
         }
     }
 }
