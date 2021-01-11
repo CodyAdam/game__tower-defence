@@ -87,7 +87,7 @@ public abstract class Monkey extends Tile {
 
         // si un des deux chemins est au niveau 3 alors l'autre chemin ne peu pas lui
         // aussi être monté au niveau 3
-        if (index < upgradeList.size() && ((index == 2 && (leftUpgrade != 3 && rightUpgrade != 3)) || index != 2))
+        if (index < upgradeList.size() && ((index == 2 && (leftUpgrade < 3 && rightUpgrade < 3)) || index != 2))
             return upgradeList.get(index);
         return null;
     }

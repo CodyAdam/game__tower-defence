@@ -292,7 +292,7 @@ public class World {
 
 		// ############ Draw play button ############
 
-		if (!waves.isRunning()) {
+		if (!waves.isRunning() || debug) {
 			StdDraw.picture(0.764, 0.071d, Assets.buttonPlay);
 		}
 
