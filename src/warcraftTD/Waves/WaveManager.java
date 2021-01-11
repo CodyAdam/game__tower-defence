@@ -24,6 +24,7 @@ public class WaveManager {
         waves.add(new Wave1(pathing));
         waves.add(new Wave2(pathing));
         waves.add(new Wave3(pathing));
+        waves.add(new Wave4(pathing));
         waves.add(new WaveTesting(pathing));
         waves.add(new WaveTesting(pathing));
         waves.add(new WaveTesting(pathing));
