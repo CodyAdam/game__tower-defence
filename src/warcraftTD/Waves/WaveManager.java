@@ -63,19 +63,17 @@ public class WaveManager {
      * Lance la prochaine vague si c'est possible
      */
     public void startNextWave() {
-        if (!running) {
-            if (currentWave == null)
-                if (waves != null && waves.size() > 0) {
-                    currentWave = waves.get(0);
-                    running = true;
-                } else
-                    System.err.println("The started wave is empty");
-            else {
-                int nextIndex = 1 + waves.indexOf(currentWave);
-                if (nextIndex < waves.size()) {
-                    currentWave = waves.get(1 + waves.indexOf(currentWave));
-                    running = true;
-                }
+        if (currentWave == null)
+            if (waves != null && waves.size() > 0) {
+                currentWave = waves.get(0);
+                running = true;
+            } else
+                System.err.println("The started wave is empty");
+        else {
+            int nextIndex = 1 + waves.indexOf(currentWave);
+            if (nextIndex < waves.size()) {
+                currentWave = waves.get(1 + waves.indexOf(currentWave));
+                running = true;
             }
         }
     }

@@ -16,7 +16,7 @@ public class DartMonkey extends Monkey {
     public DartMonkey(int x, int y) {
         super(x, y);
         cooldown = 50;
-        range = 3;
+        range = 3.5;
         sprite = Assets.dartMonkey;
         spriteOffset = new Position(0, -0.0134);
         cost = 200;
@@ -27,12 +27,12 @@ public class DartMonkey extends Monkey {
         leftUpgrades.add(new Upgrade("Enhanced", "Eyesight", "Further increases attack", 100));
         leftUpgrades.add(new Upgrade("Spike-O", "Pult",
                 "Converts the Dart Monkey into a Spike-O-Pult, a powerful tower that hurls a large spiked ball instead of darts.",
-                "Increases range even more, albeit slightly, but has slower attack speed. Each ball can pop 18 bloons",
-                500));
+                "Increases range slightly more, but has slower attack speed. Each ball can pop 18 bloons", 500));
 
         rightUpgrades.add(new Upgrade("Sharp", "Shots", "Can pop 1 extra bloon per shot", 140));
         rightUpgrades.add(new Upgrade("Razor Sharp", "Shots", "Can pop 2 extra bloons per shot (4 in total)", 170));
-        rightUpgrades.add(new Upgrade("Triple", "Darts", "Throws 3 darts at a time instead of 1.",
+        rightUpgrades.add(new Upgrade("Triple", "Darts",
+                "Converts the Dart Monkey into a archer monkey that throws 3 darts at a time instead of 1.",
                 "Also increase fire rate", 330));
     }
 
@@ -46,7 +46,7 @@ public class DartMonkey extends Monkey {
                 range *= 1.25;
                 break;
             case 3:
-                range *= 1.25;
+                range *= 1.13;
                 cooldown = 80;
                 pierce += 14;
                 spriteOffset = new Position(-0.0187, -0.0327);

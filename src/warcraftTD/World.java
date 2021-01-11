@@ -56,7 +56,7 @@ public class World {
 	double squareWidth;
 	double squareHeight;
 
-	double gameSpeed = 0.4;// La vitesse à laquelle s'écoule le jeu
+	double gameSpeed = 1;// La vitesse à laquelle s'écoule le jeu
 	char key;// Commande sur laquelle le joueur appuie (sur le clavier)
 	boolean placing; // Est-ce que le joueur est en train de placer une tour ?
 	boolean debug = false;// Condition pour activer le mode DEBUG --> activation avec "D"
@@ -721,9 +721,11 @@ public class World {
 				} else
 					placing = true;
 			else if (selectedTile instanceof PlayButton) {
-				if (waves.isRunning())
+				if (!debug && waves.isRunning())
 					mainAlert.add("You can't start another wave now!");
 				else {
+					if (debug && waves.isRunning())
+						mainAlert.add("DEBUG : Current wave skipped!");
 					waves.startNextWave();
 					mainAlert.add(waves.getName() + " has started!");
 				}
@@ -731,7 +733,6 @@ public class World {
 				gameSpeed = gameSpeed == 1 ? 2.5 : 1;
 			}
 		}
-
 	}
 
 	/**
