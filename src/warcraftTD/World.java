@@ -28,48 +28,44 @@ import java.util.Iterator;
 
 public class World {
 
-	List<Bloon> bloons = new ArrayList<Bloon>(); // l'ensemble des monstres
-	List<Monkey> monkeys = new ArrayList<Monkey>(); // l'ensemble des tours
-	List<Projectile> projectiles = new ArrayList<Projectile>(); // l'ensemble des tours
-	List<Alert> alerts = new ArrayList<Alert>(); // l'ensemble des alert (pop-up textuel) utiliser pour les gains
-													// d'argent ou
-													// améliorations de tours
-	Alert mainAlert; // l'objet d'alert général pour toutes les info importantes qui serons afficher
-						// au milieu de l'écran
-	WaveManager waves;// Le gestionnaire de vagues
-	Level level;// Le niveau actuel
+	private List<Bloon> bloons = new ArrayList<Bloon>(); // l'ensemble des monstres
+	private List<Monkey> monkeys = new ArrayList<Monkey>(); // l'ensemble des tours
+	private List<Projectile> projectiles = new ArrayList<Projectile>(); // l'ensemble des tours
+	private List<Alert> alerts = new ArrayList<Alert>(); // l'ensemble des alertes (pop-up textuel)
 
-	int life = 150;// Nombre de points de vie du joueur
-	int money = 650;// Quantité d'argent
-	Font font;// La police du texte
+	private Alert mainAlert; // l'objet d'alert général pour toutes les info importantes qui serons afficher
+								// au milieu de l'écran
+	private WaveManager waves;// Le gestionnaire de vagues
+	private Level level;// Le niveau actuel
+
+	private int life = 150;// Nombre de points de vie du joueur
+	private int money = 650;// Quantité d'argent
+	private Font font;// La police du texte
 
 	// grille qui determine qu'est-ce que qu'il y a sur la carte
 	// (ex : SingeXXX, SingeYYY, Rien, Route ou Arbre ou rochers, UI, etc...)
-	Tile[][] map;
-	Tile selectedTile;// La tuile qui est actuelement selectionné peut être sois une BuyTile ou Monkey
+	private Tile[][] map;
+	private Tile selectedTile;// La tuile qui est actuelement selectionné peut être sois une BuyTile ou Monkey
 
 	// Information sur la taille du plateau de jeu
-	int width;
-	int height;
-	int nbSquareX;
-	int nbSquareY;
-	double squareWidth;
-	double squareHeight;
+	private int nbSquareX;
+	private int nbSquareY;
+	private double squareWidth;
+	private double squareHeight;
 
-	double gameSpeed = 1;// La vitesse à laquelle s'écoule le jeu
-	char key;// Commande sur laquelle le joueur appuie (sur le clavier)
-	boolean placing; // Est-ce que le joueur est en train de placer une tour ?
-	boolean debug = false;// Condition pour activer le mode DEBUG --> activation avec "D"
-	boolean end = false;// Condition pour terminer la partie
-	boolean clicking = false; // Evite le click à répétition quand on reste appuyer
+	private double gameSpeed = 1;// La vitesse à laquelle s'écoule le jeu
+	private boolean placing; // Est-ce que le joueur est en train de placer une tour ?
+	private boolean debug = false;// Condition pour activer le mode DEBUG --> activation avec "D"
+	private boolean end = false;// Condition pour terminer la partie
+	private boolean clicking = false; // Evite le click à répétition quand on reste appuyer
 
 	// compte le nombre de tps (tick per second) et fps (frames per second)
-	int fps;
-	int fpsCount = 0;
-	long tpsTimerStart = System.nanoTime();
-	long fpsTimerStart = System.nanoTime();
-	long tpsCounter = 0;
-	final long TARGET_TPS = 1000000000 / 60; // on veut avoir 60 tps constant (sauf quand le jeu est accéléré)
+	private int fps;
+	private int fpsCount = 0;
+	private long tpsTimerStart = System.nanoTime();
+	private long fpsTimerStart = System.nanoTime();
+	private long tpsCounter = 0;
+	private final long TARGET_TPS = 1000000000 / 60; // on veut avoir 60 tps constant (sauf quand le jeu est accéléré)
 
 	/**
 	 * Initialisation du monde en fonction de la largeur, la hauteur et le nombre de
@@ -87,8 +83,6 @@ public class World {
 		this.waves = new WaveManager(level.pathing, this.bloons);
 		this.map = level.map;
 
-		this.width = width;
-		this.height = height;
 		this.nbSquareX = level.nbSquareX;
 		this.nbSquareY = level.nbSquareY;
 		this.squareWidth = (double) 1 / nbSquareX;
@@ -623,7 +617,6 @@ public class World {
 	 */
 	public void keyPress(char key) {
 		key = Character.toLowerCase(key);
-		this.key = key;
 		switch (key) {
 			case 'd':
 				mainAlert.add("DEBUG MODE : " + (!debug ? "Activated" : "Desactivated"));
@@ -730,7 +723,7 @@ public class World {
 					mainAlert.add(waves.getName() + " has started!");
 				}
 			} else if (selectedTile instanceof SpeedupButton) {
-				gameSpeed = gameSpeed == 1 ? 2.5 : 1;
+				gameSpeed = gameSpeed == 1 ? 4 : 1;
 			}
 		}
 	}
@@ -751,6 +744,7 @@ public class World {
 	 * Affiche tout le contenu du jeu
 	 */
 	public void draw() {
+		StdDraw.clear();
 		// arriere plan
 		drawBackground();
 		drawGrid();
@@ -776,9 +770,6 @@ public class World {
 	 */
 	public void run() {
 		while (!end) {
-
-			StdDraw.clear();
-
 			while (tpsTimerStart - System.nanoTime() < TARGET_TPS / gameSpeed) {
 				tpsTimerStart += TARGET_TPS / gameSpeed;
 				tpsCounter++;
@@ -804,6 +795,5 @@ public class World {
 				fpsCount++;
 			}
 		}
-		System.exit(0);
 	}
 }

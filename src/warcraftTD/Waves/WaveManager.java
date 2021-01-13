@@ -25,11 +25,12 @@ public class WaveManager {
         waves.add(new Wave2(pathing));
         waves.add(new Wave3(pathing));
         waves.add(new Wave4(pathing));
-        waves.add(new WaveTesting(pathing));
-        waves.add(new WaveTesting(pathing));
-        waves.add(new WaveTesting(pathing));
-        waves.add(new WaveTesting(pathing));
-        waves.add(new WaveTesting(pathing));
+        waves.add(new Wave5(pathing));
+        waves.add(new Wave6(pathing));
+        waves.add(new Wave7(pathing));
+        waves.add(new Wave8(pathing));
+        waves.add(new Wave9(pathing));
+        waves.add(new Wave10(pathing));
         waves.add(new WaveTesting(pathing));
     }
 
