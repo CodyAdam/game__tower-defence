@@ -62,13 +62,11 @@ En tant que joueur, nous posons des singes sur le terrain dans le but de se déf
 
 ## Touches utiles en jeu :
 
--   [Q] Retourner au menu / Quitter le jeu
--   [D] alterne avec le mode DEBUG
-
-##### Triche / débuging :
-
--   [K] en mode DEBUG uniquement : tue tous les ballons à l'écran
--   [M] en mode DEBUG uniquement : fait gagner 1000$
+-   Tout ce joue avec la souris sauf pour les deux cas suivant :
+    -   [Q] Retourner au menu / Quitter le jeu
+    -   [D] alterne avec le mode DEBUG
+        -   [K] en mode DEBUG uniquement : tue tous les ballons à l'écran
+        -   [M] en mode DEBUG uniquement : fait gagner 1000$
 
 ## Bibliographie :
 
