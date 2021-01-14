@@ -4,18 +4,18 @@
 
 ## TODO
 
--   [ ] Implementation des upgrade Dartmonkey
 -   [ ] Ajout de tours
 -   [ ] Ecran de defaite
 -   [ ] Menu de selection de niveaux
 -   [ ] Level2
 -   [ ] Level generer aleatoirement
+-   [ ] Pop animation
 
 ## Concept du projet :
 
-Durant mon enfance j'ai beaucoup jouer au jeu tower defénse appeler Bloons TD 5 c'est pourquoi moi et mon binôme, avons eu l'idée de faire une récréation simplifier de ce jeu avec les outils mis à notre disposition, ce qui à été un challenge enrichissant.
+Quand nous avons vu que le thème du projet était sur les jeux de type Tower defence, nous avons eu l'idée de faire une recréation simplifier du jeu Bloons TD 5 avec les outils mis à notre disposition, ce qui a été un challenge vraiment enrichissant.
 
-Tous les assets sont issus de ce même jeu à l'éxception de la police d'écriture, nous vous renvoyions donc vers la page Steam si vous voulez en savoir plus : [Bloons TD 5 sur Steam](https://store.steampowered.com/app/306020Bloons_TD_5/)
+La majorité des [assets](https://en.wikipedia.org/wiki/Digital_asset) sont donc issus de ce même jeu, les images ne sont donc pas libre de droit. C'est pourquoi nous n'allons aucunement rendre ce jeu public, celui-ci restera dans le cadre du projet de PO. Quelles ont été nos motivations pour avoir pris les [sprites](<https://en.wikipedia.org/wiki/Sprite_(computer_graphics)>) de ce jeu ? Le projet de PO a pour but de tester nos capacités en programmation et non en graphisme, c'est pourquoi emprunter les sprites de ce jeu nous permet de gagner du temps en ayant des images prêtes à être utilisé tout en rendant notre projet original.
 
 ## Concept du gameplay :
 
@@ -39,13 +39,14 @@ En tant que joueur, nous posons des singes sur le terrain dans le but de se déf
 ## Changement effectué sur le projet par défaut :
 
 -   Les ennemies ont été renommé en tant que "Bloon" et les tours en tant que "Monkey"
--   Fenêtre de résolution de 1240 x 720 px
+-   Fenêtre de résolution fixée de 1240 x 720 px
 -   Grille de 31 x 18 tuiles (une tuile fait 40 x 40 px)
 -   Sprite des tours et ennemies customiser
 -   Arrière plan customiser (pas de tuile mais une seul image)
 -   Police customiser (voir bibliographie)
 -   Changement total des unités ennemies et alliées (Bomb et Arrow Tower remplacés par les différents Singes et les monstres sont remplacés par le système de Bloons)
--   Système de niveaux avec chacun des "pathing", environnements et difficultés différentes
+-   Système de niveaux avec chacun des chemins, environnements et difficultés différentes (4 disponibles)
+-   Générateur procédural de niveaux
 -   Un mode débug avancé avec un affichage de multiples informations et accès à des commandes de "triche"
 -   Ajout d'une interface visuelle interactive d'achat et d'amélioration. Le jeu ce joue à la souris
 -   Système de popup textuel animée avec du [easing](https://easings.net/fr) modulable
@@ -55,12 +56,13 @@ En tant que joueur, nous posons des singes sur le terrain dans le but de se déf
 -   Système de tile (tuile en français) couplé à la grille, tout objet intéractif du jeu est représenté par une tile dans la grille à l'éxception des ballons
 -   Ajout de passages pour les ballons dans des tunnels, empéchant les tours de les attaquers
 -   Système de projectiles, avec un capteur de colision modulable
--   Système d'amélioration de tour (via l'interface graphique)
--   Système de changement de cible (via l'interface graphique)
+-   Système d'amélioration de tour via l'interface graphique avec changement des compétences des tours quand elles sont améliorées
+-   Système de changement de cible via l'interface graphique
+-   Menu d'accueil avec sélection de niveaux via l'interface graphique
 
 ## Touches utiles en jeu :
 
--   [Q] Quitte le jeu
+-   [Q] Retourner au menu / Quitter le jeu
 -   [D] alterne avec le mode DEBUG
 
 ##### Triche / débuging :
@@ -71,4 +73,7 @@ En tant que joueur, nous posons des singes sur le terrain dans le but de se déf
 ## Bibliographie :
 
 -   Sprites utiliser : [Jeu Bloons TD 5](https://store.steampowered.com/app/306020Bloons_TD_5/)
+-   Image de Fond de l'écran d'accueil : [Bloons TD 5 Playstation](https://store.playstation.com/fr-fr/product/EP2575-CUSA08065_00-BTD5000000000001)
 -   Police utiliser : [Fredoka One (Regular)](https://fonts.google.com/specimen/Fredoka+One)
+-   Police 1 de l'écran d'accueil : [Azo Sans](https://fonts.adobe.com/fonts/azo-sans)
+-   Police 2 de l'écran d'accueil : [Nunito](https://fonts.google.com/specimen/Nunito)

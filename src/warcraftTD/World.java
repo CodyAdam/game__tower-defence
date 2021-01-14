@@ -75,7 +75,7 @@ public class World {
 	 * @param width  largeur de la taille de la fenêtre
 	 * @param height hauteur de la taille de la fenêtre
 	 */
-	public World(Level level, int width, int height) {
+	public World(Level level) {
 		loadFont();
 
 		this.mainAlert = new Alert(new Position(0.5, 0.6), 120, new Color(250, 250, 250, 255), this.font, 60, 0.1, 40);
@@ -87,8 +87,8 @@ public class World {
 		this.nbSquareY = level.nbSquareY;
 		this.squareWidth = (double) 1 / nbSquareX;
 		this.squareHeight = (double) 1 / nbSquareY;
-		StdDraw.setCanvasSize(width, height);
-		StdDraw.enableDoubleBuffering();
+		// StdDraw.setCanvasSize(width, height);
+		// StdDraw.enableDoubleBuffering();
 	}
 
 	/**
@@ -777,9 +777,8 @@ public class World {
 			}
 			draw();
 
-			if (StdDraw.hasNextKeyTyped()) {
+			if (StdDraw.hasNextKeyTyped())
 				keyPress(StdDraw.nextKeyTyped());
-			}
 			if (StdDraw.isMousePressed())
 				mouseClick(StdDraw.mouseX(), StdDraw.mouseY());
 			else

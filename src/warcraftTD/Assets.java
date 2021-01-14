@@ -2,7 +2,7 @@ package warcraftTD;
 
 /**
  * Classe static utilisée pour facilement avoir accès à tous les assets du jeu
- * (images, polices et autres)
+ * (sprites, polices et autres)
  */
 public class Assets {
 
@@ -19,9 +19,17 @@ public class Assets {
     public static String buttonSpeedup1 = "/Assets/Sprites/HUD/button_speedup_1.png";
     public static String buttonPlay = "/Assets/Sprites/HUD/button_play.png";
     public static String font = "/Assets/Fonts/FredokaOne-Regular.ttf";
+    public static String cursorDart0 = "/Assets/Sprites/HUD/dart_0.png";
+    public static String cursorDart1 = "/Assets/Sprites/HUD/dart_1.png";
+    public static String cursorDart2 = "/Assets/Sprites/HUD/dart_2.png";
+    public static String cursorDart3 = "/Assets/Sprites/HUD/dart_3.png";
+    public static String titleBackground = "/Assets/Sprites/HUD/title_background.png";
 
     // levels
     public static String level1 = "/Assets/Sprites/monkey_lane_thumb.jpg";
+    public static String level2 = "/Assets/Sprites/ancient_tomb_thumb.jpg";
+    public static String level3 = "/Assets/Sprites/crop_circles_thumb.jpg";
+    public static String level4 = "/Assets/Sprites/roswell_thumb.jpg";
 
     // towers
     public static String dartMonkey = "/Assets/Sprites/Towers/DartMonkey.png";
