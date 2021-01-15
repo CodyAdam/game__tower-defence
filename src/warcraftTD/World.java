@@ -208,6 +208,8 @@ public class World {
 	 */
 	public void drawPath() {
 		if (debug || !waves.hasStarted()) {
+			final Color PATH_COLOR = new Color(139, 77, 219, 255);
+			final Color PATH_COLOR_UNDER = new Color(245, 241, 34, 255);
 			final double PATH_RADIUS = 0.01;
 			final int ANIMATION_DELAY = 10;
 
@@ -218,10 +220,12 @@ public class World {
 				Position next = pathing.get(i + 1);
 
 				double x = Math.sin((i - (double) tpsCounter) / ANIMATION_DELAY) / 2 + 0.5;
-				if (next.bool)
-					StdDraw.setPenColor(new Color(245, 241, 34, 50 + (int) (x * 205)));
+				if (next.bool) // Next is bridge display a yellow line instead
+					StdDraw.setPenColor(new Color(PATH_COLOR_UNDER.getRed(), PATH_COLOR_UNDER.getGreen(),
+							PATH_COLOR_UNDER.getBlue(), (int) (x * 255)));
 				else
-					StdDraw.setPenColor(new Color(95, 50, 50, 50 + (int) (x * 205)));
+					StdDraw.setPenColor(new Color(PATH_COLOR.getRed(), PATH_COLOR.getGreen(), PATH_COLOR.getBlue(),
+							(int) (x * 255)));
 				StdDraw.line(current.x, current.y, next.x, next.y);
 			}
 		}
@@ -638,11 +642,6 @@ public class World {
 					money += 1000;
 				}
 				break;
-			case 'b':
-				double mouseX = Math.round(StdDraw.mouseX() * 1000) / (double) 1000;
-				double mouseY = Math.round(StdDraw.mouseY() * 1000) / (double) 1000;
-				System.out.println("pathing.add(new Position(" + mouseX + ", " + mouseY + "));");
-				break;
 			case 'q':
 				exit();
 				break;
@@ -667,6 +666,12 @@ public class World {
 	public void mouseClick(double x, double y) {
 		if (clicking == false) {
 			clicking = true;
+
+			// TODO REMOVE
+			double mouseX = Math.round(StdDraw.mouseX() * 1000) / (double) 1000;
+			double mouseY = Math.round(StdDraw.mouseY() * 1000) / (double) 1000;
+			System.out.println("pathing.add(new Position(" + mouseX + ", " + mouseY + "));");
+
 			Tile mouseTile = getMouseTile();
 			if (placing) {
 				placeMonkey(mouseTile);

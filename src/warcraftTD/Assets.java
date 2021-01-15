@@ -29,7 +29,7 @@ public class Assets {
     public static String level1 = "/Assets/Sprites/monkey_lane_thumb.jpg";
     public static String level2 = "/Assets/Sprites/ancient_tomb_thumb.jpg";
     public static String level3 = "/Assets/Sprites/crop_circles_thumb.jpg";
-    public static String level4 = "/Assets/Sprites/roswell_thumb.jpg";
+    public static String level4 = "/Assets/Sprites/head_in_the_clouds_thumb.jpg";
 
     // towers
     public static String dartMonkey = "/Assets/Sprites/Towers/DartMonkey.png";
