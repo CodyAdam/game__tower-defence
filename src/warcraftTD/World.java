@@ -633,6 +633,10 @@ public class World {
 					}
 				}
 				break;
+			case 'b':
+				Position mouseGrid = new Position(StdDraw.mouseX(), StdDraw.mouseY()).inGridSpace();
+				System.out.println(String.format("road[%s][%s] = true;", (int) mouseGrid.x, (int) mouseGrid.y));
+				break;
 			case 'm':
 				if (debug) {
 					Alert gainAlert = new Alert(new Position(StdDraw.mouseX(), StdDraw.mouseY()), 100,
