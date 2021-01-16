@@ -13,7 +13,7 @@ public class LevelProcedural extends Level {
         spritePath = Assets.levelProcedural;
 
         pathing.add(getSidePathingPoint());
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 5; i++) {
             pathing.add(getRandomPointNotNear(6));
         }
         pathing.add(getSidePathingPoint());
@@ -37,15 +37,23 @@ public class LevelProcedural extends Level {
         Position ans;
         double randomizer = Math.random();
         if (randomizer < 0.25)
-            ans = new Position(Math.random() * maxX, 0); // point sur le côté bas
+            ans = new Position(rInt(0, maxX), 0); // point sur le côté bas
         else if (randomizer < 0.5)
-            ans = new Position(Math.random() * maxX, 1); // point sur le côté haut
+            ans = new Position(rInt(0, maxX), maxY); // point sur le côté haut
         else if (randomizer < 0.75)
-            ans = new Position(0, Math.random() * maxY); // point sur le côté gauche
+            ans = new Position(0, rInt(0, maxY)); // point sur le côté gauche
         else
-            ans = new Position(1, Math.random() * maxY); // point sur le côté droite
-        System.out.println(ans);
+            ans = new Position(maxX, rInt(0, maxY)); // point sur le côté droite
         return ans.inFrameSpace();
+    }
+
+    /**
+     * @param a a int
+     * @param b a int
+     * @return give a random int between a and b
+     */
+    private int rInt(int min, int max) {
+        return min + (int) (Math.random() * ((max - min) + 1));
     }
 
     /**
@@ -62,13 +70,12 @@ public class LevelProcedural extends Level {
         int tries = 0;
 
         do {
-            p = new Position(Math.random() * maxX, Math.random() * maxY);
+            p = new Position(rInt(0, maxX), rInt(0, maxY));
             for (Position pos : pathing) {
                 if (pos.inGridSpace().distInGridSpace(p) < radius)
                     isTooClose = true;
             }
         } while (isTooClose && tries++ < 30);
-        System.out.println(p.inFrameSpace());
         return p.inFrameSpace();
     }
 }

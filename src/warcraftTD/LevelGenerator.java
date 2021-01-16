@@ -110,7 +110,6 @@ public class LevelGenerator {
         final Color PATH_COLOR = new Color(139, 77, 219, 255);
         final Color PATH_COLOR_UNDER = new Color(245, 241, 34, 255);
         final double PATH_RADIUS = 0.01;
-        final int ANIMATION_DELAY = 10;
         List<Position> pathing = level.pathing;
 
         int state;
@@ -123,21 +122,11 @@ public class LevelGenerator {
                 tpsCounter = 0;
             }
         }
-
         StdDraw.setPenRadius(PATH_RADIUS);
         for (int i = 0; i < Math.min(pathSize - 1, state); i++) {
             Position current = pathing.get(i);
             Position next = pathing.get(i + 1);
-
-            if (emptyIsDone) {
-                double x = Math.sin((i - (double) tpsCounter) / ANIMATION_DELAY) / 2 + 0.5;
-                if (next.bool) // Next is bridge display a yellow line instead
-                    StdDraw.setPenColor(new Color(PATH_COLOR_UNDER.getRed(), PATH_COLOR_UNDER.getGreen(),
-                            PATH_COLOR_UNDER.getBlue(), (int) (x * 255)));
-                else
-                    StdDraw.setPenColor(new Color(PATH_COLOR.getRed(), PATH_COLOR.getGreen(), PATH_COLOR.getBlue(),
-                            (int) (x * 255)));
-            } else if (next.bool)
+            if (next.bool)
                 StdDraw.setPenColor(PATH_COLOR_UNDER);
             else
                 StdDraw.setPenColor(PATH_COLOR);
