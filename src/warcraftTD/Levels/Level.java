@@ -34,9 +34,14 @@ public abstract class Level {
     public int nbSquareX;
     public int nbSquareY;
 
+    public boolean[][] road;
+    public boolean[][] decor;
+
     public Level() {
         nbSquareX = 31;
         nbSquareY = 18;
+        road = new boolean[nbSquareX][nbSquareY];
+        decor = new boolean[nbSquareX][nbSquareY];
         map = new Tile[nbSquareX][nbSquareY];
         pathing = new ArrayList<Position>();
 

@@ -99,8 +99,6 @@ public class Level3 extends Level {
 
         // remplie la map de vide,d'obstacles ou de route...
 
-        boolean[][] decor = new boolean[31][18];
-
         decor[0][8] = true;
         decor[0][7] = true;
         decor[1][7] = true;
@@ -114,7 +112,6 @@ public class Level3 extends Level {
         decor[22][16] = true;
         decor[22][17] = true;
 
-        boolean[][] road = new boolean[31][18];
         road[5][10] = true;
         road[6][10] = true;
         road[0][17] = true;

@@ -33,13 +33,6 @@ public class Menu {
      * @param y la coordonnée Y de la souris
      */
     private void onMouseClick(double x, double y) {
-        if (clicking == false) {
-            clicking = true;
-            double mouseX = Math.round(x * 10000) / (double) 10000;
-            double mouseY = Math.round(y * 10000) / (double) 10000;
-            System.out.println(new Position(mouseX, mouseY));
-        }
-
         switch (hoveredButton) {
             case 1:
                 new World(new Level1()).run(); // instancie le plateau et lancement de la boucle principale du jeu
@@ -52,6 +45,9 @@ public class Menu {
                 break;
             case 4:
                 new World(new Level4()).run(); // instancie le plateau et lancement de la boucle principale du jeu
+                break;
+            case 5:
+                new LevelGenerator();
                 break;
         }
     }

@@ -12,44 +12,6 @@ public class Level1 extends Level {
         spritePath = Assets.level1;
 
         // remplie la liste de points par lequel les Bloons vont passer dans l'ordre.
-
-        // pathing.add(new Position(0, 0.45));
-        // pathing.add(new Position(0.128, 0.45));
-        // pathing.add(new Position(0.154, 0.483));
-        // pathing.add(new Position(0.154, 0.569));
-        // pathing.add(new Position(0.176, 0.601));
-        // pathing.add(new Position(0.269, 0.601));
-        // pathing.add(new Position(0.294, 0.563));
-        // pathing.add(new Position(0.293, 0.114));
-        // pathing.add(new Position(0.313, 0.086));
-        // pathing.add(new Position(0.466, 0.088));
-        // pathing.add(new Position(0.485, 0.117));
-        // pathing.add(new Position(0.484, 0.154));
-        // pathing.add(new Position(0.485, 0.447, true)); // UNDER BRIDGE
-        // pathing.add(new Position(0.485, 0.736));
-        // pathing.add(new Position(0.458, 0.771));
-        // pathing.add(new Position(0.185, 0.769));
-        // pathing.add(new Position(0.161, 0.8));
-        // pathing.add(new Position(0.16, 0.896));
-        // pathing.add(new Position(0.19, 0.928));
-        // pathing.add(new Position(0.567, 0.929));
-        // pathing.add(new Position(0.59, 0.896));
-        // pathing.add(new Position(0.588, 0.81));
-        // pathing.add(new Position(0.609, 0.776));
-        // pathing.add(new Position(0.69, 0.774));
-        // pathing.add(new Position(0.708, 0.747));
-        // pathing.add(new Position(0.71, 0.64));
-        // pathing.add(new Position(0.69, 0.604));
-        // pathing.add(new Position(0.615, 0.599));
-        // pathing.add(new Position(0.589, 0.556));
-        // pathing.add(new Position(0.589, 0.336));
-        // pathing.add(new Position(0.56, 0.292));
-        // pathing.add(new Position(0.386, 0.292));
-        // pathing.add(new Position(0.2, 0.292, true));// UNDER BRIDGE
-        // pathing.add(new Position(0.177, 0.29));
-        // pathing.add(new Position(0.156, 0.24));
-        // pathing.add(new Position(0.156, 0.001));
-
         pathing.add(new Position(0, 0.451));
         pathing.add(new Position(0.131, 0.45));
         pathing.add(new Position(0.15, 0.463));
@@ -104,9 +66,6 @@ public class Level1 extends Level {
         pathing.add(new Position(0.156, 0));
 
         // remplie la map de vide,d'obstacles ou de route...
-
-        boolean[][] decor = new boolean[31][18];
-
         decor[0][5] = true;
         decor[0][3] = true;
         decor[0][14] = true;
@@ -131,8 +90,6 @@ public class Level1 extends Level {
         decor[24][10] = true;
         decor[24][9] = true;
         decor[24][12] = true;
-
-        boolean[][] road = new boolean[31][18];
 
         road[8][2] = true;
         road[17][10] = true;

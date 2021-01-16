@@ -671,11 +671,6 @@ public class World {
 		if (clicking == false) {
 			clicking = true;
 
-			// TODO REMOVE
-			double mouseX = Math.round(StdDraw.mouseX() * 1000) / (double) 1000;
-			double mouseY = Math.round(StdDraw.mouseY() * 1000) / (double) 1000;
-			System.out.println("pathing.add(new Position(" + mouseX + ", " + mouseY + "));");
-
 			Tile mouseTile = getMouseTile();
 			if (placing) {
 				placeMonkey(mouseTile);

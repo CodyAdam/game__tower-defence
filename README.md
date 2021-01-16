@@ -71,7 +71,8 @@ En tant que joueur, nous posons des singes sur le terrain dans le but de se déf
 ## Bibliographie :
 
 -   Sprites utiliser : [Jeu Bloons TD 5](https://store.steampowered.com/app/306020Bloons_TD_5/)
--   Image de Fond de l'écran d'accueil : [Bloons TD 5 Playstation](https://store.playstation.com/fr-fr/product/EP2575-CUSA08065_00-BTD5000000000001)
+-   Image de fond de l'écran d'accueil : [Bloons TD 5 Playstation](https://store.playstation.com/fr-fr/product/EP2575-CUSA08065_00-BTD5000000000001)
+-   Image de fond pour le niveau à génération procédural : [Plants vs. Zombies Wiki](https://plantsvszombies.fandom.com/wiki/Day)
 -   Police utiliser : [Fredoka One (Regular)](https://fonts.google.com/specimen/Fredoka+One)
 -   Police 1 de l'écran d'accueil : [Azo Sans](https://fonts.adobe.com/fonts/azo-sans)
 -   Police 2 de l'écran d'accueil : [Nunito](https://fonts.google.com/specimen/Nunito)

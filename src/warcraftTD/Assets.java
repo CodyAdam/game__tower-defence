@@ -10,6 +10,7 @@ public class Assets {
 
     // hud elements
     public static String panel = "/Assets/Sprites/HUD/panel.png";
+    public static String panelProcedural = "/Assets/Sprites/HUD/panel_procedural.png";
     public static String leftArrow = "/Assets/Sprites/HUD/left_arrow.png";
     public static String rightArrow = "/Assets/Sprites/HUD/right_arrow.png";
     public static String moneyLife = "/Assets/Sprites/HUD/money_life.png";
@@ -30,6 +31,7 @@ public class Assets {
     public static String level2 = "/Assets/Sprites/ancient_tomb_thumb.jpg";
     public static String level3 = "/Assets/Sprites/crop_circles_thumb.jpg";
     public static String level4 = "/Assets/Sprites/head_in_the_clouds_thumb.jpg";
+    public static String levelProcedural = "/Assets/Sprites/custom_thumb.png";
 
     // towers
     public static String dartMonkey = "/Assets/Sprites/Towers/DartMonkey.png";
