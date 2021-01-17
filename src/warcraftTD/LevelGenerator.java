@@ -124,11 +124,9 @@ public class LevelGenerator {
      */
     private void drawButtons() {
         // ############ Draw play button ############
-
         StdDraw.picture(0.764, 0.071d, Assets.buttonPlay);
 
         // ############ Draw speedup button ############
-
         StdDraw.picture(0.764, 0.929, gameSpeed == 1 ? Assets.buttonSpeedup0 : Assets.buttonSpeedup1);
 
     }
@@ -146,7 +144,7 @@ public class LevelGenerator {
         if (pathIsDone) {
             state = pathSize - 1;
         } else {
-            state = (tpsCounter / 2);
+            state = (tpsCounter / (generationMode == 2 ? 15 : 1));
             if (state > pathSize - 1) {
                 pathIsDone = true;
                 tpsCounter = 0;
@@ -160,8 +158,14 @@ public class LevelGenerator {
                 StdDraw.setPenColor(PATH_COLOR_UNDER);
             else
                 StdDraw.setPenColor(PATH_COLOR);
-            StdDraw.circle(current.x, current.y, 0.002);
+            // StdDraw.circle(current.x, current.y, 0.001);
             StdDraw.line(current.x, current.y, next.x, next.y);
+        }
+        for (int i = 0; i < Math.min(pathSize - 1, state); i++) {
+            Position current = pathing.get(i);
+            StdDraw.setPenColor(PATH_COLOR_UNDER);
+            Position p = new Position(1, 1).multi(0.04).inFrameSpace();
+            StdDraw.filledEllipse(current.x, current.y, p.x, p.y);
         }
     }
 
@@ -179,6 +183,10 @@ public class LevelGenerator {
         }
     }
 
+    /**
+     * Affiche les tiles de routes avec une petite animation après avoir afficher le
+     * chemin
+     */
     private void drawRoad() {
         int state;
         if (roadIsDone) {
@@ -203,6 +211,9 @@ public class LevelGenerator {
         }
     }
 
+    /**
+     * Affiche les tiles de décor après avoir afficher les tiles de route
+     */
     private void drawDecor() {
 
         int state;
@@ -230,6 +241,9 @@ public class LevelGenerator {
         }
     }
 
+    /**
+     * Affiche les tiles de vide après avoir afficher les tiles de décor
+     */
     private void drawEmpty() {
         int state;
         if (emptyIsDone) {
@@ -254,6 +268,13 @@ public class LevelGenerator {
         }
     }
 
+    /**
+     * Affiche la tile de coordonnées (x,y)
+     * 
+     * @param LINE_COLOR couleur des bords de la tile
+     * @param x          coordonnée X de la tile
+     * @param y          coordonnée Y de la tile
+     */
     private void drawOneTile(final Color LINE_COLOR, int y, int x) {
         double squareWidth = (double) 1 / level.nbSquareX;
         double squareHeight = (double) 1 / level.nbSquareY;

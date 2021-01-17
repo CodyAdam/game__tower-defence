@@ -44,7 +44,7 @@ public class Level1 extends Level {
         pathing.remove(pathing.get(173));
 
         // remplie la map de vide,d'obstacles ou de route... en fonction de l'arriere
-        // planaaaa
+        // plan
         decor[0][5] = true;
         decor[0][3] = true;
         decor[0][14] = true;
