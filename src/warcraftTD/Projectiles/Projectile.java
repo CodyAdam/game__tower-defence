@@ -96,7 +96,7 @@ public abstract class Projectile {
         // Mesure le vecteur vitesse
         Position speedVec = dir.multi(Math.sqrt(Math.pow(dir.x * SPEED_RATIO, 2) + Math.pow(dir.y, 2))).multi(velocity);
 
-        traveledDistance += speedVec.normInGridSpace();
+        traveledDistance += speedVec.inGridSpace().norm();
         pos = pos.plus(speedVec);
     }
 

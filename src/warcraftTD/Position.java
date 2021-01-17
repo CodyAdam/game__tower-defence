@@ -112,7 +112,6 @@ public class Position {
 	public Position inGridSpace(boolean round) {
 		double squareWidth = (double) 1 / GRID_WIDTH;
 		double squareHeight = (double) 1 / GRID_HEIGHT;
-
 		if (round)
 			return new Position(Math.round((x - (x % squareWidth)) * GRID_WIDTH),
 					Math.round((y - (y % squareHeight)) * GRID_HEIGHT));
@@ -174,24 +173,16 @@ public class Position {
 	/**
 	 * @return Donne la norme du vecteur position
 	 */
-	public double normInFrameSpace() {
+	public double norm() {
 		Position zero = new Position(0, 0);
 		return dist(zero);
-	}
-
-	/**
-	 * @return Donne la norme du vecteur position
-	 */
-	public double normInGridSpace() {
-		Position zero = new Position(0, 0);
-		return this.inGridSpace().dist(zero);
 	}
 
 	/**
 	 * @return rend le vecteur position mais normalisé (norme = 1)
 	 */
 	public Position normalized() {
-		double norm = normInFrameSpace();
+		double norm = norm();
 		return new Position(x / norm, y / norm);
 	}
 

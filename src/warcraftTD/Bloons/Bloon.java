@@ -61,12 +61,12 @@ public abstract class Bloon {
 	public void move() {
 		// Mesure le vecteur direction
 		Position dir = pathing.getFirst().minus(pos);
-		double dirNorm = dir.normInFrameSpace();
+		double dirNorm = dir.norm();
 		dir = dir.normalized();
 
 		// Mesure le vecteur vitesse
 		Position speedVec = dir.multi(Math.sqrt(Math.pow(dir.x * SPEED_RATIO, 2) + Math.pow(dir.y, 2))).multi(speed);
-		double speedNorm = speedVec.normInFrameSpace();
+		double speedNorm = speedVec.norm();
 
 		if (dirNorm < speedNorm) { // Le Bloon à atteint le waypoint alors on passe au waypoint suivant
 			traveledDistance += speedNorm - dirNorm;
