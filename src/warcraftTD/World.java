@@ -274,9 +274,8 @@ public class World {
 
 	/**
 	 * Affiche certaines informations sur l'écran telles que les points de vie du
-	 * joueur ou son or. Tout ce qui est en relation avec l'interface
-	 * 
-	 * Affiche également les information de débuguage en mode DEBUG
+	 * joueur ou son or. Tout ce qui est en relation avec l'interface. Affiche
+	 * également les information de débuguage et touches utiles
 	 */
 	public void drawInfos() {
 		// Constants
@@ -288,36 +287,23 @@ public class World {
 		final Color MAIN_TEXT = new Color(245, 245, 235, 255);
 		final double SHADOW_OFFSET = 0.008;
 
-		// ############ Draw play button ############
+		drawButtons();
+		drawTowerPrices(CAN_BUY, CANT_BUY, SHADOW, SHADOW_OFFSET);
+		drawLifeMoney(CAN_BUY, CANT_BUY, SHADOW, MAIN_TEXT, SHADOW_OFFSET);
+		if (selectedTile instanceof Monkey)
+			drawUpgradePanel(CAN_BUY, CANT_BUY, SHADOW, BORDER, ULTIMATE_UPGRADE, MAIN_TEXT, SHADOW_OFFSET);
+		drawDebugInfos();
+	}
 
-		if (!waves.isRunning() || debug) {
-			StdDraw.picture(0.764, 0.071d, Assets.buttonPlay);
-		}
-
-		// ############ Draw speedup button ############
-
-		StdDraw.picture(0.764, 0.929, gameSpeed == 1 ? Assets.buttonSpeedup0 : Assets.buttonSpeedup1);
-
-		// ############ Draw tower prices ############
-
+	/**
+	 * Affiche le prix des tours avec une couleur qui dépend de la quantité d'argent
+	 * disponible
+	 */
+	private void drawTowerPrices(final Color CAN_BUY, final Color CANT_BUY, final Color SHADOW,
+			final double SHADOW_OFFSET) {
 		font = font.deriveFont(20f); // font size
 		StdDraw.setFont(font);
 		int cost;
-
-		// ############ Drawing wave, life and money counter with shadow ############
-
-		font = font.deriveFont(32f); // font size
-		StdDraw.setFont(font);
-
-		StdDraw.picture(0.03, 0.876, Assets.moneyLife);
-		StdDraw.setPenColor(SHADOW);
-		StdDraw.textLeft(0.017, 0.966 - SHADOW_OFFSET, waves.getName());
-		StdDraw.textLeft(0.054, 0.906 - SHADOW_OFFSET, money + "");
-		StdDraw.textLeft(0.054, 0.846 - SHADOW_OFFSET, life + "");
-		StdDraw.setPenColor(MAIN_TEXT);
-		StdDraw.textLeft(0.017, 0.966, waves.getName());
-		StdDraw.textLeft(0.054, 0.906, money + "");
-		StdDraw.textLeft(0.054, 0.846, life + "");
 
 		// for the Dart monkey tower
 		cost = ((BuyTile) map[26][12]).cost;
@@ -325,132 +311,13 @@ public class World {
 		StdDraw.text(0.868, 0.631 - SHADOW_OFFSET, cost + "$");
 		StdDraw.setPenColor(cost <= money ? CAN_BUY : CANT_BUY);
 		StdDraw.text(0.868, 0.631, cost + "$");
+	}
 
-		// ############ Draw tower upgrades in the top right corner ############
-
-		if (selectedTile instanceof Monkey) {
-			font = font.deriveFont(26f); // font size
-			StdDraw.setFont(font);
-			Monkey m = (Monkey) selectedTile;
-			StdDraw.setPenColor(SHADOW);
-			StdDraw.text(0.905, 0.957 - SHADOW_OFFSET / 3, "UPGRADES");
-			StdDraw.setPenColor(MAIN_TEXT);
-			StdDraw.text(0.905, 0.957, "UPGRADES");
-
-			double maxW = 0.05;
-			double h = 0.006;
-			double w = (double) maxW / m.leftUpgrades.size();
-			double alignY = 0.8725;
-
-			Tile tileOnMouse = getMouseTile();
-			Upgrade upgrade = m.getNextUpgrade(true);
-
-			font = font.deriveFont(15f); // font size
-			StdDraw.setFont(font);
-			if (tileOnMouse instanceof UpgradeLeft && upgrade != null) {
-				StdDraw.setPenColor(SHADOW);
-				StdDraw.textRight(0.795, StdDraw.mouseY() - SHADOW_OFFSET / 3, upgrade.description);
-				StdDraw.textRight(0.795, StdDraw.mouseY() - SHADOW_OFFSET / 3 - 0.025, upgrade.description2);
-				StdDraw.setPenColor(MAIN_TEXT);
-				StdDraw.textRight(0.795, StdDraw.mouseY(), upgrade.description);
-				StdDraw.textRight(0.795, StdDraw.mouseY() - 0.025, upgrade.description2);
-			} else if (tileOnMouse instanceof UpgradeRight && m.getNextUpgrade(false) != null) {
-				StdDraw.setPenColor(BORDER);
-				StdDraw.textRight(0.795, StdDraw.mouseY() - SHADOW_OFFSET / 3, m.getNextUpgrade(false).description);
-				StdDraw.textRight(0.795, StdDraw.mouseY() - SHADOW_OFFSET / 3 - 0.025,
-						m.getNextUpgrade(false).description2);
-				StdDraw.setPenColor(MAIN_TEXT);
-				StdDraw.textRight(0.795, StdDraw.mouseY(), m.getNextUpgrade(false).description);
-				StdDraw.textRight(0.795, StdDraw.mouseY() - 0.025, m.getNextUpgrade(false).description2);
-			}
-			font = font.deriveFont(16f); // font size
-			StdDraw.setFont(font);
-			// LEFT UPGRADE
-			double alignX = 0.865;
-			StdDraw.picture(alignX, alignY + 0.016, Assets.upgradeButton);
-			for (int i = 0; i < m.leftUpgrades.size(); i++) {
-				if (i == m.leftUpgrades.size() - 1)
-					StdDraw.setPenColor(i < m.leftUpgrade ? CAN_BUY : ULTIMATE_UPGRADE);
-				else
-					StdDraw.setPenColor(i < m.leftUpgrade ? CAN_BUY : SHADOW);
-				StdDraw.filledRectangle(alignX - (maxW / m.leftUpgrades.size()) + i * w, alignY - 0.02,
-						(w / 2) - 0.0005, h);
-				StdDraw.setPenColor(BORDER);
-				StdDraw.setPenRadius(0.004);
-				StdDraw.rectangle(alignX - (maxW / m.leftUpgrades.size()) + i * w, alignY - 0.02, (w / 2) - 0.0005, h);
-			}
-
-			if (upgrade != null) {
-				StdDraw.setPenColor(SHADOW);
-				StdDraw.text(alignX, alignY + 0.05 - SHADOW_OFFSET / 3, upgrade.name);
-				StdDraw.text(alignX, alignY + 0.027 - SHADOW_OFFSET / 3, upgrade.name2);
-				StdDraw.text(alignX, alignY - SHADOW_OFFSET / 3, upgrade.price + "$");
-				StdDraw.setPenColor(upgrade.price <= money ? CAN_BUY : CANT_BUY);
-				StdDraw.text(alignX, alignY + 0.05, upgrade.name);
-				StdDraw.text(alignX, alignY + 0.027, upgrade.name2);
-				StdDraw.text(alignX, alignY, upgrade.price + "$");
-			} else {
-				StdDraw.setPenColor(SHADOW);
-				StdDraw.text(alignX, 0.914 - SHADOW_OFFSET / 3, "Already");
-				StdDraw.text(alignX, 0.89 - SHADOW_OFFSET / 3, "max!");
-				StdDraw.setPenColor(CANT_BUY);
-				StdDraw.text(alignX, 0.914, "Already");
-				StdDraw.text(alignX, 0.89, "max!");
-			}
-
-			// RIGHT UPGRADE
-			alignX = 0.940;
-			upgrade = m.getNextUpgrade(false);
-			StdDraw.picture(alignX, alignY + 0.016, Assets.upgradeButton);
-			for (int i = 0; i < m.rightUpgrades.size(); i++) {
-				if (i == m.rightUpgrades.size() - 1)
-					StdDraw.setPenColor(i < m.rightUpgrade ? CAN_BUY : ULTIMATE_UPGRADE);
-				else
-					StdDraw.setPenColor(i < m.rightUpgrade ? CAN_BUY : SHADOW);
-				StdDraw.filledRectangle(alignX - (maxW / m.rightUpgrades.size()) + i * w, alignY - 0.02,
-						(w / 2) - 0.0005, h);
-				StdDraw.setPenColor(BORDER);
-				StdDraw.setPenRadius(0.004);
-				StdDraw.rectangle(alignX - (maxW / m.rightUpgrades.size()) + i * w, alignY - 0.02, (w / 2) - 0.0005, h);
-			}
-			if (upgrade != null) {
-				StdDraw.setPenColor(SHADOW);
-				StdDraw.text(alignX, alignY + 0.05 - SHADOW_OFFSET / 3, upgrade.name);
-				StdDraw.text(alignX, alignY + 0.027 - SHADOW_OFFSET / 3, upgrade.name2);
-				StdDraw.text(alignX, alignY - SHADOW_OFFSET / 3, upgrade.price + "$");
-				StdDraw.setPenColor(upgrade.price <= money ? CAN_BUY : CANT_BUY);
-				StdDraw.text(alignX, alignY + 0.05, upgrade.name);
-				StdDraw.text(alignX, alignY + 0.027, upgrade.name2);
-				StdDraw.text(alignX, alignY, upgrade.price + "$");
-			} else {
-				StdDraw.setPenColor(SHADOW);
-				StdDraw.text(alignX, 0.914 - SHADOW_OFFSET / 3, "Already");
-				StdDraw.text(alignX, 0.89 - SHADOW_OFFSET / 3, "max!");
-				StdDraw.setPenColor(CANT_BUY);
-				StdDraw.text(alignX, 0.914, "Already");
-				StdDraw.text(alignX, 0.89, "max!");
-			}
-
-			// DRAW TARGETING INDICATOR
-			alignX = 0.904;
-			alignY = 0.79;
-			StdDraw.picture(alignX - 0.052, alignY + 0.012, Assets.leftArrow);
-			StdDraw.picture(alignX + 0.052, alignY + 0.012, Assets.rightArrow);
-			font = font.deriveFont(19f); // font size
-			StdDraw.setFont(font);
-			StdDraw.setPenColor(SHADOW);
-			StdDraw.text(alignX, alignY + 0.025 - SHADOW_OFFSET / 4, "TARGET");
-			StdDraw.text(alignX, alignY - SHADOW_OFFSET / 4, m.getTargetingMode());
-			StdDraw.setPenColor(MAIN_TEXT);
-			StdDraw.text(alignX, alignY + 0.025, "TARGET");
-			StdDraw.setPenColor(MAIN_TEXT);
-			StdDraw.text(alignX, alignY, m.getTargetingMode());
-
-			// DRAW REMOVE TOWER BUTTON
-			StdDraw.picture(0.985, 0.972, Assets.removeButton);
-		}
-
-		// ############ Draw DEBUG ############
+	/**
+	 * Affiche les information de débug en bas a gauche de l'écran ainsi que les
+	 * touches possibles
+	 */
+	private void drawDebugInfos() {
 		if (debug) {
 			squareWidth = (double) 1 / nbSquareX;
 			squareHeight = (double) 1 / nbSquareY;
@@ -486,12 +353,174 @@ public class World {
 	}
 
 	/**
+	 * Affiche le panel d'amélioration de tours en haut a droite, cette fonction est
+	 * appelée uniquement si la Tile selectionnée est une tour
+	 */
+	private void drawUpgradePanel(final Color CAN_BUY, final Color CANT_BUY, final Color SHADOW, final Color BORDER,
+			final Color ULTIMATE_UPGRADE, final Color MAIN_TEXT, final double SHADOW_OFFSET) {
+		font = font.deriveFont(26f); // font size
+		StdDraw.setFont(font);
+		Monkey m = (Monkey) selectedTile;
+		StdDraw.setPenColor(SHADOW);
+		StdDraw.text(0.905, 0.957 - SHADOW_OFFSET / 3, "UPGRADES");
+		StdDraw.setPenColor(MAIN_TEXT);
+		StdDraw.text(0.905, 0.957, "UPGRADES");
+
+		double maxW = 0.05;
+		double h = 0.006;
+		double w = (double) maxW / m.leftUpgrades.size();
+		double alignY = 0.8725;
+
+		Tile tileOnMouse = getMouseTile();
+		Upgrade upgrade = m.getNextUpgrade(true);
+
+		font = font.deriveFont(15f); // font size
+		StdDraw.setFont(font);
+		if (tileOnMouse instanceof UpgradeLeft && upgrade != null) {
+			StdDraw.setPenColor(SHADOW);
+			StdDraw.textRight(0.795, StdDraw.mouseY() - SHADOW_OFFSET / 3, upgrade.description);
+			StdDraw.textRight(0.795, StdDraw.mouseY() - SHADOW_OFFSET / 3 - 0.025, upgrade.description2);
+			StdDraw.setPenColor(MAIN_TEXT);
+			StdDraw.textRight(0.795, StdDraw.mouseY(), upgrade.description);
+			StdDraw.textRight(0.795, StdDraw.mouseY() - 0.025, upgrade.description2);
+		} else if (tileOnMouse instanceof UpgradeRight && m.getNextUpgrade(false) != null) {
+			StdDraw.setPenColor(BORDER);
+			StdDraw.textRight(0.795, StdDraw.mouseY() - SHADOW_OFFSET / 3, m.getNextUpgrade(false).description);
+			StdDraw.textRight(0.795, StdDraw.mouseY() - SHADOW_OFFSET / 3 - 0.025,
+					m.getNextUpgrade(false).description2);
+			StdDraw.setPenColor(MAIN_TEXT);
+			StdDraw.textRight(0.795, StdDraw.mouseY(), m.getNextUpgrade(false).description);
+			StdDraw.textRight(0.795, StdDraw.mouseY() - 0.025, m.getNextUpgrade(false).description2);
+		}
+		font = font.deriveFont(16f); // font size
+		StdDraw.setFont(font);
+		// LEFT UPGRADE
+		double alignX = 0.865;
+		StdDraw.picture(alignX, alignY + 0.016, Assets.upgradeButton);
+		for (int i = 0; i < m.leftUpgrades.size(); i++) {
+			if (i == m.leftUpgrades.size() - 1)
+				StdDraw.setPenColor(i < m.leftUpgrade ? CAN_BUY : ULTIMATE_UPGRADE);
+			else
+				StdDraw.setPenColor(i < m.leftUpgrade ? CAN_BUY : SHADOW);
+			StdDraw.filledRectangle(alignX - (maxW / m.leftUpgrades.size()) + i * w, alignY - 0.02, (w / 2) - 0.0005,
+					h);
+			StdDraw.setPenColor(BORDER);
+			StdDraw.setPenRadius(0.004);
+			StdDraw.rectangle(alignX - (maxW / m.leftUpgrades.size()) + i * w, alignY - 0.02, (w / 2) - 0.0005, h);
+		}
+
+		if (upgrade != null) {
+			StdDraw.setPenColor(SHADOW);
+			StdDraw.text(alignX, alignY + 0.05 - SHADOW_OFFSET / 3, upgrade.name);
+			StdDraw.text(alignX, alignY + 0.027 - SHADOW_OFFSET / 3, upgrade.name2);
+			StdDraw.text(alignX, alignY - SHADOW_OFFSET / 3, upgrade.price + "$");
+			StdDraw.setPenColor(upgrade.price <= money ? CAN_BUY : CANT_BUY);
+			StdDraw.text(alignX, alignY + 0.05, upgrade.name);
+			StdDraw.text(alignX, alignY + 0.027, upgrade.name2);
+			StdDraw.text(alignX, alignY, upgrade.price + "$");
+		} else {
+			StdDraw.setPenColor(SHADOW);
+			StdDraw.text(alignX, 0.914 - SHADOW_OFFSET / 3, "Already");
+			StdDraw.text(alignX, 0.89 - SHADOW_OFFSET / 3, "max!");
+			StdDraw.setPenColor(CANT_BUY);
+			StdDraw.text(alignX, 0.914, "Already");
+			StdDraw.text(alignX, 0.89, "max!");
+		}
+
+		// RIGHT UPGRADE
+		alignX = 0.940;
+		upgrade = m.getNextUpgrade(false);
+		StdDraw.picture(alignX, alignY + 0.016, Assets.upgradeButton);
+		for (int i = 0; i < m.rightUpgrades.size(); i++) {
+			if (i == m.rightUpgrades.size() - 1)
+				StdDraw.setPenColor(i < m.rightUpgrade ? CAN_BUY : ULTIMATE_UPGRADE);
+			else
+				StdDraw.setPenColor(i < m.rightUpgrade ? CAN_BUY : SHADOW);
+			StdDraw.filledRectangle(alignX - (maxW / m.rightUpgrades.size()) + i * w, alignY - 0.02, (w / 2) - 0.0005,
+					h);
+			StdDraw.setPenColor(BORDER);
+			StdDraw.setPenRadius(0.004);
+			StdDraw.rectangle(alignX - (maxW / m.rightUpgrades.size()) + i * w, alignY - 0.02, (w / 2) - 0.0005, h);
+		}
+		if (upgrade != null) {
+			StdDraw.setPenColor(SHADOW);
+			StdDraw.text(alignX, alignY + 0.05 - SHADOW_OFFSET / 3, upgrade.name);
+			StdDraw.text(alignX, alignY + 0.027 - SHADOW_OFFSET / 3, upgrade.name2);
+			StdDraw.text(alignX, alignY - SHADOW_OFFSET / 3, upgrade.price + "$");
+			StdDraw.setPenColor(upgrade.price <= money ? CAN_BUY : CANT_BUY);
+			StdDraw.text(alignX, alignY + 0.05, upgrade.name);
+			StdDraw.text(alignX, alignY + 0.027, upgrade.name2);
+			StdDraw.text(alignX, alignY, upgrade.price + "$");
+		} else {
+			StdDraw.setPenColor(SHADOW);
+			StdDraw.text(alignX, 0.914 - SHADOW_OFFSET / 3, "Already");
+			StdDraw.text(alignX, 0.89 - SHADOW_OFFSET / 3, "max!");
+			StdDraw.setPenColor(CANT_BUY);
+			StdDraw.text(alignX, 0.914, "Already");
+			StdDraw.text(alignX, 0.89, "max!");
+		}
+
+		// DRAW TARGETING INDICATOR
+		alignX = 0.904;
+		alignY = 0.79;
+		StdDraw.picture(alignX - 0.052, alignY + 0.012, Assets.leftArrow);
+		StdDraw.picture(alignX + 0.052, alignY + 0.012, Assets.rightArrow);
+		font = font.deriveFont(19f); // font size
+		StdDraw.setFont(font);
+		StdDraw.setPenColor(SHADOW);
+		StdDraw.text(alignX, alignY + 0.025 - SHADOW_OFFSET / 4, "TARGET");
+		StdDraw.text(alignX, alignY - SHADOW_OFFSET / 4, m.getTargetingMode());
+		StdDraw.setPenColor(MAIN_TEXT);
+		StdDraw.text(alignX, alignY + 0.025, "TARGET");
+		StdDraw.setPenColor(MAIN_TEXT);
+		StdDraw.text(alignX, alignY, m.getTargetingMode());
+
+		// DRAW REMOVE TOWER BUTTON
+		StdDraw.picture(0.985, 0.972, Assets.removeButton);
+	}
+
+	/**
+	 * Affiche le nom de la vague, les points de vie ainsi que l'argent du joueur
+	 * dans le coins supérieur gauche
+	 */
+	private void drawLifeMoney(final Color CAN_BUY, final Color CANT_BUY, final Color SHADOW, final Color MAIN_TEXT,
+			final double SHADOW_OFFSET) {
+
+		font = font.deriveFont(32f); // font size
+		StdDraw.setFont(font);
+
+		StdDraw.picture(0.03, 0.876, Assets.moneyLife);
+		StdDraw.setPenColor(SHADOW);
+		StdDraw.textLeft(0.017, 0.966 - SHADOW_OFFSET, waves.getName());
+		StdDraw.textLeft(0.054, 0.906 - SHADOW_OFFSET, money + "");
+		StdDraw.textLeft(0.054, 0.846 - SHADOW_OFFSET, life + "");
+		StdDraw.setPenColor(MAIN_TEXT);
+		StdDraw.textLeft(0.017, 0.966, waves.getName());
+		StdDraw.textLeft(0.054, 0.906, money + "");
+		StdDraw.textLeft(0.054, 0.846, life + "");
+
+		;
+	}
+
+	/**
+	 * Affiche les deux boutons du jeu, le bouton pour changer de vitesse de jeu et
+	 * le bouton pour commencer la vague suivante
+	 */
+	private void drawButtons() {
+		// Draw play button
+		if (!waves.isRunning() || debug) {
+			StdDraw.picture(0.764, 0.071d, Assets.buttonPlay);
+		}
+
+		// Draw speedup button
+		StdDraw.picture(0.764, 0.929, gameSpeed == 1 ? Assets.buttonSpeedup0 : Assets.buttonSpeedup1);
+	}
+
+	/**
 	 * Fonction qui récupère le positionnement de la souris et permet d'afficher une
-	 * image de tour en temps réél lorsque le joueur appuie sur une des touches
-	 * permettant la construction d'une tour.
+	 * image de tour en temps réél lorsque le joueur veux la placer sur le terrain
 	 */
 	public void drawMouse() {
-
 		if (selectedTile != null && selectedTile instanceof BuyTile) {
 			// Affiche la tour sur la souris quand on veux la placer ainsi que sa portée
 			Position mousePos = new Position(StdDraw.mouseX(), StdDraw.mouseY());
@@ -757,6 +786,7 @@ public class World {
 	 */
 	public void draw() {
 		StdDraw.clear();
+
 		// arriere plan
 		drawBackground();
 		drawGrid();
