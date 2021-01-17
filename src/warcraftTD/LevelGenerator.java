@@ -1,7 +1,6 @@
 package warcraftTD;
 
 import warcraftTD.Levels.Level;
-import warcraftTD.Levels.Level2;
 import warcraftTD.Levels.LevelProcedural;
 import warcraftTD.Tiles.PlayButton;
 import warcraftTD.Tiles.SpeedupButton;
@@ -85,6 +84,12 @@ public class LevelGenerator {
         drawGrid();
         drawButtons();
 
+        StdDraw.setFont(); // set default font
+        StdDraw.setPenColor(new Color(0, 0, 0, 70));
+        StdDraw.filledRectangle(0, 0, 0.25, 0.05);
+        StdDraw.setPenColor(StdDraw.WHITE);
+        StdDraw.textLeft(0.01, 0.023, "Press 'Q' to go back to the MAIN MENU");
+
         // Affiche le tout
         StdDraw.show();
     }
@@ -116,7 +121,7 @@ public class LevelGenerator {
         if (pathIsDone) {
             state = pathSize - 1;
         } else {
-            state = (tpsCounter / 6);
+            state = (tpsCounter / 2);
             if (state > pathSize - 1) {
                 pathIsDone = true;
                 tpsCounter = 0;
@@ -130,6 +135,7 @@ public class LevelGenerator {
                 StdDraw.setPenColor(PATH_COLOR_UNDER);
             else
                 StdDraw.setPenColor(PATH_COLOR);
+            StdDraw.circle(current.x, current.y, 0.002);
             StdDraw.line(current.x, current.y, next.x, next.y);
         }
     }
@@ -227,6 +233,7 @@ public class LevelGenerator {
         double squareWidth = (double) 1 / level.nbSquareX;
         double squareHeight = (double) 1 / level.nbSquareY;
         Position pos = new Position(x, y).inFrameSpace().plus(new Position(squareWidth / 2, squareHeight / 2));
+        // Position pos = new Position(x, y).inFrameSpace();
         Color squarreColor = level.map[x][y].gridColor;
 
         // Draw : les lignes de la grille

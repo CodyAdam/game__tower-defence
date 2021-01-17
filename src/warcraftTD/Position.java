@@ -10,7 +10,7 @@ public class Position {
 	public boolean bool;
 
 	private final int GRID_WIDTH = 31;
-	private final int GRID_MAX_Y = 18;
+	private final int GRID_HEIGHT = 18;
 
 	/**
 	 * Constructeur
@@ -72,19 +72,13 @@ public class Position {
 	 * @param p
 	 * @return
 	 */
-	public double distInFrameSpace(Position p) {
-		return Math.sqrt(Math.pow(x - p.x, 2) + Math.pow(y - p.y, 2));
-	}
+	public double dist(Position p) {
+		double a = x - p.x;
+		double b = Math.pow(x - p.x, 2);
+		double c = Math.pow(y - p.y, 2);
+		double d = Math.sqrt(c + b);
 
-	/**
-	 * Mesure la distance euclidienne entre 2 positions dans le référenciel de la
-	 * grille.
-	 * 
-	 * @param p
-	 * @return
-	 */
-	public double distInGridSpace(Position p) {
-		return Math.sqrt(Math.pow((x - p.x) * GRID_WIDTH, 2) + Math.pow((y - p.y) * GRID_MAX_Y, 2));
+		return Math.sqrt(Math.pow(x - p.x, 2) + Math.pow(y - p.y, 2));
 	}
 
 	/**
@@ -94,9 +88,7 @@ public class Position {
 	 * @note coordonnées compris entre 0 et 1
 	 */
 	public Position inFrameSpace() {
-		double squareWidth = (double) 1 / GRID_WIDTH;
-		double squareHeight = (double) 1 / GRID_MAX_Y;
-		return new Position(x * squareWidth, y * squareHeight);
+		return new Position(x / GRID_WIDTH, y / GRID_HEIGHT);
 	}
 
 	/**
@@ -119,22 +111,34 @@ public class Position {
 	 */
 	public Position inGridSpace(boolean round) {
 		double squareWidth = (double) 1 / GRID_WIDTH;
-		double squareHeight = (double) 1 / GRID_MAX_Y;
+		double squareHeight = (double) 1 / GRID_HEIGHT;
 
 		if (round)
-			return new Position(Math.round((x - x % squareWidth) / squareWidth),
-					Math.round((y - y % squareHeight) / squareHeight));
+			return new Position(Math.round((x - (x % squareWidth)) * GRID_WIDTH),
+					Math.round((y - (y % squareHeight)) * GRID_HEIGHT));
 		else
-			return new Position(x / squareWidth, y / squareHeight);
+			return new Position(x * GRID_WIDTH, y * GRID_HEIGHT);
 	}
 
 	/**
-	 * @return Rend l'angle du vecteur position en radian
+	 * @return Rend l'angle du vecteur position en degree
 	 * @note Soit : (1, 0) -> 0 degree, (0, 1) -> 90 degree, (-1, 0) -> 180 degree,
 	 *       (0, -1) -> 270 degree
 	 */
 	public double angle() {
 		return Math.atan2(this.y, this.x) * 180 / Math.PI;
+	}
+
+	/**
+	 * @param u vecteur a comparer
+	 * @return Rend l'angle en degree entre les deux vecteur this et u
+	 */
+	public double angle(Position u) {
+		double sqrt1 = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
+		double sqrt2 = Math.sqrt(Math.pow(u.x, 2) + Math.pow(u.y, 2));
+		double sum = x * u.x + y * u.y;
+		double rad = Math.acos(Math.max(Math.min(sum / (sqrt1 * sqrt2), 1.0), -1));
+		return Math.toDegrees(rad);
 	}
 
 	/**
@@ -172,7 +176,7 @@ public class Position {
 	 */
 	public double normInFrameSpace() {
 		Position zero = new Position(0, 0);
-		return distInFrameSpace(zero);
+		return dist(zero);
 	}
 
 	/**
@@ -180,7 +184,7 @@ public class Position {
 	 */
 	public double normInGridSpace() {
 		Position zero = new Position(0, 0);
-		return distInGridSpace(zero);
+		return this.inGridSpace().dist(zero);
 	}
 
 	/**

@@ -55,7 +55,7 @@ public abstract class Projectile {
      * @return est-ce que le projectile touche le bloon b ?
      */
     private boolean isColliding(Bloon b) {
-        return b.targetable && pos.distInGridSpace(b.pos) < b.hitboxRadius + hitboxRadius;
+        return b.targetable && pos.inGridSpace().dist(b.pos.inGridSpace()) < b.hitboxRadius + hitboxRadius;
     }
 
     /**

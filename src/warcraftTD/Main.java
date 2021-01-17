@@ -5,7 +5,6 @@ package warcraftTD;
  */
 public class Main {
 	public static void main(String[] args) {
-
 		final int WIDTH = 1240; // modifier cette valeur va étirer la fenêtre
 		final int HEIGHT = 720; // modifier cette valeur va étirer la fenêtre
 

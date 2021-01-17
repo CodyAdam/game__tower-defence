@@ -6,7 +6,6 @@ import warcraftTD.Levels.*;
  * Menu d'accueil qui permet la sélection de niveaux
  */
 public class Menu {
-    private boolean clicking = false; // est-ce que le joueur est actuelement en train de clicker
 
     // compte le nombre de tps (tick per second)
     private long tpsTimerStart = System.nanoTime();
@@ -134,7 +133,7 @@ public class Menu {
      * Affiche l'arrière plan
      */
     private void drawBackground() {
-        StdDraw.picture(0.5, 0.5, Assets.titleBackground);
+        StdDraw.picture(0.5, 0.5, Assets.titleBackground, 1, 1);
     }
 
     /**
@@ -161,8 +160,6 @@ public class Menu {
             }
             if (StdDraw.isMousePressed())
                 onMouseClick(StdDraw.mouseX(), StdDraw.mouseY());
-            else
-                clicking = false;
         }
         System.exit(0);
     }

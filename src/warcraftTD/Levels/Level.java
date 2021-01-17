@@ -25,6 +25,7 @@ public abstract class Level {
     // ensemble de point qui forme le chemin que les Bloons vont parcourir (soit le
     // premier étant le spawn)
     public List<Position> pathing;
+    public boolean isProcedural = false;
 
     // grille qui determine qu'est-ce que qu'il y a sur la carte à sa création
     // (ex : Rien, Route, Arbre et rochers)

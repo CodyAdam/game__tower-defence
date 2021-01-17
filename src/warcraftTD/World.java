@@ -207,7 +207,7 @@ public class World {
 	 * Affiche uniquement en mode Debug
 	 */
 	public void drawPath() {
-		if (debug || !waves.hasStarted()) {
+		if (debug || !waves.hasStarted() || level.isProcedural) {
 			final Color PATH_COLOR = new Color(139, 77, 219, 255);
 			final Color PATH_COLOR_UNDER = new Color(245, 241, 34, 255);
 			final double PATH_RADIUS = 0.01;
@@ -245,7 +245,7 @@ public class World {
 			Color isNotPlacable = new Color(255, 0, 0, 150);
 
 			for (int y = 0; y < nbSquareY; y++) {
-				for (int x = 0; x < nbSquareX; x++) {
+				for (int x = 0; x < (!debug ? nbSquareX - 6 : nbSquareX); x++) {
 					Position pos = new Position(x, y).inFrameSpace()
 							.plus(new Position(squareWidth / 2, squareHeight / 2));
 					Color squarreColor = map[x][y].gridColor;
@@ -459,9 +459,13 @@ public class World {
 			double mouseY = Math.round(StdDraw.mouseY() * 1000) / (double) 1000;
 			Position mouseGrid = new Position(mouseX, mouseY).inGridSpace();
 
+			StdDraw.setPenColor(new Color(0, 0, 0, 130));
+			StdDraw.filledRectangle(0, 0, 0.3, 0.38);
 			StdDraw.setFont(); // set default font
 			StdDraw.setPenColor(StdDraw.WHITE);
-			StdDraw.textLeft(ALIGN_LEFT, 0.21, "Debug info : ");
+			StdDraw.textLeft(ALIGN_LEFT, 0.33, "Debug informations ('D' to disable)");
+			StdDraw.textLeft(ALIGN_LEFT, 0.27, "[Cheat] Press 'M' to gain 1000$");
+			StdDraw.textLeft(ALIGN_LEFT, 0.25, "[Cheat] Press 'K' to kill every Bloons");
 			StdDraw.textLeft(ALIGN_LEFT, 0.18, "FPS : " + fps);
 			StdDraw.textLeft(ALIGN_LEFT, 0.16, "On mouse Tile : " + getMouseTile().getClass().getName());
 			StdDraw.textLeft(ALIGN_LEFT, 0.14, "Game speed : " + this.gameSpeed);
@@ -472,9 +476,12 @@ public class World {
 			StdDraw.textLeft(ALIGN_LEFT, 0.06, "Number of towers : " + monkeys.size());
 			StdDraw.textLeft(ALIGN_LEFT, 0.04, "Number of projetiles : " + projectiles.size());
 		} else {
-			StdDraw.setPenColor(SHADOW);
 			StdDraw.setFont(); // set default font
-			StdDraw.textLeft(0.02, 0.04, "Press 'D' to enter DEBUG MODE");
+			StdDraw.setPenColor(new Color(0, 0, 0, 70));
+			StdDraw.filledRectangle(0, 0, 0.25, 0.08);
+			StdDraw.setPenColor(StdDraw.WHITE);
+			StdDraw.textLeft(0.01, 0.05, "Press 'Q' to go back to the MAIN MENU");
+			StdDraw.textLeft(0.01, 0.02, "Press 'D' to enter DEBUG MODE");
 		}
 	}
 

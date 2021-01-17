@@ -6,10 +6,8 @@
 
 -   [ ] Ajout de tours
 -   [ ] Ecran de defaite
--   [ ] Menu de selection de niveaux
--   [ ] Level2
--   [ ] Level generer aleatoirement
 -   [ ] Pop animation
+-   [ ] Animation on hover
 
 ## Concept du projet :
 

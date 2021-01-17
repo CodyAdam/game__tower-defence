@@ -1,5 +1,8 @@
 package warcraftTD.Levels;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import warcraftTD.Assets;
 import warcraftTD.Position;
 import warcraftTD.Tiles.Decor;
@@ -10,14 +13,27 @@ public class LevelProcedural extends Level {
 
     public LevelProcedural() {
         super();
+        isProcedural = true;
         spritePath = Assets.levelProcedural;
 
-        pathing.add(getSidePathingPoint());
-        for (int i = 0; i < 5; i++) {
-            pathing.add(getRandomPointNotNear(6));
-        }
-        pathing.add(getSidePathingPoint());
+        // STEP 1 : Adding the starting point on the border
+        pathing.add(getRandomPoint(10, true));
 
+        // STEP 2 : Completing with random points that are more than 15 tile away from
+        // eachothers and angled > 90 deg
+        for (int i = 0; i < rInt(4, 10); i++)
+            pathing.add(getRandomPoint(5, false));
+
+        // STEP 3 : Adding the ending point on the border
+        pathing.add(getRandomPoint(10, true));
+
+        // STEP 4 : Rounding every corners of the path
+        pathing = roundPath(this.pathing, 4);
+
+        // STEP 5 : Place road tiles under the path
+        SetupRoad();
+
+        // Then fill the map grid
         for (int y = 0; y < nbSquareY; y++) {
             for (int x = 0; x < nbSquareX; x++) {
                 if (map[x][y] == null)
@@ -31,51 +47,149 @@ public class LevelProcedural extends Level {
         }
     }
 
-    private Position getSidePathingPoint() {
-        int maxX = nbSquareX - 6;
-        int maxY = nbSquareY;
-        Position ans;
-        double randomizer = Math.random();
-        if (randomizer < 0.25)
-            ans = new Position(rInt(0, maxX), 0); // point sur le côté bas
-        else if (randomizer < 0.5)
-            ans = new Position(rInt(0, maxX), maxY); // point sur le côté haut
-        else if (randomizer < 0.75)
-            ans = new Position(0, rInt(0, maxY)); // point sur le côté gauche
-        else
-            ans = new Position(maxX, rInt(0, maxY)); // point sur le côté droite
-        return ans.inFrameSpace();
-    }
-
     /**
-     * @param a a int
-     * @param b a int
-     * @return give a random int between a and b
+     * Ajoute toutes les routes au bons emplacements en utilisant un algorithme de
+     * rasterisation de ligne (Basé sur l'algorithme Bresenham simplifier)
      */
-    private int rInt(int min, int max) {
-        return min + (int) (Math.random() * ((max - min) + 1));
+    private void SetupRoad() {
+        for (int i = 0; i < pathing.size() - 1; i++) {
+            Position current = pathing.get(i).inGridSpace();
+            Position next = pathing.get(i + 1).inGridSpace();
+            for (Position p : getPixelsBetween(current, next)) {
+                if (p.x >= 0 && p.y >= 0 && p.x < 31 && p.y < 18)
+                    road[(int) (p.x)][(int) (p.y)] = true;
+            }
+        }
     }
 
     /**
-     * @param radius la distance minimal entre plusieurs points de pathing (in grid
-     *               space)
+     * @param path      le chemin sur lequel effectuer l'oppération
+     * @param recursion le nombre de fois qu'on applique l'arrondi
+     * @param amount    la taille de l'arrondi
+     * @return le nouveau chemin après l'arrondisage des coins
+     */
+    private List<Position> roundPath(List<Position> path, int recursion) {
+        List<Position> list = new ArrayList<Position>();
+        int size = path.size();
+        if (size < 3 || recursion == 0)
+            return path;
+        for (int i = 0; i < size; i++) {
+            Position curr = path.get(i);
+            if (i == 0 || i == size - 1) {
+                list.add(curr);
+                continue;
+            }
+            Position prev = path.get(i - 1);
+            Position next = path.get(i + 1);
+
+            // if (curr.distInFrameSpace(prev) > amount * 2)
+            // list.add(curr.plus(prev.minus(curr).normalized().multi(amount)));
+            // if (curr.distInFrameSpace(next) > amount * 2)
+            // list.add(curr.plus(next.minus(curr).normalized().multi(amount)));
+            double amount;
+            amount = prev.dist(curr) / 3;
+            list.add(curr.plus(prev.minus(curr).normalized().multi(amount)));
+            amount = next.dist(curr) / 3;
+            list.add(curr.plus(next.minus(curr).normalized().multi(amount)));
+        }
+        return roundPath(list, recursion - 1);
+    }
+
+    /**
+     * @param curr un point dans l'espace dans la grille
+     * @param next un point dans l'espace dans la grille
+     * @return une liste points qui correspond au pixels qui sont entre les deux
+     *         points curr et next
+     */
+    private List<Position> getPixelsBetween(Position curr, Position next) {
+        curr = curr.plus(new Position(0.5, 0.5));
+        next = next.plus(new Position(0.5, 0.5));
+        List<Position> ans = new ArrayList<Position>();
+        int accuracy = 20;
+        double dist = next.dist(curr);
+        Position increment = next.minus(curr).multi(1 / (accuracy * dist));
+        for (int i = 0; i <= accuracy * dist; i++) {
+            ans.add(curr.plus(increment.multi(i)));// Add the point
+
+            // Also add some other point around the current point to increase "radius" of
+            // the time
+            ans.add(curr.plus(increment.multi(i)).plus(new Position(0, 0.2)));
+            ans.add(curr.plus(increment.multi(i)).plus(new Position(0, -0.2)));
+            ans.add(curr.plus(increment.multi(i)).plus(new Position(0.2, 0)));
+            ans.add(curr.plus(increment.multi(i)).plus(new Position(-0.2, 0)));
+        }
+        return ans;
+    }
+
+    /**
+     * @param radius      la distance minimal entre plusieurs points de pathing (in
+     *                    grid space)
+     * @param onPerimeter est-ce que le point est sur les bord de l'écran?
      * @return un nouveau point qui n'est pas trop proche d'un autre point du
      *         pathing
      */
-    private Position getRandomPointNotNear(double radius) {
+    private Position getRandomPoint(double radius, boolean onPerimeter) {
         int maxX = nbSquareX - 6;
         int maxY = nbSquareY;
         Position p;
-        boolean isTooClose = false;
         int tries = 0;
-
-        do {
-            p = new Position(rInt(0, maxX), rInt(0, maxY));
+        Position maxPoint = new Position(0, 0);
+        double max = 0;
+        outer: do {
+            boolean isTooClose = false;
+            boolean angleIsTooShallow = false;
+            if (onPerimeter) {
+                double randomizer = Math.random();
+                if (randomizer < 0.25)
+                    p = new Position(rInt(0, maxX) + 0.5, 0); // point sur le côté bas
+                else if (randomizer < 0.5)
+                    p = new Position(rInt(0, maxX) + 0.5, maxY); // point sur le côté haut
+                else if (randomizer < 0.75)
+                    p = new Position(0, rInt(0, maxY) + 0.5); // point sur le côté gauche
+                else
+                    p = new Position(maxX, rInt(0, maxY) + 0.5); // point sur le côté droite
+            } else
+                p = new Position(rInt(1, maxX - 1) + 0.5, rInt(1, maxY - 1) + 0.5);
             for (Position pos : pathing) {
-                if (pos.inGridSpace().distInGridSpace(p) < radius)
+                if (pos.inGridSpace(false).dist(p) < radius) {
+                    // si le point est trop proche d'un autre alors
+                    // on choisi un autre point
                     isTooClose = true;
+                    continue outer;
+                }
             }
-        } while (isTooClose && tries++ < 30);
+            if (pathing.size() >= 2) { // si l'angle est trop faible alors on choisi un
+                                       // autre point
+                Position previousPoint = pathing.get(pathing.size() - 1);
+                Position dir1 = p.inFrameSpace().minus(previousPoint).inGridSpace();
+                Position dir2 = pathing.get(pathing.size() - 2).minus(previousPoint).inGridSpace();
+                double angle = dir1.inGridSpace().angle(dir2.inGridSpace());
+                if (angle < 90) {
+                    angleIsTooShallow = true;
+                    if (angle > max) {
+                        maxPoint = p;
+                        max = angle;
+                    }
+                    continue outer;
+                }
+            }
+            if (!isTooClose && !angleIsTooShallow)
+                break outer;
+
+        } while (tries++ < 1000); // essaye jusqu'à 100 fois si le point est trop
+                                  // proche d'un autre
+        if (tries > 1000 && pathing.size() >= 2)
+            return maxPoint.inFrameSpace();
+        System.out.println("tries :    " + tries);
         return p.inFrameSpace();
+    }
+
+    /**
+     * @param a un int
+     * @param b un int
+     * @return Donne un entier random entre a et b
+     */
+    private int rInt(int min, int max) {
+        return min + (int) (Math.random() * (max - min));
     }
 }

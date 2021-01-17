@@ -134,7 +134,7 @@ public abstract class Monkey extends Tile {
      * @return est-ce que la "target" est dans le rayon de tir de la tour ?
      */
     protected boolean inRange(Bloon target) {
-        return pos.distInGridSpace(target.pos) <= range;
+        return pos.inGridSpace().dist(target.pos.inGridSpace()) <= range;
     }
 
     /**
@@ -145,7 +145,7 @@ public abstract class Monkey extends Tile {
         Bloon ans = null;
         double dist = -1;
         for (Bloon b : bloons) {
-            double value = this.pos.distInGridSpace(b.pos);
+            double value = this.pos.inGridSpace().dist(b.pos.inGridSpace());
             if (inRange(b) && b.targetable && (value < dist || dist == -1)) {
                 dist = value;
                 ans = b;
