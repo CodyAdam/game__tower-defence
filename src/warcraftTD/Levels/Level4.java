@@ -13,49 +13,26 @@ public class Level4 extends Level {
 
         // remplie la liste de points par lequel les Bloons vont passer dans l'ordre.
 
-        pathing.add(new Position(0, 0.439));
-        pathing.add(new Position(0.024, 0.443));
-        pathing.add(new Position(0.043, 0.465));
-        pathing.add(new Position(0.069, 0.506));
-        pathing.add(new Position(0.09, 0.556));
-        pathing.add(new Position(0.102, 0.606));
-        pathing.add(new Position(0.105, 0.654));
-        pathing.add(new Position(0.103, 0.715));
-        pathing.add(new Position(0.106, 0.788));
-        pathing.add(new Position(0.123, 0.864));
-        pathing.add(new Position(0.157, 0.91));
-        pathing.add(new Position(0.199, 0.938));
-        pathing.add(new Position(0.258, 0.938));
-        pathing.add(new Position(0.31, 0.904));
-        pathing.add(new Position(0.348, 0.854));
-        pathing.add(new Position(0.392, 0.794));
-        pathing.add(new Position(0.427, 0.775));
-        pathing.add(new Position(0.482, 0.782));
-        pathing.add(new Position(0.553, 0.8));
-        pathing.add(new Position(0.61, 0.808));
-        pathing.add(new Position(0.648, 0.781));
-        pathing.add(new Position(0.674, 0.719));
-        pathing.add(new Position(0.669, 0.642));
-        pathing.add(new Position(0.643, 0.569));
-        pathing.add(new Position(0.581, 0.531));
-        pathing.add(new Position(0.507, 0.496));
-        pathing.add(new Position(0.443, 0.506));
-        pathing.add(new Position(0.377, 0.513));
-        pathing.add(new Position(0.32, 0.475));
-        pathing.add(new Position(0.271, 0.404));
-        pathing.add(new Position(0.237, 0.335));
-        pathing.add(new Position(0.229, 0.249));
-        pathing.add(new Position(0.249, 0.147));
-        pathing.add(new Position(0.302, 0.06));
-        pathing.add(new Position(0.359, 0.017));
-        pathing.add(new Position(0.443, 0.015));
-        pathing.add(new Position(0.503, 0.067));
-        pathing.add(new Position(0.539, 0.149));
-        pathing.add(new Position(0.579, 0.228));
-        pathing.add(new Position(0.624, 0.275));
-        pathing.add(new Position(0.69, 0.324));
-        pathing.add(new Position(0.756, 0.338));
-        pathing.add(new Position(0.805, 0.349));
+        pathing.add(new Position(0, 0.44305555555555554));
+        pathing.add(new Position(0.07661290322580645, 0.5194444444444444));
+        pathing.add(new Position(0.10564516129032259, 0.6736111111111112));
+        pathing.add(new Position(0.11048387096774194, 0.8402777777777778));
+        pathing.add(new Position(0.20080645161290323, 0.9625));
+        pathing.add(new Position(0.3379032258064516, 0.8513888888888889));
+        pathing.add(new Position(0.4088709677419355, 0.7513888888888889));
+        pathing.add(new Position(0.5435483870967742, 0.8013888888888889));
+        pathing.add(new Position(0.682258064516129, 0.7861111111111111));
+        pathing.add(new Position(0.6758064516129032, 0.5958333333333333));
+        pathing.add(new Position(0.5298387096774193, 0.47777777777777775));
+        pathing.add(new Position(0.4241935483870968, 0.5055555555555555));
+        pathing.add(new Position(0.25564516129032255, 0.4180555555555555));
+        pathing.add(new Position(0.21774193548387097, 0.2319444444444444));
+        pathing.add(new Position(0.2991935483870968, 0.03555555555555558));
+        pathing.add(new Position(0.4870967741935484, 0.010277777777777746));
+        pathing.add(new Position(0.5717741935483871, 0.22777777777777775));
+        pathing.add(new Position(0.707258064516129, 0.34444444444444444));
+        pathing.add(new Position(0.8048387096774193, 0.35138888888888886));
+        pathing = roundPath(pathing, 3);
 
         // remplie la map de vide,d'obstacles ou de route...
 

@@ -17,54 +17,56 @@ La majorité des [assets](https://en.wikipedia.org/wiki/Digital_asset) sont donc
 
 ## Concept du gameplay :
 
-En tant que joueur, nous posons des singes sur le terrain dans le but de se défendre contre des vague de ballons appellé "Bloons". Les différents singes possèdes des capacités diverce et varier. La particularité de ce jeu c'est la mécanique des ballons, car quand un ballon éclate, il libère les ballons qu'il contient.
+En tant que joueur, nous posons des singes sur le terrain dans le but de se défendre contre des vagues de ballons appellé "Bloons". Les différents singes possèdes des capacités diverce et varier. La particularité de ce jeu c'est la mécanique des ballons, car quand un ballon éclate, il libère les ballons qu'il contient.
 
 #### Hiérarchie des ballons :
 
-| Type de Bloons | Capacité                 | Spécialité                                      |
-| -------------- | ------------------------ | ----------------------------------------------- |
-| Ballon rouge   | Ne contient aucun ballon | 1pv et lent                                     |
-| Ballon bleu    | Contient 1 ballon rouge  | 1pv et moyennement lent                         |
-| Ballon vert    | Contient 1 ballon bleu   | 1pv et moyennement rapide                       |
-| Ballon jaune   | Contient 1 ballon vert   | 1pv et rapide                                   |
-| Ballon rose    | Contient 1 ballon jaune  | 1pv et très rapide                              |
-| Ballon noir    | Contient 2 ballon rose   | 1pv et invincible au explosions                 |
-| Ballon glacé   | Contient 2 ballon rose   | 1pv et invincible contre le froid               |
-| Ballon d'acier | Contient 2 ballon noir   | 1pv et invincible contre les projectiles pointu |
+| Type de Bloons      | Capacité                                      | Spécialité                                      |
+| ------------------- | --------------------------------------------- | ----------------------------------------------- |
+| Ballon rouge        | Ne contient aucun ballon                      | 1pv et lent                                     |
+| Ballon bleu         | Contient 1 ballon rouge                       | 1pv et moyennement lent                         |
+| Ballon vert         | Contient 1 ballon bleu                        | 1pv et moyennement rapide                       |
+| Ballon jaune        | Contient 1 ballon vert                        | 1pv et rapide                                   |
+| Ballon rose         | Contient 1 ballon jaune                       | 1pv et très rapide                              |
+| Ballon noir         | Contient 2 ballon rose                        | 1pv et invincible au explosions                 |
+| Ballon de glace     | Contient 2 ballon rose                        | 1pv et invincible contre le froid               |
+| Ballon d'acier      | Contient 2 ballon noir                        | 1pv et invincible contre les projectiles pointu |
+| Ballon zebré        | Contient 1 ballon noir et un balloin de glace | 1pv et invincible contre les projectiles pointu |
+| Ballon arc-en-ciel  | Contient 2 ballon zebré                       | 1pv et très rapide                              |
+| Ballon céramic      | Contient 2 ballon arc-en-ciel                 | 10pv et lent                                    |
+| Ballon aérien bleu  | Contient 4 ballon céramic                     | 200pv et très lent                              |
+| Ballon aérien rouge | Contient 4 ballon aérien bleu                 | 700pv et méga lent                              |
+| Ballon aérien noir  | Contient 4 ballon aérien rouge                | 4000pv et giga lent                             |
 
 ![Image d'explication des Bloons](/explication_ballon.png)
 
 ## Changement effectué sur le projet par défaut :
 
--   Les ennemies ont été renommé en tant que "Bloon" et les tours en tant que "Monkey"
+-   Les ennemies ont été renommées en tant que "Bloon" et les tours en tant que "Monkey"
 -   Fenêtre de résolution fixée de 1240 x 720 px
 -   Grille de 31 x 18 tuiles (une tuile fait 40 x 40 px)
 -   Sprite des tours et ennemies customiser
--   Arrière plan customiser (pas de tuile mais une seul image)
+-   Arrière plan customiser (pas de tuile mais une seule image)
 -   Police customiser (voir bibliographie)
 -   Changement total des unités ennemies et alliées (Bomb et Arrow Tower remplacés par les différents Singes et les monstres sont remplacés par le système de Bloons)
 -   Système de niveaux avec chacun des chemins, environnements et difficultés différentes (4 disponibles)
--   Générateur procédural de niveaux
+-   Générateur procédural de niveaux intéligent avec 3 modes de génération avec une animation de génération
 -   Un mode débug avancé avec un affichage de multiples informations et accès à des commandes de "triche"
 -   Ajout d'une interface visuelle interactive d'achat et d'amélioration. Le jeu ce joue à la souris
--   Système de popup textuel animée avec du [easing](https://easings.net/fr) modulable
+-   Système de popup textuel animé avec du [easing](https://easings.net/fr) modulable
 -   Amélioration de la classe Position par l'ajout de fonctions utiles
 -   Possibilité pour le joueur d'accélérer le temps et jouer en vitesse x2.5
 -   Système de grille évolué avec prévisualisation des emplacements disponible interactive quand une tour souhaite être placée
 -   Système de tile (tuile en français) couplé à la grille, tout objet intéractif du jeu est représenté par une tile dans la grille à l'éxception des ballons
--   Ajout de passages pour les ballons dans des tunnels, empéchant les tours de les attaquers
+-   Ajout de passages pour les ballons dans des tunnels, empéchant les tours de les attaqués
 -   Système de projectiles, avec un capteur de colision modulable
 -   Système d'amélioration de tour via l'interface graphique avec changement des compétences des tours quand elles sont améliorées
 -   Système de changement de cible via l'interface graphique
--   Menu d'accueil avec sélection de niveaux via l'interface graphique
+-   Menu d'accueil avec sélection de niveaux via l'interface graphique avec des petites animations
 
 ## Touches utiles en jeu :
 
--   Tout ce joue avec la souris sauf pour les deux cas suivant :
-    -   [Q] Retourner au menu / Quitter le jeu
-    -   [D] alterne avec le mode DEBUG
-        -   [K] en mode DEBUG uniquement : tue tous les ballons à l'écran
-        -   [M] en mode DEBUG uniquement : fait gagner 1000$
+-   Tout se joue avec la souris à l'exception de deux touches qui vous seront indiqué en jeu
 
 ## Bibliographie :
 

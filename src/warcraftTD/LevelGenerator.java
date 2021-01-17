@@ -2,6 +2,8 @@ package warcraftTD;
 
 import warcraftTD.Levels.Level;
 import warcraftTD.Levels.LevelProcedural;
+import warcraftTD.Tiles.ChangeTargetLeft;
+import warcraftTD.Tiles.ChangeTargetRight;
 import warcraftTD.Tiles.PlayButton;
 import warcraftTD.Tiles.SpeedupButton;
 import warcraftTD.Tiles.Tile;
@@ -31,6 +33,7 @@ public class LevelGenerator {
     private int emptySize;
     private boolean end = false;
     private int tpsCounter = 0; // compteur de tick utilisé pour les animations
+    private int generationMode = 0;
 
     public LevelGenerator() {
         generate();
@@ -51,7 +54,7 @@ public class LevelGenerator {
         emptySize = 0;
         tpsCounter = 0;
 
-        level = new LevelProcedural();
+        level = new LevelProcedural(generationMode);
         pathSize = level.pathing.size();
 
         for (int y = 0; y < level.nbSquareY; y++) {
@@ -83,15 +86,37 @@ public class LevelGenerator {
         drawPath();
         drawGrid();
         drawButtons();
+        drawInfos();
 
+        // Affiche le tout
+        StdDraw.show();
+    }
+
+    private void drawInfos() {
+        // Petit rectangle en bas de l'ecran :
         StdDraw.setFont(); // set default font
         StdDraw.setPenColor(new Color(0, 0, 0, 70));
         StdDraw.filledRectangle(0, 0, 0.25, 0.05);
         StdDraw.setPenColor(StdDraw.WHITE);
         StdDraw.textLeft(0.01, 0.023, "Press 'Q' to go back to the MAIN MENU");
 
-        // Affiche le tout
-        StdDraw.show();
+        // Switch de mode :
+        double alignX = 0.904;
+        double alignY = 0.79;
+        StdDraw.text(alignX, alignY + 0.025, "Mode");
+        switch (generationMode) {
+            case 0:
+                StdDraw.text(alignX, alignY + 0.0, "Smooth 1");
+                break;
+            case 1:
+                StdDraw.text(alignX, alignY + 0.0, "Smooth 2");
+                break;
+            case 2:
+                StdDraw.text(alignX, alignY + 0.0, "Raw");
+                break;
+        }
+        StdDraw.picture(alignX - 0.052, alignY + 0.012, Assets.leftArrow);
+        StdDraw.picture(alignX + 0.052, alignY + 0.012, Assets.rightArrow);
     }
 
     /**
@@ -278,6 +303,10 @@ public class LevelGenerator {
             } else if (mouseTile instanceof PlayButton) {
                 end = true;
                 new World(level).run();
+            } else if (mouseTile instanceof ChangeTargetLeft) {
+                generationMode = (((generationMode - 1) % 3) + 3) % 3;
+            } else if (mouseTile instanceof ChangeTargetRight) {
+                generationMode = (((generationMode + 1) % 3) + 3) % 3;
             } else if (mouseTile instanceof SpeedupButton)
                 gameSpeed = gameSpeed == 1 ? 4 : 1;
 

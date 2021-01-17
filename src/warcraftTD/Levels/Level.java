@@ -84,4 +84,44 @@ public abstract class Level {
         map[29][16] = new UpgradeRight(29, 16);
         map[29][15] = new UpgradeRight(29, 15);
     }
+
+    /**
+     * @param path      le chemin sur lequel effectuer l'oppération
+     * @param recursion le nombre de fois qu'on applique l'arrondi
+     * @param amount    la taille de l'arrondi
+     * @return le nouveau chemin après l'arrondisage des coins
+     */
+    protected List<Position> roundPath(List<Position> path, int recursion, boolean usePercent, double roundRadius) {
+        List<Position> list = new ArrayList<Position>();
+        int size = path.size();
+        if (size < 3 || recursion == 0)
+            return path;
+        for (int i = 0; i < size; i++) {
+            Position curr = path.get(i);
+            if (i == 0 || i == size - 1) {
+                list.add(curr);
+                continue;
+            }
+            Position prev = path.get(i - 1);
+            Position next = path.get(i + 1);
+
+            if (!usePercent) {
+                if (curr.dist(prev) > roundRadius * 2)
+                    list.add(curr.plus(prev.minus(curr).normalized().multi(roundRadius)));
+                if (curr.dist(next) > roundRadius * 2)
+                    list.add(curr.plus(next.minus(curr).normalized().multi(roundRadius)));
+            } else {
+                roundRadius = prev.dist(curr) / 3;
+                list.add(curr.plus(prev.minus(curr).normalized().multi(roundRadius)));
+                roundRadius = next.dist(curr) / 3;
+                list.add(curr.plus(next.minus(curr).normalized().multi(roundRadius)));
+            }
+        }
+        return roundPath(list, recursion - 1, usePercent, roundRadius / 2);
+    }
+
+    protected List<Position> roundPath(List<Position> path, int recursion) {
+        return roundPath(path, recursion, true, 0);
+    }
+
 }

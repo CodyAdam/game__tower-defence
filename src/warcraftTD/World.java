@@ -219,7 +219,7 @@ public class World {
 				Position current = pathing.get(i);
 				Position next = pathing.get(i + 1);
 
-				double x = Math.sin((i - (double) tpsCounter) / ANIMATION_DELAY) / 2 + 0.5;
+				double x = Math.sin((i - (double) tpsCounter / gameSpeed) / (ANIMATION_DELAY)) / 2 + 0.5;
 				if (next.bool) // Next is bridge display a yellow line instead
 					StdDraw.setPenColor(new Color(PATH_COLOR_UNDER.getRed(), PATH_COLOR_UNDER.getGreen(),
 							PATH_COLOR_UNDER.getBlue(), (int) (x * 255)));
@@ -481,7 +481,7 @@ public class World {
 			StdDraw.filledRectangle(0, 0, 0.25, 0.08);
 			StdDraw.setPenColor(StdDraw.WHITE);
 			StdDraw.textLeft(0.01, 0.05, "Press 'Q' to go back to the MAIN MENU");
-			StdDraw.textLeft(0.01, 0.02, "Press 'D' to enter DEBUG MODE");
+			StdDraw.textLeft(0.01, 0.023, "Press 'D' to enter DEBUG MODE");
 		}
 	}
 
@@ -641,8 +641,9 @@ public class World {
 				}
 				break;
 			case 'b':
-				Position mouseGrid = new Position(StdDraw.mouseX(), StdDraw.mouseY()).inGridSpace();
-				System.out.println(String.format("road[%s][%s] = true;", (int) mouseGrid.x, (int) mouseGrid.y));
+
+				Position mouseGrid = new Position(StdDraw.mouseX(), StdDraw.mouseY());
+				System.out.println(String.format("pathing.add(new Position(%s, %s));", mouseGrid.x, mouseGrid.y));
 				break;
 			case 'm':
 				if (debug) {

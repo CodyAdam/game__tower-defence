@@ -12,6 +12,7 @@ public class Level3 extends Level {
         spritePath = Assets.level3;
 
         // remplie la liste de points par lequel les Bloons vont passer dans l'ordre.
+
         pathing.add(new Position(0.022, 1));
         pathing.add(new Position(0.12, 0.84));
         pathing.add(new Position(0.125, 0.826));
@@ -66,7 +67,6 @@ public class Level3 extends Level {
         pathing.add(new Position(0.287, 0.681));
         pathing.add(new Position(0.295, 0.694));
         pathing.add(new Position(0.315, 0.694));
-        pathing.add(new Position(0.38, 0.689));
         pathing.add(new Position(0.398, 0.69));
         pathing.add(new Position(0.406, 0.701));
         pathing.add(new Position(0.41, 0.731));
@@ -96,6 +96,8 @@ public class Level3 extends Level {
         pathing.add(new Position(0.644, 0.117));
         pathing.add(new Position(0.665, 0.081));
         pathing.add(new Position(0.71, 0));
+
+        pathing = roundPath(pathing, 2, false, 0.01); // Smoothng the path
 
         // remplie la map de vide,d'obstacles ou de route...
 

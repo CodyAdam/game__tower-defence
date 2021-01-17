@@ -11,7 +11,7 @@ import warcraftTD.Tiles.Road;
 
 public class LevelProcedural extends Level {
 
-    public LevelProcedural() {
+    public LevelProcedural(int mode) {
         super();
         isProcedural = true;
         spritePath = Assets.levelProcedural;
@@ -27,8 +27,17 @@ public class LevelProcedural extends Level {
         // STEP 3 : Adding the ending point on the border
         pathing.add(getRandomPoint(10, true));
 
-        // STEP 4 : Rounding every corners of the path
-        pathing = roundPath(this.pathing, 4);
+        // STEP 4 : Rounding every corners of the path depending on the mode
+        switch (mode) {
+            case 0:
+                pathing = roundPath(this.pathing, 5);
+                break;
+            case 1:
+                pathing = roundPath(this.pathing, 5, false, 0.07);
+                break;
+            case 2:
+                break;
+        }
 
         // STEP 5 : Place road tiles under the path
         SetupRoad();
@@ -60,39 +69,6 @@ public class LevelProcedural extends Level {
                     road[(int) (p.x)][(int) (p.y)] = true;
             }
         }
-    }
-
-    /**
-     * @param path      le chemin sur lequel effectuer l'oppération
-     * @param recursion le nombre de fois qu'on applique l'arrondi
-     * @param amount    la taille de l'arrondi
-     * @return le nouveau chemin après l'arrondisage des coins
-     */
-    private List<Position> roundPath(List<Position> path, int recursion) {
-        List<Position> list = new ArrayList<Position>();
-        int size = path.size();
-        if (size < 3 || recursion == 0)
-            return path;
-        for (int i = 0; i < size; i++) {
-            Position curr = path.get(i);
-            if (i == 0 || i == size - 1) {
-                list.add(curr);
-                continue;
-            }
-            Position prev = path.get(i - 1);
-            Position next = path.get(i + 1);
-
-            // if (curr.distInFrameSpace(prev) > amount * 2)
-            // list.add(curr.plus(prev.minus(curr).normalized().multi(amount)));
-            // if (curr.distInFrameSpace(next) > amount * 2)
-            // list.add(curr.plus(next.minus(curr).normalized().multi(amount)));
-            double amount;
-            amount = prev.dist(curr) / 3;
-            list.add(curr.plus(prev.minus(curr).normalized().multi(amount)));
-            amount = next.dist(curr) / 3;
-            list.add(curr.plus(next.minus(curr).normalized().multi(amount)));
-        }
-        return roundPath(list, recursion - 1);
     }
 
     /**
@@ -180,7 +156,6 @@ public class LevelProcedural extends Level {
                                   // proche d'un autre
         if (tries > 1000 && pathing.size() >= 2)
             return maxPoint.inFrameSpace();
-        System.out.println("tries :    " + tries);
         return p.inFrameSpace();
     }
 
