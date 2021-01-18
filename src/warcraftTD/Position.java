@@ -120,7 +120,7 @@ public class Position {
 	}
 
 	/**
-	 * @return Rend l'angle du vecteur position en degree
+	 * @return Rend l'angle du vecteur en degree
 	 * @note Soit : (1, 0) -> 0 degree, (0, 1) -> 90 degree, (-1, 0) -> 180 degree,
 	 *       (0, -1) -> 270 degree
 	 */
@@ -133,11 +133,7 @@ public class Position {
 	 * @return Rend l'angle en degree entre les deux vecteur this et u
 	 */
 	public double angle(Position u) {
-		double sqrt1 = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
-		double sqrt2 = Math.sqrt(Math.pow(u.x, 2) + Math.pow(u.y, 2));
-		double sum = x * u.x + y * u.y;
-		double rad = Math.acos(Math.max(Math.min(sum / (sqrt1 * sqrt2), 1.0), -1));
-		return Math.toDegrees(rad);
+		return this.angle() - u.angle();
 	}
 
 	/**

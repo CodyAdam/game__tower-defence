@@ -108,7 +108,7 @@ public abstract class Projectile {
             remove = true;
         if (remove)
             return;
-        rotation = dir.angle() - 90;
+        rotation = dir.angle(new Position(0, 1));
         move();
         checkCollision(bloons);
     }

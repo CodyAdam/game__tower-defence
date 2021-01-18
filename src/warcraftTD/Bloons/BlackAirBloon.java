@@ -28,7 +28,7 @@ public class BlackAirBloon extends Bloon {
 	public void draw(boolean debug) { // Turn the air balloon toward the next chackpoint and draw it
 		if (!this.pathing.isEmpty() && targetable) {
 			Position dir = this.pathing.getFirst().minus(this.pos);
-			StdDraw.picture(this.pos.x, this.pos.y, this.sprite, dir.angle() - 90);
+			StdDraw.picture(this.pos.x, this.pos.y, this.sprite, dir.angle(new Position(0, 1)));
 		}
 		if (debug)
 			drawHitbox();

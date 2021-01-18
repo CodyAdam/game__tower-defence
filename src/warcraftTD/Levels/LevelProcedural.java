@@ -139,7 +139,7 @@ public class LevelProcedural extends Level {
                 Position previousPoint = pathing.get(pathing.size() - 1);
                 Position dir1 = p.inFrameSpace().minus(previousPoint).inGridSpace();
                 Position dir2 = pathing.get(pathing.size() - 2).minus(previousPoint).inGridSpace();
-                double angle = dir1.inGridSpace().angle(dir2.inGridSpace());
+                double angle = Math.abs(dir1.inGridSpace().angle(dir2.inGridSpace()));
                 if (angle < 90) {
                     angleIsTooShallow = true;
                     if (angle > max) {
