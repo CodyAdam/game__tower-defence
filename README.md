@@ -4,8 +4,9 @@
 
 ## TODO
 
+-   [ ] Check if win --> aAffciher un sprite
 -   [ ] Ajout de tours
--   [ ] Ecran de defaite
+-   [ ] Ecran de defaite --> aAffciher un sprite
 -   [ ] Pop animation
 -   [ ] Animation on hover
 

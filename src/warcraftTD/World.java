@@ -58,6 +58,7 @@ public class World {
 	private boolean debug = false;// Condition pour activer le mode DEBUG --> activation avec "D"
 	private boolean end = false;// Condition pour terminer la partie
 	private boolean clicking = false; // Evite le click à répétition quand on reste appuyer
+	private boolean hasCheated = false; // savoir si le joueur a tricher
 
 	// compte le nombre de tps (tick per second) et fps (frames per second)
 	private int fps;
@@ -87,8 +88,6 @@ public class World {
 		this.nbSquareY = level.nbSquareY;
 		this.squareWidth = (double) 1 / nbSquareX;
 		this.squareHeight = (double) 1 / nbSquareY;
-		// StdDraw.setCanvasSize(width, height);
-		// StdDraw.enableDoubleBuffering();
 	}
 
 	/**
@@ -292,7 +291,17 @@ public class World {
 		drawLifeMoney(CAN_BUY, CANT_BUY, SHADOW, MAIN_TEXT, SHADOW_OFFSET);
 		if (selectedTile instanceof Monkey)
 			drawUpgradePanel(CAN_BUY, CANT_BUY, SHADOW, BORDER, ULTIMATE_UPGRADE, MAIN_TEXT, SHADOW_OFFSET);
+		if (life <= 0)
+			drawDeathWindow();
 		drawDebugInfos();
+	}
+
+	/**
+	 * Affiche une petite fenêtre quand le joueur meurt
+	 */
+	private void drawDeathWindow() {
+		StdDraw.text(0.5, 0.5, "You are dead, press 'Q' to go back to the main menu");
+		StdDraw.text(0.5, 0.4, "You can still continue to play by using the infinite health cheat in debug mode");
 	}
 
 	/**
@@ -333,6 +342,7 @@ public class World {
 			StdDraw.textLeft(ALIGN_LEFT, 0.33, "Debug informations ('D' to disable)");
 			StdDraw.textLeft(ALIGN_LEFT, 0.27, "[Cheat] Press 'M' to gain 1000$");
 			StdDraw.textLeft(ALIGN_LEFT, 0.25, "[Cheat] Press 'K' to kill every Bloons");
+			StdDraw.textLeft(ALIGN_LEFT, 0.23, "[Cheat] Press 'H' to gain infinite health");
 			StdDraw.textLeft(ALIGN_LEFT, 0.18, "FPS : " + fps);
 			StdDraw.textLeft(ALIGN_LEFT, 0.16, "On mouse Tile : " + getMouseTile().getClass().getName());
 			StdDraw.textLeft(ALIGN_LEFT, 0.14, "Game speed : " + this.gameSpeed);
@@ -508,7 +518,7 @@ public class World {
 	 */
 	private void drawButtons() {
 		// Draw play button
-		if (!waves.isRunning() || debug) {
+		if ((!waves.isRunning() && bloons.size() == 0) || debug) {
 			StdDraw.picture(0.764, 0.071d, Assets.buttonPlay);
 		}
 
@@ -667,12 +677,14 @@ public class World {
 					for (Bloon b : bloons) {
 						b.hp = 0;
 					}
+					hasCheated = true;
 				}
 				break;
-			case 'b':
-
-				Position mouseGrid = new Position(StdDraw.mouseX(), StdDraw.mouseY());
-				System.out.println(String.format("pathing.add(new Position(%s, %s));", mouseGrid.x, mouseGrid.y));
+			case 'h':
+				if (debug) {
+					life = 999999999;
+					hasCheated = true;
+				}
 				break;
 			case 'm':
 				if (debug) {
@@ -681,6 +693,7 @@ public class World {
 					gainAlert.add("+1000$");
 					alerts.add(gainAlert);
 					money += 1000;
+					hasCheated = true;
 				}
 				break;
 			case 'q':
@@ -755,11 +768,11 @@ public class World {
 				} else
 					placing = true;
 			else if (selectedTile instanceof PlayButton) {
-				if (!debug && waves.isRunning())
+				if (!debug && (waves.isRunning() || bloons.size() != 0))
 					mainAlert.add("You can't start another wave now!");
 				else {
 					if (debug && waves.isRunning())
-						mainAlert.add("DEBUG : Current wave skipped!");
+						mainAlert.add("DEBUG : wave skipped!");
 					waves.startNextWave();
 					mainAlert.add(waves.getName() + " has started!");
 				}
