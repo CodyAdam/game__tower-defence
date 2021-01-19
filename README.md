@@ -4,6 +4,7 @@
 
 ## TODO
 
+-   [ ] Finishing all the waves
 -   [ ] Ajout de tours
 -   [ ] Pop animation
 -   [ ] Animation on hover
