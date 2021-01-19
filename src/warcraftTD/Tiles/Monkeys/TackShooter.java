@@ -5,6 +5,7 @@ import java.util.List;
 import warcraftTD.Assets;
 import warcraftTD.Position;
 import warcraftTD.Bloons.Bloon;
+import warcraftTD.Projectiles.Flame;
 import warcraftTD.Projectiles.Projectile;
 import warcraftTD.Projectiles.Tack;
 
@@ -16,7 +17,7 @@ public class TackShooter extends Monkey {
     public TackShooter(int x, int y) {
         super(x, y);
         cooldown = 50;
-        range = 2;
+        range = 2.3;
         sprite = Assets.tackShooter;
         spriteOffset = new Position(0, 0);
         cost = 360;
@@ -48,6 +49,7 @@ public class TackShooter extends Monkey {
                 break;
             case 3:
                 range *= 1.13;
+                cooldown = 70;
                 sprite = Assets.tackShooterFlame;
                 break;
         }
@@ -83,21 +85,32 @@ public class TackShooter extends Monkey {
 
     @Override
     protected void shootAt(Bloon target, List<Projectile> projectiles) {
-        Tack d0 = new Tack(pos, new Position(1, 0).inFrameSpace(), 0.03, damage, pierce, range, rightUpgrade == 3);
-        Tack d1 = new Tack(pos, new Position(-1, 0).inFrameSpace(), 0.03, damage, pierce, range, rightUpgrade == 3);
-        Tack d2 = new Tack(pos, new Position(0, 1).inFrameSpace(), 0.03, damage, pierce, range, rightUpgrade == 3);
-        Tack d3 = new Tack(pos, new Position(0, -1).inFrameSpace(), 0.03, damage, pierce, range, rightUpgrade == 3);
-        Tack d4 = new Tack(pos, new Position(1, 1).inFrameSpace(), 0.03, damage, pierce, range, rightUpgrade == 3);
-        Tack d5 = new Tack(pos, new Position(1, -1).inFrameSpace(), 0.03, damage, pierce, range, rightUpgrade == 3);
-        Tack d6 = new Tack(pos, new Position(-1, 1).inFrameSpace(), 0.03, damage, pierce, range, rightUpgrade == 3);
-        Tack d7 = new Tack(pos, new Position(-1, -1).inFrameSpace(), 0.03, damage, pierce, range, rightUpgrade == 3);
-        projectiles.add(d0);
-        projectiles.add(d1);
-        projectiles.add(d2);
-        projectiles.add(d3);
-        projectiles.add(d4);
-        projectiles.add(d5);
-        projectiles.add(d6);
-        projectiles.add(d7);
+        if (leftUpgrade == 3) {
+            Flame f = new Flame(pos, range);
+            projectiles.add(f);
+        } else {
+            double SPEED = 0.03;
+            Tack d0 = new Tack(pos, new Position(1, 0).inFrameSpace(), SPEED, damage, pierce, range, rightUpgrade == 3);
+            Tack d1 = new Tack(pos, new Position(-1, 0).inFrameSpace(), SPEED, damage, pierce, range,
+                    rightUpgrade == 3);
+            Tack d2 = new Tack(pos, new Position(0, 1).inFrameSpace(), SPEED, damage, pierce, range, rightUpgrade == 3);
+            Tack d3 = new Tack(pos, new Position(0, -1).inFrameSpace(), SPEED, damage, pierce, range,
+                    rightUpgrade == 3);
+            Tack d4 = new Tack(pos, new Position(1, 1).inFrameSpace(), SPEED, damage, pierce, range, rightUpgrade == 3);
+            Tack d5 = new Tack(pos, new Position(1, -1).inFrameSpace(), SPEED, damage, pierce, range,
+                    rightUpgrade == 3);
+            Tack d6 = new Tack(pos, new Position(-1, 1).inFrameSpace(), SPEED, damage, pierce, range,
+                    rightUpgrade == 3);
+            Tack d7 = new Tack(pos, new Position(-1, -1).inFrameSpace(), SPEED, damage, pierce, range,
+                    rightUpgrade == 3);
+            projectiles.add(d0);
+            projectiles.add(d1);
+            projectiles.add(d2);
+            projectiles.add(d3);
+            projectiles.add(d4);
+            projectiles.add(d5);
+            projectiles.add(d6);
+            projectiles.add(d7);
+        }
     }
 }

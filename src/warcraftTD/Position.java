@@ -73,11 +73,6 @@ public class Position {
 	 * @return
 	 */
 	public double dist(Position p) {
-		double a = x - p.x;
-		double b = Math.pow(x - p.x, 2);
-		double c = Math.pow(y - p.y, 2);
-		double d = Math.sqrt(c + b);
-
 		return Math.sqrt(Math.pow(x - p.x, 2) + Math.pow(y - p.y, 2));
 	}
 

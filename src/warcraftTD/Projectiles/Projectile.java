@@ -15,12 +15,12 @@ import warcraftTD.Bloons.MetalBloon;
  */
 public abstract class Projectile {
 
-    private Position pos;
-    private Position dir;
-    private double velocity;
+    protected Position pos;
+    protected Position dir;
+    protected double velocity;
     protected String sprite;
     protected double rotation = 0; // rotation du sprite
-    private double traveledDistance = 0;
+    protected double traveledDistance = 0;
     public boolean canPopLead = false; // est-ce que le projectile peut éclater les ballon de métal ?
     protected Set<Bloon> bloonsHitted; // On fait un historique des ballons touchés pour ne pas toucher plusieur fois
                                        // le même
@@ -34,12 +34,9 @@ public abstract class Projectile {
     public int damage = 1; // damage infliger au bloon
     public double hitboxRadius = 0.75; // rayon de hitbox en grid space
 
-    public Projectile(Position startingPos, Position direction, double velocity, String imgPath) {
+    public Projectile(Position startingPos, String imgPath) {
         this.pos = new Position(startingPos);
-        this.dir = new Position(direction).normalized();
-        this.velocity = velocity;
         this.sprite = imgPath;
-
         bloonsHitted = new HashSet<Bloon>();
     }
 
@@ -54,7 +51,7 @@ public abstract class Projectile {
      * @param b le bloon à comparer
      * @return est-ce que le projectile touche le bloon b ?
      */
-    private boolean isColliding(Bloon b) {
+    protected boolean isColliding(Bloon b) {
         return b.targetable && pos.inGridSpace().dist(b.pos.inGridSpace()) < b.hitboxRadius + hitboxRadius;
     }
 
@@ -63,7 +60,7 @@ public abstract class Projectile {
      * 
      * @param bloons liste de tous les Bloon
      */
-    private void checkCollision(List<Bloon> bloons) {
+    protected void checkCollision(List<Bloon> bloons) {
         for (Bloon b : bloons) {
             if (remove)
                 return;
@@ -92,7 +89,7 @@ public abstract class Projectile {
     /**
      * Déplace le projectiles
      */
-    private void move() {
+    protected void move() {
         // Mesure le vecteur vitesse
         Position speedVec = dir.multi(Math.sqrt(Math.pow(dir.x * SPEED_RATIO, 2) + Math.pow(dir.y, 2))).multi(velocity);
 
@@ -128,7 +125,7 @@ public abstract class Projectile {
     /**
      * Affiche la hitbox du projectile
      */
-    private void drawHitbox() {
+    protected void drawHitbox() {
         Position range = new Position(hitboxRadius, hitboxRadius).inFrameSpace();
         StdDraw.setPenRadius(0.005);
         StdDraw.setPenColor(new Color(227, 252, 3, 200));

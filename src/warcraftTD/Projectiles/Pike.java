@@ -12,7 +12,9 @@ public class Pike extends Projectile {
     private final double ANIMATION_SPEED = 0.13;
 
     public Pike(Position startingPos, Position direction, double velocity, int damage, int pierce) {
-        super(startingPos, direction, velocity, Assets.pike0);
+        super(startingPos, Assets.pike0);
+        this.dir = new Position(direction).normalized();
+        this.velocity = velocity;
         this.pierce = pierce;
         this.damage = damage;
         this.hitboxRadius *= 1.3;

@@ -121,7 +121,7 @@ public class World {
 	 */
 	public void tick() {
 		if (!hasWin)
-			hasWin = waves.finished && !(life <= 0);
+			hasWin = waves.finished && bloons.size() == 0 && !(life <= 0);
 		waves.update();
 		tickBloons();
 		tickProjectiles();

@@ -86,7 +86,7 @@ public class WaveManager {
      */
     public void update() {
         if (currentWave != null) {
-            if (!running && (waves.indexOf(currentWave) == waves.size() - 1) && currentWave.queue.size() == 0)
+            if (!running && (waves.indexOf(currentWave) == waves.size() - 1))
                 finished = true;
             if (currentWave.queue.isEmpty()) {
                 running = false;
