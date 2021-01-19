@@ -48,20 +48,21 @@ En tant que joueur, nous posons des singes sur le terrain dans le but de se déf
 -   Arrière-plan customisé (pas de tuile mais une seule image)
 -   Police customisée (voir bibliographie)
 -   Changement total des unités ennemies et alliées (Bomb et Arrow Tower remplacés par les différents Singes et les monstres sont remplacés par le système de Bloons)
--   Système de niveaux avec chacun des chemins, environnements et difficultés différentes (4 disponibles)
--   Générateur procédural de niveaux intelligent avec 3 modes de génération et animation de génération
+-   Système de niveaux avec chacun des chemins, environnements et difficultés différentes (4 disponibles + procédural)
+-   Générateur procédural de niveaux intelligent avec 3 modes de génération et avec une animation de génération
 -   Un mode débug avancé avec un affichage de multiples informations et accès à des commandes de "triche"
 -   Ajout d'une interface visuelle interactive d'achat et d'amélioration. Le jeu ce joue à la souris
 -   Système de popup textuel animé avec du [easing](https://easings.net/fr) modulable
 -   Amélioration de la classe Position par l'ajout de fonctions utiles
--   Possibilité pour le joueur d'accélérer le temps et jouer en vitesse x2.5
--   Système de grille évolué avec prévisualisation des emplacements disponible interactive quand une tour souhaite être placée
+-   Système de grille avec prévisualisation des emplacements disponible quand une tour souhaite être placée
 -   Système de tile (tuile en français) couplé à la grille, tout objet interactif du jeu est représenté par une tile dans la grille à l'éxception des ballons
 -   Ajout de passages pour les ballons dans des tunnels, empêchant les tours de les attaqués
 -   Système de projectiles, avec un capteur de collision modulable
 -   Système d'amélioration de tour via l'interface graphique avec changement des compétence des tours quand elles sont améliorées
--   Système de changement de cible via l'interface graphique
+-   Système de changement de l'énemie ciblé par la tour via l'interface graphique
 -   Menu d'accueil avec sélection de niveaux via l'interface graphique avec des petites animations
+-   Système de TPS (tick par secondes) et FPS (frame par secondes) qui permet de facilement géré le temps dans le jeu
+-   Possibilité pour le joueur d'accélérer le temps et jouer en vitesse x4
 
 ## Touches utiles en jeu :
 
