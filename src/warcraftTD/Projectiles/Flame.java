@@ -18,6 +18,7 @@ public class Flame extends Projectile {
         this.pierce = 999999;
         this.damage = 1;
         this.maxRange = range;
+        this.canPopLead = true;
         this.hitboxRadius = 0;
     }
 
