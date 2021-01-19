@@ -52,7 +52,7 @@ En tant que joueur, nous posons des singes sur le terrain dans le but de se déf
 -   Générateur procédural de niveaux intelligent avec 3 modes de génération et avec une animation de génération
 -   Un mode débug avancé avec un affichage de multiples informations et accès à des commandes de "triche"
 -   Ajout d'une interface visuelle interactive d'achat et d'amélioration. Le jeu ce joue à la souris
--   Système de popup textuel animé avec du [easing](https://easings.net/fr) modulable
+-   Système de popup textuel animé avec du [easing](https://easings.net/fr) et modulable
 -   Amélioration de la classe Position par l'ajout de fonctions utiles
 -   Système de grille avec prévisualisation des emplacements disponible quand une tour souhaite être placée
 -   Système de tile (tuile en français) couplé à la grille, tout objet interactif du jeu est représenté par une tile dans la grille à l'éxception des ballons
@@ -66,7 +66,7 @@ En tant que joueur, nous posons des singes sur le terrain dans le but de se déf
 
 ## Touches utiles en jeu :
 
--   Tout se joue avec la souris à l'exception de deux touches qui vous seront indiqué en jeu
+-   Tout se joue avec la souris à l'exception de quelques touches qui vous seront indiqué en jeu
 
 ## Bibliographie :
 
