@@ -19,7 +19,7 @@ public abstract class Projectile {
     private Position dir;
     private double velocity;
     protected String sprite;
-    private double rotation = 0; // rotation du sprite
+    protected double rotation = 0; // rotation du sprite
     private double traveledDistance = 0;
     public boolean canPopLead = false; // est-ce que le projectile peut éclater les ballon de métal ?
     protected Set<Bloon> bloonsHitted; // On fait un historique des ballons touchés pour ne pas toucher plusieur fois
@@ -96,7 +96,7 @@ public abstract class Projectile {
         // Mesure le vecteur vitesse
         Position speedVec = dir.multi(Math.sqrt(Math.pow(dir.x * SPEED_RATIO, 2) + Math.pow(dir.y, 2))).multi(velocity);
 
-        traveledDistance += speedVec.inGridSpace().norm();
+        traveledDistance += speedVec.inGridSpace(false).norm();
         pos = pos.plus(speedVec);
     }
 

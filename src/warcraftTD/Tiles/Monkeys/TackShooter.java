@@ -5,50 +5,50 @@ import java.util.List;
 import warcraftTD.Assets;
 import warcraftTD.Position;
 import warcraftTD.Bloons.Bloon;
-import warcraftTD.Projectiles.Dart;
 import warcraftTD.Projectiles.Projectile;
+import warcraftTD.Projectiles.Tack;
 
 public class TackShooter extends Monkey {
 
     private int pierce;
+    private int damage;
 
     public TackShooter(int x, int y) {
         super(x, y);
         cooldown = 50;
-        range = 3.5;
+        range = 2;
         sprite = Assets.tackShooter;
         spriteOffset = new Position(0, 0);
         cost = 360;
         pierce = 1;
+        damage = 1;
 
         // Setup Upgrades
-        leftUpgrades.add(new Upgrade("Long range ", "darts", "Makes the Dart Monkey shoot further than normal", 90));
-        leftUpgrades.add(new Upgrade("Enhanced", "Eyesight", "Further increases attack", 100));
-        leftUpgrades.add(new Upgrade("Spike-O", "Pult",
-                "Converts the Dart Monkey into a Spike-O-Pult, a powerful tower that hurls a large spiked ball instead of darts.",
-                "Increases range slightly more, but has slower attack speed. Each ball can pop 18 bloons", 500));
+        leftUpgrades.add(new Upgrade("Faster ", "Shooting", "Shoots tacks faster", 210));
+        leftUpgrades.add(new Upgrade("Even Faster", "Shooting", "Further increases attack speed", 325));
+        leftUpgrades.add(new Upgrade("Ring of", "Fire",
+                "Upgrades to a fast firing burst tower that shoots a deadly ring of flame instead of tacks!",
+                "Also increases range", 2500));
 
-        rightUpgrades.add(new Upgrade("Sharp", "Shots", "Can pop 1 extra bloon per shot", 140));
-        rightUpgrades.add(new Upgrade("Razor Sharp", "Shots", "Can pop 2 extra bloons per shot (4 in total)", 170));
-        rightUpgrades.add(new Upgrade("Triple", "Darts",
-                "Converts the Dart Monkey into a archer monkey that throws 3 darts at a time instead of 1.",
-                "Also increase fire rate", 330));
+        rightUpgrades.add(new Upgrade("Extra Range", "Tacks", "Tacks have increased range", 100));
+        rightUpgrades.add(new Upgrade("Super Range", "Tacks", "Tacks have further increased range", 225));
+        rightUpgrades.add(new Upgrade("Blade", "Shooter",
+                "Converts the tower into a blade shooter that shoots out razor sharp blades that deak more damage!",
+                680));
     }
 
     @Override
     protected void postUpgradeLeft(int upgradeLevel) {
         switch (upgradeLevel) {
             case 1:
-                range *= 1.25;
+                cooldown = 40;
                 break;
             case 2:
-                range *= 1.25;
+                cooldown = 30;
                 break;
             case 3:
                 range *= 1.13;
-                cooldown = 80;
-                pierce += 14;
-                sprite = Assets.dartMonkeySpikeOPult0;
+                sprite = Assets.tackShooterFlame;
                 break;
         }
     }
@@ -57,15 +57,14 @@ public class TackShooter extends Monkey {
     protected void postUpgradeRight(int upgradeLevel) {
         switch (upgradeLevel) {
             case 1:
-                pierce += 1;
+                range *= 1.15;
                 break;
             case 2:
-                pierce += 2;
+                range *= 1.15;
                 break;
             case 3:
-                cooldown = 40;
-                spriteOffset = new Position(-0.0020, -0.0069);
-                sprite = Assets.dartMonkeyTripleDart;
+                damage = 3;
+                sprite = Assets.tackShooterBlade0;
                 break;
         }
     }
@@ -74,7 +73,7 @@ public class TackShooter extends Monkey {
     public void tick(List<Bloon> bloons, List<Projectile> projectiles) {
         super.tick(bloons, projectiles);
         final int ANIM_SPEED = 4;
-        if (leftUpgrade == 3) {
+        if (rightUpgrade == 3) {
             if ((timer / ANIM_SPEED) % 2 == 0)
                 sprite = Assets.tackShooterBlade0;
             else
@@ -84,14 +83,14 @@ public class TackShooter extends Monkey {
 
     @Override
     protected void shootAt(Bloon target, List<Projectile> projectiles) {
-        Dart d0 = new Dart(pos, new Position(1, 0).inFrameSpace(), 0.03, 1, pierce);
-        Dart d1 = new Dart(pos, new Position(-1, 0).inFrameSpace(), 0.03, 1, pierce);
-        Dart d2 = new Dart(pos, new Position(0, 1).inFrameSpace(), 0.03, 1, pierce);
-        Dart d3 = new Dart(pos, new Position(0, -1).inFrameSpace(), 0.03, 1, pierce);
-        Dart d4 = new Dart(pos, new Position(1, 1).inFrameSpace(), 0.03, 1, pierce);
-        Dart d5 = new Dart(pos, new Position(1, -1).inFrameSpace(), 0.03, 1, pierce);
-        Dart d6 = new Dart(pos, new Position(-1, 1).inFrameSpace(), 0.03, 1, pierce);
-        Dart d7 = new Dart(pos, new Position(-1, -1).inFrameSpace(), 0.03, 1, pierce);
+        Tack d0 = new Tack(pos, new Position(1, 0).inFrameSpace(), 0.03, damage, pierce, range, rightUpgrade == 3);
+        Tack d1 = new Tack(pos, new Position(-1, 0).inFrameSpace(), 0.03, damage, pierce, range, rightUpgrade == 3);
+        Tack d2 = new Tack(pos, new Position(0, 1).inFrameSpace(), 0.03, damage, pierce, range, rightUpgrade == 3);
+        Tack d3 = new Tack(pos, new Position(0, -1).inFrameSpace(), 0.03, damage, pierce, range, rightUpgrade == 3);
+        Tack d4 = new Tack(pos, new Position(1, 1).inFrameSpace(), 0.03, damage, pierce, range, rightUpgrade == 3);
+        Tack d5 = new Tack(pos, new Position(1, -1).inFrameSpace(), 0.03, damage, pierce, range, rightUpgrade == 3);
+        Tack d6 = new Tack(pos, new Position(-1, 1).inFrameSpace(), 0.03, damage, pierce, range, rightUpgrade == 3);
+        Tack d7 = new Tack(pos, new Position(-1, -1).inFrameSpace(), 0.03, damage, pierce, range, rightUpgrade == 3);
         projectiles.add(d0);
         projectiles.add(d1);
         projectiles.add(d2);

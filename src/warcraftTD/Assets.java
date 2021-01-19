@@ -45,8 +45,8 @@ public class Assets {
     public static String dartMonkeyTripleDart = "/Assets/Sprites/Towers/DartMonkey_TripleDart.png";
     public static String tackShooter = "/Assets/Sprites/Towers/tackShooter.png";
     public static String tackShooterFlame = "/Assets/Sprites/Towers/tackShooter_Flame.png";
-    public static String tackShooterBlade0 = "/Assets/Sprites/Towers/tackShooter_Blade0.png";
-    public static String tackShooterBlade1 = "/Assets/Sprites/Towers/tackShooter_Blade1.png";
+    public static String tackShooterBlade0 = "/Assets/Sprites/Towers/tackShooter_Blade_0.png";
+    public static String tackShooterBlade1 = "/Assets/Sprites/Towers/tackShooter_Blade_1.png";
 
     // projectiles
     public static String dart = "/Assets/Sprites/Projectiles/Dart.png";

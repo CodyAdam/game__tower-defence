@@ -11,11 +11,10 @@ public class Pike extends Projectile {
     private int animationCounter; // compteur de frame pour savoir quand changer de sprite
     private final double ANIMATION_SPEED = 0.13;
 
-    public Pike(Position startingPos, Position direction, double velocity, int damage, int pierce, double range) {
+    public Pike(Position startingPos, Position direction, double velocity, int damage, int pierce) {
         super(startingPos, direction, velocity, Assets.pike0);
         this.pierce = pierce;
         this.damage = damage;
-        this.maxRange = range;
         this.hitboxRadius *= 1.3;
     }
 

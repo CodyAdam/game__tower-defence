@@ -96,7 +96,7 @@ public class DartMonkey extends Monkey {
     protected void shootAt(Bloon target, List<Projectile> projectiles) {
         turnToward(target);
         if (leftUpgrade == 3) {
-            Pike p = new Pike(pos, target.pos.minus(pos), 0.005, 1, pierce, range * 2);
+            Pike p = new Pike(pos, target.pos.minus(pos), 0.005, 1, pierce);
             projectiles.add(p);
         } else {
             Dart d = new Dart(pos, target.pos.minus(pos), 0.03, 1, pierce, range);
