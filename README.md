@@ -4,9 +4,7 @@
 
 ## TODO
 
--   [ ] Check if win --> Afficher un sprite
 -   [ ] Ajout de tours
--   [ ] Écran de défaite --> Afficher un sprite
 -   [ ] Pop animation
 -   [ ] Animation on hover
 
