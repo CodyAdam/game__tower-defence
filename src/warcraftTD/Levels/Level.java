@@ -69,6 +69,11 @@ public abstract class Level {
         map[27][12] = new BuyDartMonkey(27, 10);
         map[26][12] = new BuyDartMonkey(26, 10);
 
+        map[28][11] = new BuyTackShooter(28, 11);
+        map[29][11] = new BuyTackShooter(29, 11);
+        map[28][12] = new BuyTackShooter(28, 10);
+        map[29][12] = new BuyTackShooter(29, 10);
+
         map[26][14] = new ChangeTargetLeft(26, 14);
         map[29][14] = new ChangeTargetRight(29, 14);
 

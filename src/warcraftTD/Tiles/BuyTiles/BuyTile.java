@@ -1,5 +1,7 @@
 package warcraftTD.Tiles.BuyTiles;
 
+import java.awt.Color;
+
 import warcraftTD.Tiles.Tile;
 import warcraftTD.Tiles.Monkeys.Monkey;
 
@@ -12,6 +14,9 @@ public abstract class BuyTile extends Tile {
 
     public BuyTile(int x, int y) {
         super(x, y);
+        isAvaliable = false;
+        gridColor = new Color(203, 247, 245, 110);
+
     }
 
     /**

@@ -6,20 +6,19 @@ import warcraftTD.Assets;
 import warcraftTD.Position;
 import warcraftTD.Bloons.Bloon;
 import warcraftTD.Projectiles.Dart;
-import warcraftTD.Projectiles.Pike;
 import warcraftTD.Projectiles.Projectile;
 
-public class DartMonkey extends Monkey {
+public class TackShooter extends Monkey {
 
     private int pierce;
 
-    public DartMonkey(int x, int y) {
+    public TackShooter(int x, int y) {
         super(x, y);
         cooldown = 50;
         range = 3.5;
-        sprite = Assets.dartMonkey;
-        spriteOffset = new Position(0, -0.0134);
-        cost = 200;
+        sprite = Assets.tackShooter;
+        spriteOffset = new Position(0, 0);
+        cost = 360;
         pierce = 1;
 
         // Setup Upgrades
@@ -49,7 +48,6 @@ public class DartMonkey extends Monkey {
                 range *= 1.13;
                 cooldown = 80;
                 pierce += 14;
-                spriteOffset = new Position(-0.0187, -0.0327);
                 sprite = Assets.dartMonkeySpikeOPult0;
                 break;
         }
@@ -75,38 +73,32 @@ public class DartMonkey extends Monkey {
     @Override
     public void tick(List<Bloon> bloons, List<Projectile> projectiles) {
         super.tick(bloons, projectiles);
+        final int ANIM_SPEED = 4;
         if (leftUpgrade == 3) {
-            if (timer <= cooldown * 0.1) {
-                spriteOffset = new Position(0, -0.0327);
-                sprite = Assets.dartMonkeySpikeOPult0;
-            } else if (timer <= cooldown * 0.2) {
-                spriteOffset = new Position(0, -0.0037);
-                sprite = Assets.dartMonkeySpikeOPult1;
-            } else if (timer <= cooldown * 0.85) {
-                spriteOffset = new Position(0, 0.0328);
-                sprite = Assets.dartMonkeySpikeOPult2;
-            } else if (timer <= cooldown * 0.93) {
-                spriteOffset = new Position(0, -0.0037);
-                sprite = Assets.dartMonkeySpikeOPult1;
-            }
+            if ((timer / ANIM_SPEED) % 2 == 0)
+                sprite = Assets.tackShooterBlade0;
+            else
+                sprite = Assets.tackShooterBlade1;
         }
     }
 
     @Override
     protected void shootAt(Bloon target, List<Projectile> projectiles) {
-        turnToward(target);
-        if (leftUpgrade == 3) {
-            Pike p = new Pike(pos, target.pos.minus(pos), 0.005, 1, pierce, range * 2);
-            projectiles.add(p);
-        } else {
-            Dart d = new Dart(pos, target.pos.minus(pos), 0.03, 1, pierce, range);
-            projectiles.add(d);
-            if (rightUpgrade == 3) {
-                Dart d1 = new Dart(pos, target.pos.minus(pos).rotate(25d), 0.03, 1, pierce, range);
-                Dart d2 = new Dart(pos, target.pos.minus(pos).rotate(-25), 0.03, 1, pierce, range);
-                projectiles.add(d1);
-                projectiles.add(d2);
-            }
-        }
+        Dart d0 = new Dart(pos, new Position(1, 0).inFrameSpace(), 0.03, 1, pierce);
+        Dart d1 = new Dart(pos, new Position(-1, 0).inFrameSpace(), 0.03, 1, pierce);
+        Dart d2 = new Dart(pos, new Position(0, 1).inFrameSpace(), 0.03, 1, pierce);
+        Dart d3 = new Dart(pos, new Position(0, -1).inFrameSpace(), 0.03, 1, pierce);
+        Dart d4 = new Dart(pos, new Position(1, 1).inFrameSpace(), 0.03, 1, pierce);
+        Dart d5 = new Dart(pos, new Position(1, -1).inFrameSpace(), 0.03, 1, pierce);
+        Dart d6 = new Dart(pos, new Position(-1, 1).inFrameSpace(), 0.03, 1, pierce);
+        Dart d7 = new Dart(pos, new Position(-1, -1).inFrameSpace(), 0.03, 1, pierce);
+        projectiles.add(d0);
+        projectiles.add(d1);
+        projectiles.add(d2);
+        projectiles.add(d3);
+        projectiles.add(d4);
+        projectiles.add(d5);
+        projectiles.add(d6);
+        projectiles.add(d7);
     }
 }
