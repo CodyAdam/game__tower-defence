@@ -17,6 +17,7 @@ public class WaveManager {
     private List<Bloon> bloonsList; // référence à la liste des ballons de World
     private List<Wave> waves; // Liste des vagues
     private Wave currentWave = null;
+    public boolean finished = false;
 
     public WaveManager(List<Position> pathing, List<Bloon> bloons) {
         this.bloonsList = bloons;
@@ -84,19 +85,24 @@ public class WaveManager {
      * Update le géstonnaire de vague
      */
     public void update() {
-        if (currentWave != null)
+        if (currentWave != null) {
+            if (!running && (waves.indexOf(currentWave) == waves.size() - 1) && currentWave.queue.size() == 0)
+                finished = true;
             if (currentWave.queue.isEmpty()) {
                 running = false;
                 return;
             } else {
                 tickCounter++;
                 if (tickCounter >= currentWave.queue.getFirst().waitTicks) {
-                    bloonsList.add(currentWave.queue.removeFirst().bloon); // Fait spawn le premier ballon de la queue
-                                                                           // et le suprime de la queue puis relance le
-                                                                           // compteur
+                    bloonsList.add(currentWave.queue.removeFirst().bloon); // Fait spawn le premier ballon de la
+                    // queue
+                    // et le suprime de la queue puis relance
+                    // le
+                    // compteur
                     tickCounter = 0;
                 }
             }
+        }
     }
 
 }

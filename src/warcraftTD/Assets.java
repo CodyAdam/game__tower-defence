@@ -25,6 +25,10 @@ public class Assets {
     public static String cursorDart2 = "/Assets/Sprites/HUD/dart_2.png";
     public static String cursorDart3 = "/Assets/Sprites/HUD/dart_3.png";
     public static String titleBackground = "/Assets/Sprites/HUD/title_background.png";
+    public static String lose = "/Assets/Sprites/HUD/lose.png";
+    public static String win = "/Assets/Sprites/HUD/win.png";
+    public static String medal = "/Assets/Sprites/HUD/medal.png";
+    public static String medalCheat = "/Assets/Sprites/HUD/medal_cheat.png";
 
     // levels
     public static String level1 = "/Assets/Sprites/monkey_lane_thumb.jpg";

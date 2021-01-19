@@ -58,6 +58,7 @@ public class World {
 	private boolean debug = false;// Condition pour activer le mode DEBUG --> activation avec "D"
 	private boolean end = false;// Condition pour terminer la partie
 	private boolean clicking = false; // Evite le click à répétition quand on reste appuyer
+	private boolean hasWin = false; // est-ce que le joueur à gagné ?
 	private boolean hasCheated = false; // savoir si le joueur a tricher
 
 	// compte le nombre de tps (tick per second) et fps (frames per second)
@@ -112,6 +113,20 @@ public class World {
 		pos.x = Math.max(0, Math.min(nbSquareX - 1, pos.x)); // Clamp value pour évité IndexOutOfBounds
 		pos.y = Math.max(0, Math.min(nbSquareY - 1, pos.y)); // Clamp value pour évité IndexOutOfBounds
 		return map[(int) pos.x][(int) pos.y];
+	}
+
+	/**
+	 * Met à jour toutes les informations du plateau de jeu ainsi que les
+	 * déplacements des monstres et les attaques des tours. (Ne draw rien)
+	 */
+	public void tick() {
+		if (!hasWin)
+			hasWin = waves.finished && !(life <= 0);
+		waves.update();
+		tickBloons();
+		tickProjectiles();
+		tickMonkeys();
+		tickAlerts();
 	}
 
 	/**
@@ -184,6 +199,31 @@ public class World {
 			} else
 				a.tick();
 		}
+	}
+
+	/**
+	 * Affiche tout le contenu du jeu
+	 */
+	public void draw() {
+		StdDraw.clear();
+
+		// arriere plan
+		drawBackground();
+		drawGrid();
+		drawPath();
+
+		// second plan
+		drawProjectiles();
+		drawMonkeys();
+		drawBloons();
+
+		// premier plan
+		drawHUD();
+		drawMouse();
+		drawAlerts();
+
+		// Affiche le tout
+		StdDraw.show();
 	}
 
 	/**
@@ -276,7 +316,7 @@ public class World {
 	 * joueur ou son or. Tout ce qui est en relation avec l'interface. Affiche
 	 * également les information de débuguage et touches utiles
 	 */
-	public void drawInfos() {
+	public void drawHUD() {
 		// Constants
 		final Color CAN_BUY = new Color(92, 255, 84, 255);
 		final Color CANT_BUY = new Color(248, 46, 46, 255);
@@ -291,17 +331,53 @@ public class World {
 		drawLifeMoney(CAN_BUY, CANT_BUY, SHADOW, MAIN_TEXT, SHADOW_OFFSET);
 		if (selectedTile instanceof Monkey)
 			drawUpgradePanel(CAN_BUY, CANT_BUY, SHADOW, BORDER, ULTIMATE_UPGRADE, MAIN_TEXT, SHADOW_OFFSET);
-		if (life <= 0)
-			drawDeathWindow();
+		if (hasWin)
+			drawWinWindow(MAIN_TEXT, SHADOW);
+		else if (life <= 0)
+			drawLoseWindow(MAIN_TEXT, SHADOW);
 		drawDebugInfos();
+	}
+
+	/**
+	 * Affiche une petite fenêtre quand le joueur a gagner
+	 */
+	private void drawWinWindow(Color MAIN_TEXT, Color SHADOW) {
+		font = font.deriveFont(40f); // font size
+		StdDraw.setFont(font);
+		StdDraw.setPenColor(MAIN_TEXT);
+		StdDraw.picture(0.4, 0.5, Assets.win);
+		StdDraw.text(0.4, 0.56, "You did it!");
+		font = font.deriveFont(20f); // font size
+		StdDraw.setFont(font);
+		StdDraw.textLeft(0.278, 0.5, "You defeated all the evils Bloons!");
+		StdDraw.textLeft(0.278, 0.47, "Here is your medal");
+		StdDraw.setPenColor(SHADOW);
+		StdDraw.text(0.34, 0.25d, "Press 'Q' to go back");
+		StdDraw.text(0.34, 0.22, "to the main menu");
+
+		String medal = (hasCheated ? Assets.medalCheat : Assets.medal);
+		StdDraw.picture(0.5, 0.3, medal);
 	}
 
 	/**
 	 * Affiche une petite fenêtre quand le joueur meurt
 	 */
-	private void drawDeathWindow() {
-		StdDraw.text(0.5, 0.5, "You are dead, press 'Q' to go back to the main menu");
-		StdDraw.text(0.5, 0.4, "You can still continue to play by using the infinite health cheat in debug mode");
+	private void drawLoseWindow(Color MAIN_TEXT, Color SHADOW) {
+		font = font.deriveFont(40f); // font size
+		StdDraw.setFont(font);
+		StdDraw.setPenColor(MAIN_TEXT);
+		StdDraw.picture(0.4, 0.5, Assets.lose);
+		StdDraw.text(0.4, 0.54, "You are dead!");
+		font = font.deriveFont(20f); // font size
+		StdDraw.setFont(font);
+		StdDraw.textLeft(0.278, 0.48, "Mmh those Bloons are too strong");
+		StdDraw.textLeft(0.278, 0.45, "for you!");
+		StdDraw.setPenColor(SHADOW);
+		StdDraw.textLeft(0.278, 0.39, "You can still continue");
+		StdDraw.textLeft(0.278, 0.36, "by activating the unlimited");
+		StdDraw.textLeft(0.278, 0.33, "life cheat in DEBUG MODE");
+		StdDraw.text(0.46, 0.25d, "Press 'Q' to go back");
+		StdDraw.text(0.46, 0.22, "to the main menu");
 	}
 
 	/**
@@ -340,6 +416,7 @@ public class World {
 			StdDraw.setFont(); // set default font
 			StdDraw.setPenColor(StdDraw.WHITE);
 			StdDraw.textLeft(ALIGN_LEFT, 0.33, "Debug informations ('D' to disable)");
+			StdDraw.textLeft(ALIGN_LEFT, 0.29, "[Cheat] Press the play button to skip waves");
 			StdDraw.textLeft(ALIGN_LEFT, 0.27, "[Cheat] Press 'M' to gain 1000$");
 			StdDraw.textLeft(ALIGN_LEFT, 0.25, "[Cheat] Press 'K' to kill every Bloons");
 			StdDraw.textLeft(ALIGN_LEFT, 0.23, "[Cheat] Press 'H' to gain infinite health");
@@ -771,52 +848,18 @@ public class World {
 				if (!debug && (waves.isRunning() || bloons.size() != 0))
 					mainAlert.add("You can't start another wave now!");
 				else {
-					if (debug && waves.isRunning())
-						mainAlert.add("DEBUG : wave skipped!");
-					waves.startNextWave();
-					mainAlert.add(waves.getName() + " has started!");
+					if (!waves.finished) {
+						if (debug && waves.isRunning())
+							mainAlert.add("DEBUG : wave skipped!");
+						waves.startNextWave();
+						hasCheated = true;
+						mainAlert.add(waves.getName() + " has started!");
+					}
 				}
 			} else if (selectedTile instanceof SpeedupButton) {
 				gameSpeed = gameSpeed == 1 ? 4 : 1;
 			}
 		}
-	}
-
-	/**
-	 * Met à jour toutes les informations du plateau de jeu ainsi que les
-	 * déplacements des monstres et les attaques des tours. (Ne draw rien)
-	 */
-	public void tick() {
-		waves.update();
-		tickBloons();
-		tickProjectiles();
-		tickMonkeys();
-		tickAlerts();
-	}
-
-	/**
-	 * Affiche tout le contenu du jeu
-	 */
-	public void draw() {
-		StdDraw.clear();
-
-		// arriere plan
-		drawBackground();
-		drawGrid();
-		drawPath();
-
-		// second plan
-		drawProjectiles();
-		drawMonkeys();
-		drawBloons();
-
-		// premier plan
-		drawInfos();
-		drawMouse();
-		drawAlerts();
-
-		// Affiche le tout
-		StdDraw.show();
 	}
 
 	/**

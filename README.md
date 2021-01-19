@@ -67,7 +67,7 @@ En tant que joueur, nous posons des singes sur le terrain dans le but de se déf
 
 ## Touches utiles en jeu :
 
--   Tout se joue avec la souris à l'exception de deux touches qui vous seront indiqué en jeu
+-   Tout se joue avec la souris à l'exception de deux touches qui vous seront indiqué en jeu
 
 ## Bibliographie :
 
