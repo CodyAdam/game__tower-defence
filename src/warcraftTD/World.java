@@ -396,6 +396,12 @@ public class World {
 		StdDraw.text(0.868, 0.631 - SHADOW_OFFSET, cost + "$");
 		StdDraw.setPenColor(cost <= money ? CAN_BUY : CANT_BUY);
 		StdDraw.text(0.868, 0.631, cost + "$");
+		// for the Tack Shooter tower
+		cost = ((BuyTile) map[28][12]).cost;
+		StdDraw.setPenColor(SHADOW);
+		StdDraw.text(0.939, 0.631 - SHADOW_OFFSET, cost + "$");
+		StdDraw.setPenColor(cost <= money ? CAN_BUY : CANT_BUY);
+		StdDraw.text(0.939, 0.631, cost + "$");
 	}
 
 	/**

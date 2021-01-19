@@ -89,7 +89,7 @@ public class TackShooter extends Monkey {
             Flame f = new Flame(pos, range);
             projectiles.add(f);
         } else {
-            double SPEED = 0.03;
+            double SPEED = 0.02;
             Tack d0 = new Tack(pos, new Position(1, 0).inFrameSpace(), SPEED, damage, pierce, range, rightUpgrade == 3);
             Tack d1 = new Tack(pos, new Position(-1, 0).inFrameSpace(), SPEED, damage, pierce, range,
                     rightUpgrade == 3);
