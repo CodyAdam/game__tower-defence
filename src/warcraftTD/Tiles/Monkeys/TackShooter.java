@@ -48,7 +48,7 @@ public class TackShooter extends Monkey {
                 cooldown = 30;
                 break;
             case 3:
-                range *= 1.13;
+                range *= 1.25;
                 cooldown = 70;
                 sprite = Assets.tackShooterFlame;
                 break;

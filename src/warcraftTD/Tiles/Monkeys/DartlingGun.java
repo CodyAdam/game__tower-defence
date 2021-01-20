@@ -32,8 +32,7 @@ public class DartlingGun extends Monkey {
         leftUpgrades.add(new Upgrade("Focused", "Firing", "Greatly reduces the spread of the gun. (23° to 8.5°)", 250));
         leftUpgrades.add(new Upgrade("Faster Barrel", "Spin", "Further increases attack speed", 1200));
         leftUpgrades.add(new Upgrade("Laser", "Cannon", "Converts the gun into a super powerful laser cannon",
-                "Blasts from this cannon can pop 13 bloons each, can pop frozen bloons, and have increased attack rate",
-                6000));
+                "Blasts from this cannon can pop 13 bloons each, and have increased attack rate", 6000));
 
         rightUpgrades.add(new Upgrade("Ultra Range", "Darts", "Darts have infinite range!", 600));
         rightUpgrades.add(new Upgrade("Powerful", "Darts", "Makes darts shoot with greater velocity.",

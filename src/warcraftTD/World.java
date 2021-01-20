@@ -402,6 +402,12 @@ public class World {
 		StdDraw.text(0.939, 0.631 - SHADOW_OFFSET, cost + "$");
 		StdDraw.setPenColor(cost <= money ? CAN_BUY : CANT_BUY);
 		StdDraw.text(0.939, 0.631, cost + "$");
+		// for the DartlingGun tower
+		cost = ((BuyTile) map[26][10]).cost;
+		StdDraw.setPenColor(SHADOW);
+		StdDraw.text(0.868, 0.521 - SHADOW_OFFSET, cost + "$");
+		StdDraw.setPenColor(cost <= money ? CAN_BUY : CANT_BUY);
+		StdDraw.text(0.868, 0.521, cost + "$");
 	}
 
 	/**

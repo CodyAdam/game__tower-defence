@@ -1,10 +1,7 @@
 package warcraftTD.Projectiles;
 
 import java.awt.Color;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-
 import warcraftTD.Position;
 import warcraftTD.StdDraw;
 import warcraftTD.Bloons.Bloon;
