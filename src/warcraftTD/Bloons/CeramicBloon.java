@@ -42,4 +42,9 @@ public class CeramicBloon extends Bloon {
 		if (debug)
 			drawHitbox();
 	}
+
+	@Override
+	public Bloon copy() {
+		return new CeramicBloon(this.pathingSave);
+	}
 }

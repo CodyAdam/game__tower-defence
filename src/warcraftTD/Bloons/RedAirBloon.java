@@ -33,4 +33,9 @@ public class RedAirBloon extends Bloon {
 		if (debug)
 			drawHitbox();
 	}
+
+	@Override
+	public Bloon copy() {
+		return new RedAirBloon(this.pathingSave);
+	}
 }

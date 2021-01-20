@@ -19,6 +19,8 @@ public abstract class Bloon {
 	public double traveledDistance = 0;// Compteur de distance déplacé pour savoir quelle Bloons est en tête
 	public List<Bloon> spawnOnDeath;// liste des Bloons à faire apparaitre quand le bloon actuel meurt
 	public ArrayDeque<Position> pathing;// Queue de Position qui sont les point par lequel le Bloon doit passer
+	protected List<Position> pathingSave; // le pathing qui a été donné a la création du Bloon, Utile pour faire une
+											// copie
 	public double hitboxRadius = 0.6; // rayon de hitbox en grid space
 	public double speed = 0.00225; // Vitesse du bloon
 	public int money = 1; // Vitesse du bloon
@@ -33,6 +35,7 @@ public abstract class Bloon {
 	 * level)
 	 */
 	public Bloon(List<Position> pathing) {
+		this.pathingSave = pathing;
 		this.pathing = new ArrayDeque<Position>(pathing);
 		this.pos = new Position(this.pathing.removeFirst());
 	}
@@ -113,4 +116,6 @@ public abstract class Bloon {
 		StdDraw.setPenColor(new Color(3, 140, 252, 60));
 		StdDraw.filledEllipse(pos.x, pos.y, range.x, range.y);
 	}
+
+	public abstract Bloon copy();
 }

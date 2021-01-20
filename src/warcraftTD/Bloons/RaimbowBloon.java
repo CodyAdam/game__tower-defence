@@ -19,4 +19,9 @@ public class RaimbowBloon extends Bloon {
 		this.spawnOnDeath.add(new ZebraBloon(pathing));
 		this.spawnOnDeath.add(new ZebraBloon(pathing));
 	}
+
+	@Override
+	public Bloon copy() {
+		return new RaimbowBloon(this.pathingSave);
+	}
 }

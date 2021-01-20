@@ -19,4 +19,9 @@ public class IceBloon extends Bloon {
 		this.spawnOnDeath.add(new PinkBloon(pathing));
 		this.spawnOnDeath.add(new PinkBloon(pathing));
 	}
+
+	@Override
+	public Bloon copy() {
+		return new IceBloon(this.pathingSave);
+	}
 }

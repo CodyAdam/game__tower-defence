@@ -19,4 +19,9 @@ public class MetalBloon extends Bloon {
 		this.spawnOnDeath.add(new BlackBloon(pathing));
 		this.spawnOnDeath.add(new BlackBloon(pathing));
 	}
+
+	@Override
+	public Bloon copy() {
+		return new MetalBloon(this.pathingSave);
+	}
 }

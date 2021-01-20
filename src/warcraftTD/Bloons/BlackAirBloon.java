@@ -33,4 +33,10 @@ public class BlackAirBloon extends Bloon {
 		if (debug)
 			drawHitbox();
 	}
+
+	@Override
+	public Bloon copy() {
+		return new BlackAirBloon(this.pathingSave);
+	}
+
 }

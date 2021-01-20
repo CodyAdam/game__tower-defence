@@ -17,4 +17,8 @@ public class RedBloon extends Bloon {
 		this.spawnOnDeath = new ArrayList<Bloon>();
 	}
 
+	@Override
+	public Bloon copy() {
+		return new RedBloon(this.pathingSave);
+	}
 }

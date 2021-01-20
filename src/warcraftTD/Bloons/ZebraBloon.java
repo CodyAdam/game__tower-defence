@@ -19,4 +19,9 @@ public class ZebraBloon extends Bloon {
 		this.spawnOnDeath.add(new IceBloon(pathing));
 		this.spawnOnDeath.add(new BlackBloon(pathing));
 	}
+
+	@Override
+	public Bloon copy() {
+		return new ZebraBloon(this.pathingSave);
+	}
 }
