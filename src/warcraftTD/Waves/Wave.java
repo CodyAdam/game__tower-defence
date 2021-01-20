@@ -7,9 +7,9 @@ import java.util.ArrayDeque;
  */
 public class Wave {
     public String name;
-    public ArrayDeque<Pair> queue;
+    public ArrayDeque<BloonSpawn> queue;
 
-    public Wave(String name, ArrayDeque<Pair> queue) {
+    public Wave(String name, ArrayDeque<BloonSpawn> queue) {
         this.name = name;
         this.queue = queue;
     }

@@ -25,135 +25,135 @@ public class WaveManager {
         waves = new ArrayList<Wave>();
 
         Wave wave;
-        ArrayDeque<Pair> queue;
+        ArrayDeque<BloonSpawn> queue;
         // Creation des Vagues :
 
-        queue = new ArrayDeque<Pair>();
-        queue.add(new Pair(50, new RedBloon(pathing), 20));
+        queue = new ArrayDeque<BloonSpawn>();
+        queue.add(new BloonSpawn(50, new RedBloon(pathing), 20));
         wave = new Wave("Wave 1 / 65", queue);
         waves.add(wave);
 
-        queue = new ArrayDeque<Pair>();
-        queue.add(new Pair(30, new RedBloon(pathing), 25));
+        queue = new ArrayDeque<BloonSpawn>();
+        queue.add(new BloonSpawn(30, new RedBloon(pathing), 25));
         wave = new Wave("Wave 2 / 65", queue);
         waves.add(wave);
 
-        queue = new ArrayDeque<Pair>();
-        queue.add(new Pair(30, new RedBloon(pathing), 10));
-        queue.add(new Pair(30, new BlueBloon(pathing), 5));
-        queue.add(new Pair(30, new RedBloon(pathing), 10));
+        queue = new ArrayDeque<BloonSpawn>();
+        queue.add(new BloonSpawn(30, new RedBloon(pathing), 10));
+        queue.add(new BloonSpawn(30, new BlueBloon(pathing), 5));
+        queue.add(new BloonSpawn(30, new RedBloon(pathing), 10));
         wave = new Wave("Wave 3 / 65", queue);
         waves.add(wave);
 
-        queue = new ArrayDeque<Pair>();
-        queue.add(new Pair(30, new RedBloon(pathing), 20));
-        queue.add(new Pair(30, new BlueBloon(pathing), 15));
-        queue.add(new Pair(15, new RedBloon(pathing), 10));
+        queue = new ArrayDeque<BloonSpawn>();
+        queue.add(new BloonSpawn(30, new RedBloon(pathing), 20));
+        queue.add(new BloonSpawn(30, new BlueBloon(pathing), 15));
+        queue.add(new BloonSpawn(15, new RedBloon(pathing), 10));
         wave = new Wave("Wave 4 / 65", queue);
         waves.add(wave);
 
-        queue = new ArrayDeque<Pair>();
-        queue.add(new Pair(30, new BlueBloon(pathing), 10));
-        queue.add(new Pair(30, new RedBloon(pathing), 5));
-        queue.add(new Pair(30, new BlueBloon(pathing), 15));
+        queue = new ArrayDeque<BloonSpawn>();
+        queue.add(new BloonSpawn(30, new BlueBloon(pathing), 10));
+        queue.add(new BloonSpawn(30, new RedBloon(pathing), 5));
+        queue.add(new BloonSpawn(30, new BlueBloon(pathing), 15));
         wave = new Wave("Wave 5 / 65", queue);
         waves.add(wave);
 
-        queue = new ArrayDeque<Pair>();
-        queue.add(new Pair(30, new GreenBloon(pathing), 4));
-        queue.add(new Pair(30, new RedBloon(pathing), 15));
-        queue.add(new Pair(30, new BlueBloon(pathing), 15));
+        queue = new ArrayDeque<BloonSpawn>();
+        queue.add(new BloonSpawn(30, new GreenBloon(pathing), 4));
+        queue.add(new BloonSpawn(30, new RedBloon(pathing), 15));
+        queue.add(new BloonSpawn(30, new BlueBloon(pathing), 15));
         wave = new Wave("Wave 6 / 65", queue);
         waves.add(wave);
 
-        queue = new ArrayDeque<Pair>();
-        queue.add(new Pair(30, new BlueBloon(pathing), 10));
-        queue.add(new Pair(60, new GreenBloon(pathing), 5));
-        queue.add(new Pair(25, new RedBloon(pathing), 25));
-        queue.add(new Pair(15, new BlueBloon(pathing), 15));
+        queue = new ArrayDeque<BloonSpawn>();
+        queue.add(new BloonSpawn(30, new BlueBloon(pathing), 10));
+        queue.add(new BloonSpawn(60, new GreenBloon(pathing), 5));
+        queue.add(new BloonSpawn(25, new RedBloon(pathing), 25));
+        queue.add(new BloonSpawn(15, new BlueBloon(pathing), 15));
         wave = new Wave("Wave 7 / 65", queue);
         waves.add(wave);
 
-        queue = new ArrayDeque<Pair>();
-        queue.add(new Pair(30, new BlueBloon(pathing), 20));
-        queue.add(new Pair(30, new GreenBloon(pathing), 2));
-        queue.add(new Pair(15, new RedBloon(pathing), 10));
-        queue.add(new Pair(60, new GreenBloon(pathing), 13));
+        queue = new ArrayDeque<BloonSpawn>();
+        queue.add(new BloonSpawn(30, new BlueBloon(pathing), 20));
+        queue.add(new BloonSpawn(30, new GreenBloon(pathing), 2));
+        queue.add(new BloonSpawn(15, new RedBloon(pathing), 10));
+        queue.add(new BloonSpawn(60, new GreenBloon(pathing), 13));
         wave = new Wave("Wave 8 / 65", queue);
         waves.add(wave);
 
-        queue = new ArrayDeque<Pair>();
-        queue.add(new Pair(60, new GreenBloon(pathing), 30));
+        queue = new ArrayDeque<BloonSpawn>();
+        queue.add(new BloonSpawn(60, new GreenBloon(pathing), 30));
         wave = new Wave("Wave 9 / 65", queue);
         waves.add(wave);
 
-        queue = new ArrayDeque<Pair>();
-        queue.add(new Pair(30, new BlueBloon(pathing), 70));
-        queue.add(new Pair(15, new BlueBloon(pathing), 25));
+        queue = new ArrayDeque<BloonSpawn>();
+        queue.add(new BloonSpawn(30, new BlueBloon(pathing), 70));
+        queue.add(new BloonSpawn(15, new BlueBloon(pathing), 25));
         wave = new Wave("Wave 10 / 65", queue);
         waves.add(wave);
 
-        queue = new ArrayDeque<Pair>();
-        queue.add(new Pair(45, new GreenBloon(pathing), 13));
-        queue.add(new Pair(30, new BlueBloon(pathing), 10));
-        queue.add(new Pair(30, new RedBloon(pathing), 10));
+        queue = new ArrayDeque<BloonSpawn>();
+        queue.add(new BloonSpawn(45, new GreenBloon(pathing), 13));
+        queue.add(new BloonSpawn(30, new BlueBloon(pathing), 10));
+        queue.add(new BloonSpawn(30, new RedBloon(pathing), 10));
         wave = new Wave("Wave 11 / 65", queue);
         waves.add(wave);
 
-        queue = new ArrayDeque<Pair>();
-        queue.add(new Pair(60, new GreenBloon(pathing), 10));
-        queue.add(new Pair(30, new BlueBloon(pathing), 15));
-        queue.add(new Pair(90, new YellowBloon(pathing), 5));
+        queue = new ArrayDeque<BloonSpawn>();
+        queue.add(new BloonSpawn(60, new GreenBloon(pathing), 10));
+        queue.add(new BloonSpawn(30, new BlueBloon(pathing), 15));
+        queue.add(new BloonSpawn(90, new YellowBloon(pathing), 5));
         wave = new Wave("Wave 12 / 65", queue);
         waves.add(wave);
 
-        queue = new ArrayDeque<Pair>();
-        queue.add(new Pair(15, new RedBloon(pathing), 30));
-        queue.add(new Pair(30, new YellowBloon(pathing), 5));
-        queue.add(new Pair(15, new RedBloon(pathing), 30));
-        queue.add(new Pair(60, new GreenBloon(pathing), 10));
-        queue.add(new Pair(15, new RedBloon(pathing), 30));
+        queue = new ArrayDeque<BloonSpawn>();
+        queue.add(new BloonSpawn(15, new RedBloon(pathing), 30));
+        queue.add(new BloonSpawn(30, new YellowBloon(pathing), 5));
+        queue.add(new BloonSpawn(15, new RedBloon(pathing), 30));
+        queue.add(new BloonSpawn(60, new GreenBloon(pathing), 10));
+        queue.add(new BloonSpawn(15, new RedBloon(pathing), 30));
         wave = new Wave("Wave 13 / 65", queue);
         waves.add(wave);
 
-        queue = new ArrayDeque<Pair>();
-        queue.add(new Pair(30, new RedBloon(pathing), 10));
-        queue.add(new Pair(15, new BlueBloon(pathing), 5));
-        queue.add(new Pair(30, new RedBloon(pathing), 10));
-        queue.add(new Pair(15, new GreenBloon(pathing), 5));
-        queue.add(new Pair(30, new RedBloon(pathing), 10));
-        queue.add(new Pair(15, new YellowBloon(pathing), 5));
-        queue.add(new Pair(30, new RedBloon(pathing), 10));
-        queue.add(new Pair(15, new BlueBloon(pathing), 5));
-        queue.add(new Pair(30, new RedBloon(pathing), 10));
-        queue.add(new Pair(15, new YellowBloon(pathing), 5));
+        queue = new ArrayDeque<BloonSpawn>();
+        queue.add(new BloonSpawn(30, new RedBloon(pathing), 10));
+        queue.add(new BloonSpawn(15, new BlueBloon(pathing), 5));
+        queue.add(new BloonSpawn(30, new RedBloon(pathing), 10));
+        queue.add(new BloonSpawn(15, new GreenBloon(pathing), 5));
+        queue.add(new BloonSpawn(30, new RedBloon(pathing), 10));
+        queue.add(new BloonSpawn(15, new YellowBloon(pathing), 5));
+        queue.add(new BloonSpawn(30, new RedBloon(pathing), 10));
+        queue.add(new BloonSpawn(15, new BlueBloon(pathing), 5));
+        queue.add(new BloonSpawn(30, new RedBloon(pathing), 10));
+        queue.add(new BloonSpawn(15, new YellowBloon(pathing), 5));
         wave = new Wave("Wave 14 / 65", queue);
         waves.add(wave);
 
-        queue = new ArrayDeque<Pair>();
-        queue.add(new Pair(30, new RedBloon(pathing), 20));
-        queue.add(new Pair(15, new PinkBloon(pathing), 3));
-        queue.add(new Pair(60, new GreenBloon(pathing), 10));
-        queue.add(new Pair(30, new YellowBloon(pathing), 5));
+        queue = new ArrayDeque<BloonSpawn>();
+        queue.add(new BloonSpawn(30, new RedBloon(pathing), 20));
+        queue.add(new BloonSpawn(15, new PinkBloon(pathing), 3));
+        queue.add(new BloonSpawn(60, new GreenBloon(pathing), 10));
+        queue.add(new BloonSpawn(30, new YellowBloon(pathing), 5));
         wave = new Wave("Wave 15 / 65", queue);
         waves.add(wave);
 
-        queue = new ArrayDeque<Pair>();
-        queue.add(new Pair(30, new GreenBloon(pathing), 20));
-        queue.add(new Pair(30, new PinkBloon(pathing), 5));
-        queue.add(new Pair(30, new YellowBloon(pathing), 8));
-        queue.add(new Pair(90, new PinkBloon(pathing), 2));
+        queue = new ArrayDeque<BloonSpawn>();
+        queue.add(new BloonSpawn(30, new GreenBloon(pathing), 20));
+        queue.add(new BloonSpawn(30, new PinkBloon(pathing), 5));
+        queue.add(new BloonSpawn(30, new YellowBloon(pathing), 8));
+        queue.add(new BloonSpawn(90, new PinkBloon(pathing), 2));
         wave = new Wave("Wave 16 / 65", queue);
         waves.add(wave);
 
-        queue = new ArrayDeque<Pair>();
-        queue.add(new Pair(60, new YellowBloon(pathing), 15));
-        queue.add(new Pair(30, new PinkBloon(pathing), 2));
+        queue = new ArrayDeque<BloonSpawn>();
+        queue.add(new BloonSpawn(60, new YellowBloon(pathing), 15));
+        queue.add(new BloonSpawn(30, new PinkBloon(pathing), 2));
         wave = new Wave("Wave 17 / 65", queue);
         waves.add(wave);
-        queue = new ArrayDeque<Pair>();
-        queue.add(new Pair(20, new GreenBloon(pathing), 20));
-        queue.add(new Pair(7, new GreenBloon(pathing), 20));
+        queue = new ArrayDeque<BloonSpawn>();
+        queue.add(new BloonSpawn(20, new GreenBloon(pathing), 20));
+        queue.add(new BloonSpawn(7, new GreenBloon(pathing), 20));
         wave = new Wave("Wave 18 / 65", queue);
         waves.add(wave);
 
@@ -220,7 +220,7 @@ public class WaveManager {
                 if (tickCounter >= currentWave.queue.getFirst().waitTicks) {
                     // Fait spawn le premier ballon de la queue et le suprime de la queue puis
                     // relance le compteur
-                    Pair nextToSawn = currentWave.queue.getFirst();
+                    BloonSpawn nextToSawn = currentWave.queue.getFirst();
                     if (nextToSawn.quantity-- <= 1)
                         bloonsList.add(currentWave.queue.removeFirst().bloon.copy());
                     else
