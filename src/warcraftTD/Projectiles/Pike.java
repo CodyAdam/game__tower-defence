@@ -38,7 +38,6 @@ public class Pike extends Projectile {
     @Override
     protected void hit(Bloon b) {
         if (b instanceof CeramicBloon) {
-            bloonsHitted.add(b);
             b.hp -= damage + 2;
             if (--pierce <= 0)
                 remove = true;

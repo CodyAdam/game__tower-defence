@@ -22,8 +22,6 @@ public abstract class Projectile {
     protected double rotation = 0; // rotation du sprite
     protected double traveledDistance = 0;
     public boolean canPopLead = false; // est-ce que le projectile peut éclater les ballon de métal ?
-    protected Set<Bloon> bloonsHitted; // On fait un historique des ballons touchés pour ne pas toucher plusieur fois
-                                       // le même
     private final double SPEED_RATIO = ((double) 720 / 1240); // la fenêtre n'étant pas carré la vitesse X n'est pas la
                                                               // même que Y donc nous égalisont avevc cette constante
                                                               // pour que le ballon ce déplace à la même vitesse
@@ -37,7 +35,6 @@ public abstract class Projectile {
     public Projectile(Position startingPos, String imgPath) {
         this.pos = new Position(startingPos);
         this.sprite = imgPath;
-        bloonsHitted = new HashSet<Bloon>();
     }
 
     /**
@@ -52,7 +49,7 @@ public abstract class Projectile {
      * @return est-ce que le projectile touche le bloon b ?
      */
     protected boolean isColliding(Bloon b) {
-        return b.targetable && pos.inGridSpace().dist(b.pos.inGridSpace()) < b.hitboxRadius + hitboxRadius;
+        return b.targetable && pos.inGridSpace().dist(b.pos.inGridSpace(false)) < b.hitboxRadius + hitboxRadius;
     }
 
     /**
@@ -64,7 +61,7 @@ public abstract class Projectile {
         for (Bloon b : bloons) {
             if (remove)
                 return;
-            if (isColliding(b) && b.hp > 0 && !bloonsHitted.contains(b)) {
+            if (isColliding(b) && b.hp > 0) {
                 if (b instanceof MetalBloon) {
                     if (canPopLead)
                         hit(b);
@@ -80,7 +77,6 @@ public abstract class Projectile {
      * @param b le ballon cible
      */
     protected void hit(Bloon b) {
-        bloonsHitted.add(b);
         b.hp -= damage;
         if (--pierce <= 0)
             remove = true;
@@ -105,7 +101,7 @@ public abstract class Projectile {
             remove = true;
         if (remove)
             return;
-        rotation = dir.angle(new Position(0, 1));
+        rotation = dir.inGridSpace().angle(new Position(0, 1));
         move();
         checkCollision(bloons);
     }

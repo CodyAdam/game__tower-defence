@@ -10,9 +10,9 @@ import warcraftTD.Tiles.Panel;
 import warcraftTD.Tiles.PlayButton;
 import warcraftTD.Tiles.RemoveTower;
 import warcraftTD.Tiles.SpeedupButton;
-import warcraftTD.Tiles.Tile;
 import warcraftTD.Tiles.UpgradeLeft;
 import warcraftTD.Tiles.UpgradeRight;
+import warcraftTD.Tiles.Tile;
 import warcraftTD.Tiles.BuyTiles.*;
 
 /**
@@ -73,6 +73,11 @@ public abstract class Level {
         map[29][11] = new BuyTackShooter(29, 11);
         map[28][12] = new BuyTackShooter(28, 10);
         map[29][12] = new BuyTackShooter(29, 10);
+
+        map[26][9] = new BuyDartlingGun(26, 9);
+        map[26][10] = new BuyDartlingGun(26, 10);
+        map[27][10] = new BuyDartlingGun(27, 10);
+        map[27][9] = new BuyDartlingGun(27, 9);
 
         map[26][14] = new ChangeTargetLeft(26, 14);
         map[29][14] = new ChangeTargetRight(29, 14);

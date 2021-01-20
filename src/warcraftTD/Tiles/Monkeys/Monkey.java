@@ -247,8 +247,8 @@ public abstract class Monkey extends Tile {
      * 
      * @param target un Bloon
      */
-    protected void turnToward(Bloon target) {
-        rotation = this.pos.minus(target.pos).angle(new Position(0, -1));
+    protected void turnToward(Position pos) {
+        rotation = this.pos.minus(pos).inGridSpace(false).angle(new Position(0, -1));
     }
 
     /**

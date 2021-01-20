@@ -23,7 +23,7 @@ public class DartMonkey extends Monkey {
         pierce = 1;
 
         // Setup Upgrades
-        leftUpgrades.add(new Upgrade("Long range ", "darts", "Makes the Dart Monkey shoot further than normal", 90));
+        leftUpgrades.add(new Upgrade("Long range", "darts", "Makes the Dart Monkey shoot further than normal", 90));
         leftUpgrades.add(new Upgrade("Enhanced", "Eyesight", "Further increases attack", 100));
         leftUpgrades.add(new Upgrade("Spike-O", "Pult",
                 "Converts the Dart Monkey into a Spike-O-Pult, a powerful tower that hurls a large spiked ball instead of darts.",
@@ -94,7 +94,7 @@ public class DartMonkey extends Monkey {
 
     @Override
     protected void shootAt(Bloon target, List<Projectile> projectiles) {
-        turnToward(target);
+        turnToward(target.pos);
         if (leftUpgrade == 3) {
             Pike p = new Pike(pos, target.pos.minus(pos), 0.005, 1, pierce);
             projectiles.add(p);

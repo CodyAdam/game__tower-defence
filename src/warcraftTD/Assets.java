@@ -47,6 +47,10 @@ public class Assets {
     public static String tackShooterFlame = "/Assets/Sprites/Towers/tackShooter_Flame.png";
     public static String tackShooterBlade0 = "/Assets/Sprites/Towers/tackShooter_Blade_0.png";
     public static String tackShooterBlade1 = "/Assets/Sprites/Towers/tackShooter_Blade_1.png";
+    public static String dartlingGun0 = "/Assets/Sprites/Towers/DartlingGun_0.png";
+    public static String dartlingGun1 = "/Assets/Sprites/Towers/DartlingGun_1.png";
+    public static String dartlingGunLaser = "/Assets/Sprites/Towers/DartlingGun_Laser.png";
+    public static String dartlingGunRocket = "/Assets/Sprites/Towers/DartlingGun_Rocket.png";
 
     // projectiles
     public static String dart = "/Assets/Sprites/Projectiles/Dart.png";
@@ -55,6 +59,9 @@ public class Assets {
     public static String tack = "/Assets/Sprites/Projectiles/Tack.png";
     public static String fire = "/Assets/Sprites/Projectiles/Fire.png";
     public static String blade = "/Assets/Sprites/Projectiles/Blade.png";
+    public static String laser = "/Assets/Sprites/Projectiles/Laser.png";
+    public static String missile = "/Assets/Sprites/Projectiles/Missile.png";
+    public static String explosion = "/Assets/Sprites/Projectiles/Explosion.png";
 
     // bloons
     public static String blueAirBloon = "/Assets/Sprites/Bloons/BlueAirBloon.png";
