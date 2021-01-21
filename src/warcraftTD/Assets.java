@@ -9,6 +9,7 @@ public class Assets {
     // Répertorie les chemins de tous les assets du jeu
 
     // hud elements
+    public static String font = "/Assets/Fonts/FredokaOne-Regular.ttf";
     public static String panel = "/Assets/Sprites/HUD/panel.png";
     public static String panelProcedural = "/Assets/Sprites/HUD/panel_procedural.png";
     public static String leftArrow = "/Assets/Sprites/HUD/left_arrow.png";
@@ -19,7 +20,6 @@ public class Assets {
     public static String buttonSpeedup0 = "/Assets/Sprites/HUD/button_speedup_0.png";
     public static String buttonSpeedup1 = "/Assets/Sprites/HUD/button_speedup_1.png";
     public static String buttonPlay = "/Assets/Sprites/HUD/button_play.png";
-    public static String font = "/Assets/Fonts/FredokaOne-Regular.ttf";
     public static String cursorDart0 = "/Assets/Sprites/HUD/dart_0.png";
     public static String cursorDart1 = "/Assets/Sprites/HUD/dart_1.png";
     public static String cursorDart2 = "/Assets/Sprites/HUD/dart_2.png";
