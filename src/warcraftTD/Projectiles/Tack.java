@@ -36,7 +36,7 @@ public class Tack extends Dart {
         if (isShootingBlade)
             rotation += 10;
         else
-            rotation = dir.angle(new Position(0, 1));
+            rotation = dir.inGridSpace().angle(new Position(0, 1));
         move();
         checkCollision(bloons);
     }

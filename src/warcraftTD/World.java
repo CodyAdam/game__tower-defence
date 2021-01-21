@@ -279,9 +279,9 @@ public class World {
 			squareHeight = (double) 1 / nbSquareY;
 
 			StdDraw.setPenRadius(0.001);
-			Color line = new Color(0, 0, 0, 80);
-			Color isPlacable = new Color(0, 255, 0, 150);
-			Color isNotPlacable = new Color(255, 0, 0, 150);
+			final Color LINE = new Color(0, 0, 0, 80);
+			final Color IS_PLACABLE = new Color(0, 255, 0, 150);
+			final Color IS_NOT_PLACABLE = new Color(255, 0, 0, 150);
 
 			for (int y = 0; y < nbSquareY; y++) {
 				for (int x = 0; x < (!debug ? nbSquareX - 6 : nbSquareX); x++) {
@@ -289,17 +289,20 @@ public class World {
 							.plus(new Position(squareWidth / 2, squareHeight / 2));
 					Color squarreColor = map[x][y].gridColor;
 
-					if (placing) {
+					if (placing) { // Highlight placable and not placable positions
+						Monkey toPlace = ((BuyTile) selectedTile).toPlace;
 						Position mouseGrid = new Position(StdDraw.mouseX(), StdDraw.mouseY()).inGridSpace();
-						if ((x == mouseGrid.x && y == mouseGrid.y) || (x + 1 == mouseGrid.x && y == mouseGrid.y)
-								|| (x == mouseGrid.x && y + 1 == mouseGrid.y)
-								|| (x - 1 == mouseGrid.x && y == mouseGrid.y)
-								|| (x == mouseGrid.x && y - 1 == mouseGrid.y))
-							squarreColor = ((BuyTile) selectedTile).toPlace.isPlacableAt(x, y, map) ? isPlacable
-									: isNotPlacable;
+						ArrayList<Integer[]> toBlock = toPlace.getAdjacent((int) mouseGrid.x, (int) mouseGrid.y);
+						for (Integer[] coordinate : toBlock) {
+							int cx = coordinate[0];
+							int cy = coordinate[1];
+							if ((x == cx && y == cy) || (x == mouseGrid.x && y == mouseGrid.y))
+								squarreColor = toPlace.isPlacableAt(x, y, map) ? IS_PLACABLE : IS_NOT_PLACABLE;
+						}
 					}
+
 					// Draw : les lignes de la grille
-					StdDraw.setPenColor(line);
+					StdDraw.setPenColor(LINE);
 					StdDraw.rectangle(pos.x, pos.y, squareWidth / 2, squareHeight / 2);
 
 					// Draw : les cases de la grille avec la couleur qui dépend de la case

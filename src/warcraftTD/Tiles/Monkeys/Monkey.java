@@ -8,6 +8,7 @@ import warcraftTD.Tiles.Empty;
 import warcraftTD.Tiles.Tile;
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -214,32 +215,46 @@ public abstract class Monkey extends Tile {
      */
     public boolean isPlacableAt(int cx, int cy, Tile[][] map) {
         boolean answer = (map[cx][cy] instanceof Empty);
-        if (cx + 1 >= 0 && cx + 1 < 25)
-            answer = answer && map[cx + 1][cy].isAvaliable;
-        if (cy + 1 >= 0 && cy + 1 < 18)
-            answer = answer && map[cx][cy + 1].isAvaliable;
-        if (cx - 1 >= 0 && cx - 1 < 25)
-            answer = answer && map[cx - 1][cy].isAvaliable;
-        if (cy - 1 >= 0 && cy - 1 < 18)
-            answer = answer && map[cx][cy - 1].isAvaliable;
+        ArrayList<Integer[]> adjacent = getAdjacent(cx, cy);
+        for (Integer[] i : adjacent) {
+            int currentX = i[0];
+            int currentY = i[1];
+            answer = answer && map[currentX][currentY].isAvaliable;
+        }
         return answer;
     }
 
     /**
-     * @return revoi les coordonnées des cases adjacentes de la tour
+     * @param x coordonnée X
+     * @param y coordonnée Y
+     * @return revoi les coordonnées des cases adjacentes de la tour de coordonnées
+     *         (x,y)
      */
-    public ArrayList<Integer[]> getAdjacent() {
+    public ArrayList<Integer[]> getAdjacent(int x, int y) {
         ArrayList<Integer[]> list = new ArrayList<Integer[]>();
 
-        if (x + 1 >= 0 && x + 1 < 25 && y >= 0 && y < 18) // ne rend pas les cases si elle sont hors grille
-            list.add(new Integer[] { x + 1, y });
-        if (x >= 0 && x < 25 && y + 1 >= 0 && y + 1 < 18)
-            list.add(new Integer[] { x, y + 1 });
-        if (x - 1 >= 0 && x - 1 < 25 && y >= 0 && y < 18)
-            list.add(new Integer[] { x - 1, y });
-        if (x >= 0 && x < 25 && y - 1 >= 0 && y - 1 < 18)
-            list.add(new Integer[] { x, y - 1 });
+        list.add(new Integer[] { x + 1, y });
+        list.add(new Integer[] { x, y + 1 });
+        list.add(new Integer[] { x - 1, y });
+        list.add(new Integer[] { x, y - 1 });
+
+        // Check si c'est hors tableau, si oui alors suprime la position
+        Iterator<Integer[]> i = list.iterator();
+        Integer[] l;
+        while (i.hasNext()) {
+            l = i.next();
+            if (l[0] < 0 || l[0] >= 25 || l[1] < 0 || l[1] >= 18)
+                i.remove();
+        }
         return list;
+    }
+
+    /**
+     * @return revoi les coordonnées des cases adjacentes de la tour à ses
+     *         coordonnées
+     */
+    public ArrayList<Integer[]> getAdjacent() {
+        return getAdjacent(this.x, this.y);
     }
 
     /**

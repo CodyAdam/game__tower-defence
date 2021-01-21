@@ -1,5 +1,7 @@
 package warcraftTD.Tiles.Monkeys;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import warcraftTD.Assets;
@@ -65,6 +67,43 @@ public class DartlingGun extends Monkey {
                 sprite = Assets.dartlingGunLaser;
                 break;
         }
+    }
+
+    /**
+     * @Override renvoi les 8-voisins
+     * @return revoi les coordonnées des cases adjacentes de la tour
+     */
+    @Override
+    public ArrayList<Integer[]> getAdjacent(int x, int y) {
+        ArrayList<Integer[]> list = new ArrayList<Integer[]>();
+
+        list.add(new Integer[] { x + 1, y });
+        list.add(new Integer[] { x, y + 1 });
+        list.add(new Integer[] { x - 1, y });
+        list.add(new Integer[] { x, y - 1 });
+        list.add(new Integer[] { x + 1, y + 1 });
+        list.add(new Integer[] { x - 1, y + 1 });
+        list.add(new Integer[] { x - 1, y - 1 });
+        list.add(new Integer[] { x + 1, y - 1 });
+
+        // Check si c'est hors tableau, si oui alors suprime la position
+        Iterator<Integer[]> i = list.iterator();
+        Integer[] l;
+        while (i.hasNext()) {
+            l = i.next();
+            if (l[0] < 0 || l[0] >= 25 || l[1] < 0 || l[1] >= 18)
+                i.remove();
+        }
+        return list;
+    }
+
+    /**
+     * @Override renvoi les 8-voisins
+     * @return revoi les coordonnées des cases adjacentes de la tour
+     */
+    @Override
+    public ArrayList<Integer[]> getAdjacent() {
+        return getAdjacent(x, y);
     }
 
     @Override
