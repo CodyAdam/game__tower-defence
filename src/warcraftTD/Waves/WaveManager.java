@@ -372,7 +372,7 @@ public class WaveManager {
         waves.add(wave);
 
         queue = new ArrayDeque<BloonSpawn>();
-        queue.add(new BloonSpawn(10, new CeramicBloon(pathing), 22));
+        queue.add(new BloonSpawn(30, new CeramicBloon(pathing), 22));
         queue.add(new BloonSpawn(7, new BlackBloon(pathing), 200));
         wave = new Wave("Wave 48 / 65", queue);
         waves.add(wave);
@@ -382,25 +382,111 @@ public class WaveManager {
         queue.add(new BloonSpawn(20, new CeramicBloon(pathing), 18));
         queue.add(new BloonSpawn(20, new ZebraBloon(pathing), 20));
         queue.add(new BloonSpawn(20, new RaimbowBloon(pathing), 30));
-        wave = new Wave("Wave 48 / 65", queue);
-        waves.add(wave);
-
-        queue = new ArrayDeque<BloonSpawn>();
-        queue.add(new BloonSpawn(1, new RedBloon(pathing), 40));
-        queue.add(new BloonSpawn(20, new MetalBloon(pathing), 8));
-        queue.add(new BloonSpawn(1, new RedBloon(pathing), 40));
-        queue.add(new BloonSpawn(20, new CeramicBloon(pathing), 20));
-        queue.add(new BloonSpawn(300, new BlueAirBloon(pathing), 2));
         wave = new Wave("Wave 49 / 65", queue);
         waves.add(wave);
 
         queue = new ArrayDeque<BloonSpawn>();
-        queue.add(new BloonSpawn(1, new RedBloon(pathing), 40));
+        queue.add(new BloonSpawn(4, new RedBloon(pathing), 40));
         queue.add(new BloonSpawn(20, new MetalBloon(pathing), 8));
-        queue.add(new BloonSpawn(1, new RedBloon(pathing), 40));
+        queue.add(new BloonSpawn(4, new RedBloon(pathing), 40));
         queue.add(new BloonSpawn(20, new CeramicBloon(pathing), 20));
-        queue.add(new BloonSpawn(300, new BlueAirBloon(pathing), 2));
+        queue.add(new BloonSpawn(500, new BlueAirBloon(pathing), 2));
         wave = new Wave("Wave 50 / 65", queue);
+        waves.add(wave);
+
+        queue = new ArrayDeque<BloonSpawn>();
+        queue.add(new BloonSpawn(10, new RaimbowBloon(pathing), 10));
+        queue.add(new BloonSpawn(20, new CeramicBloon(pathing), 30));
+        wave = new Wave("Wave 51 / 65", queue);
+        waves.add(wave);
+
+        queue = new ArrayDeque<BloonSpawn>();
+        queue.add(new BloonSpawn(10, new RaimbowBloon(pathing), 25));
+        queue.add(new BloonSpawn(20, new CeramicBloon(pathing), 10));
+        queue.add(new BloonSpawn(300, new BlueAirBloon(pathing), 2));
+        wave = new Wave("Wave 52 / 65", queue);
+        waves.add(wave);
+
+        queue = new ArrayDeque<BloonSpawn>();
+        queue.add(new BloonSpawn(200, new BlueAirBloon(pathing), 3));
+        queue.add(new BloonSpawn(4, new PinkBloon(pathing), 100));
+        wave = new Wave("Wave 53 / 65", queue);
+        waves.add(wave);
+
+        queue = new ArrayDeque<BloonSpawn>();
+        queue.add(new BloonSpawn(30, new CeramicBloon(pathing), 35));
+        queue.add(new BloonSpawn(200, new BlueAirBloon(pathing), 2));
+        wave = new Wave("Wave 54 / 65", queue);
+        waves.add(wave);
+
+        queue = new ArrayDeque<BloonSpawn>();
+        queue.add(new BloonSpawn(10, new CeramicBloon(pathing), 45));
+        queue.add(new BloonSpawn(10, new BlueAirBloon(pathing), 1));
+        wave = new Wave("Wave 55 / 65", queue);
+        waves.add(wave);
+
+        queue = new ArrayDeque<BloonSpawn>();
+        queue.add(new BloonSpawn(20, new RaimbowBloon(pathing), 45));
+        queue.add(new BloonSpawn(10, new BlueAirBloon(pathing), 1));
+        wave = new Wave("Wave 56 / 65", queue);
+        waves.add(wave);
+
+        queue = new ArrayDeque<BloonSpawn>();
+        queue.add(new BloonSpawn(10, new RaimbowBloon(pathing), 45));
+        queue.add(new BloonSpawn(100, new BlueAirBloon(pathing), 4));
+        wave = new Wave("Wave 57 / 65", queue);
+        waves.add(wave);
+
+        queue = new ArrayDeque<BloonSpawn>();
+        queue.add(new BloonSpawn(10, new CeramicBloon(pathing), 30));
+        queue.add(new BloonSpawn(100, new BlueAirBloon(pathing), 5));
+        wave = new Wave("Wave 58 / 65", queue);
+        waves.add(wave);
+
+        queue = new ArrayDeque<BloonSpawn>();
+        queue.add(new BloonSpawn(10, new CeramicBloon(pathing), 10));
+        queue.add(new BloonSpawn(10, new MetalBloon(pathing), 10));
+        queue.add(new BloonSpawn(10, new CeramicBloon(pathing), 10));
+        queue.add(new BloonSpawn(10, new MetalBloon(pathing), 10));
+        queue.add(new BloonSpawn(10, new CeramicBloon(pathing), 10));
+        queue.add(new BloonSpawn(10, new MetalBloon(pathing), 10));
+        queue.add(new BloonSpawn(10, new CeramicBloon(pathing), 10));
+        queue.add(new BloonSpawn(10, new MetalBloon(pathing), 10));
+        wave = new Wave("Wave 59 / 65", queue);
+        waves.add(wave);
+
+        queue = new ArrayDeque<BloonSpawn>();
+        queue.add(new BloonSpawn(10, new RedAirBloon(pathing), 1));
+        wave = new Wave("Wave 60 / 65", queue);
+        waves.add(wave);
+
+        queue = new ArrayDeque<BloonSpawn>();
+        queue.add(new BloonSpawn(10, new BlueAirBloon(pathing), 1));
+        queue.add(new BloonSpawn(20, new ZebraBloon(pathing), 150));
+        wave = new Wave("Wave 61 / 65", queue);
+        waves.add(wave);
+
+        queue = new ArrayDeque<BloonSpawn>();
+        queue.add(new BloonSpawn(20, new ZebraBloon(pathing), 150));
+        queue.add(new BloonSpawn(50, new BlueAirBloon(pathing), 5));
+        wave = new Wave("Wave 62 / 65", queue);
+        waves.add(wave);
+
+        queue = new ArrayDeque<BloonSpawn>();
+        queue.add(new BloonSpawn(5, new PinkBloon(pathing), 300));
+        queue.add(new BloonSpawn(5, new RaimbowBloon(pathing), 15));
+        queue.add(new BloonSpawn(500, new RedAirBloon(pathing), 2));
+        wave = new Wave("Wave 63 / 65", queue);
+        waves.add(wave);
+
+        queue = new ArrayDeque<BloonSpawn>();
+        queue.add(new BloonSpawn(300, new RedAirBloon(pathing), 3));
+        wave = new Wave("Wave 64 / 65", queue);
+        waves.add(wave);
+
+        queue = new ArrayDeque<BloonSpawn>();
+        queue.add(new BloonSpawn(10, new BlackAirBloon(pathing), 1));
+        wave = new Wave("Wave 65 / 65", queue);
         waves.add(wave);
     }
 
