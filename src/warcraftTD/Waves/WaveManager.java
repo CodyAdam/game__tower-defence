@@ -345,7 +345,62 @@ public class WaveManager {
         queue.add(new BloonSpawn(30, new RaimbowBloon(pathing), 30));
         queue.add(new BloonSpawn(35, new CeramicBloon(pathing), 20));
         queue.add(new BloonSpawn(30, new RaimbowBloon(pathing), 30));
-        wave = new Wave("Wave 42 / 65", queue);
+        wave = new Wave("Wave 43 / 65", queue);
+        waves.add(wave);
+
+        queue = new ArrayDeque<BloonSpawn>();
+        queue.add(new BloonSpawn(30, new ZebraBloon(pathing), 50));
+        wave = new Wave("Wave 44 / 65", queue);
+        waves.add(wave);
+
+        queue = new ArrayDeque<BloonSpawn>();
+        queue.add(new BloonSpawn(7, new PinkBloon(pathing), 200));
+        queue.add(new BloonSpawn(20, new MetalBloon(pathing), 8));
+        queue.add(new BloonSpawn(20, new RaimbowBloon(pathing), 25));
+        wave = new Wave("Wave 45 / 65 (Be careful for the next wave)", queue);
+        waves.add(wave);
+
+        queue = new ArrayDeque<BloonSpawn>();
+        queue.add(new BloonSpawn(30, new BlueAirBloon(pathing), 1));
+        wave = new Wave("Wave 46 / 65", queue);
+        waves.add(wave);
+
+        queue = new ArrayDeque<BloonSpawn>();
+        queue.add(new BloonSpawn(5, new PinkBloon(pathing), 200));
+        queue.add(new BloonSpawn(15, new CeramicBloon(pathing), 12));
+        wave = new Wave("Wave 47 / 65", queue);
+        waves.add(wave);
+
+        queue = new ArrayDeque<BloonSpawn>();
+        queue.add(new BloonSpawn(10, new CeramicBloon(pathing), 22));
+        queue.add(new BloonSpawn(7, new BlackBloon(pathing), 200));
+        wave = new Wave("Wave 48 / 65", queue);
+        waves.add(wave);
+
+        queue = new ArrayDeque<BloonSpawn>();
+        queue.add(new BloonSpawn(3, new GreenBloon(pathing), 343));
+        queue.add(new BloonSpawn(20, new CeramicBloon(pathing), 18));
+        queue.add(new BloonSpawn(20, new ZebraBloon(pathing), 20));
+        queue.add(new BloonSpawn(20, new RaimbowBloon(pathing), 30));
+        wave = new Wave("Wave 48 / 65", queue);
+        waves.add(wave);
+
+        queue = new ArrayDeque<BloonSpawn>();
+        queue.add(new BloonSpawn(1, new RedBloon(pathing), 40));
+        queue.add(new BloonSpawn(20, new MetalBloon(pathing), 8));
+        queue.add(new BloonSpawn(1, new RedBloon(pathing), 40));
+        queue.add(new BloonSpawn(20, new CeramicBloon(pathing), 20));
+        queue.add(new BloonSpawn(300, new BlueAirBloon(pathing), 2));
+        wave = new Wave("Wave 49 / 65", queue);
+        waves.add(wave);
+
+        queue = new ArrayDeque<BloonSpawn>();
+        queue.add(new BloonSpawn(1, new RedBloon(pathing), 40));
+        queue.add(new BloonSpawn(20, new MetalBloon(pathing), 8));
+        queue.add(new BloonSpawn(1, new RedBloon(pathing), 40));
+        queue.add(new BloonSpawn(20, new CeramicBloon(pathing), 20));
+        queue.add(new BloonSpawn(300, new BlueAirBloon(pathing), 2));
+        wave = new Wave("Wave 50 / 65", queue);
         waves.add(wave);
     }
 
@@ -369,6 +424,13 @@ public class WaveManager {
         return running;
     }
 
+    public int getMoneyFromWave() {
+        if (currentWave == null)
+            return 0;
+        else
+            return waves.indexOf(currentWave) + 100;
+    }
+
     /**
      * @return est-ce que la première vague à été lancé ?
      */
@@ -380,19 +442,20 @@ public class WaveManager {
      * Lance la prochaine vague si c'est possible
      */
     public void startNextWave() {
-        if (currentWave == null)
-            if (waves != null && waves.size() > 0) {
-                currentWave = waves.get(0);
-                running = true;
-            } else
-                System.err.println("The started wave is empty");
-        else {
-            int nextIndex = 1 + waves.indexOf(currentWave);
-            if (nextIndex < waves.size()) {
-                currentWave = waves.get(1 + waves.indexOf(currentWave));
-                running = true;
+        if (!finished)
+            if (currentWave == null)
+                if (waves != null && waves.size() > 0) {
+                    currentWave = waves.get(0);
+                    running = true;
+                } else
+                    System.err.println("The started wave is empty");
+            else {
+                int nextIndex = 1 + waves.indexOf(currentWave);
+                if (nextIndex < waves.size()) {
+                    currentWave = waves.get(1 + waves.indexOf(currentWave));
+                    running = true;
+                }
             }
-        }
     }
 
     /**

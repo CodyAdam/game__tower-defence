@@ -861,11 +861,13 @@ public class World {
 					mainAlert.add("You can't start another wave now!");
 				else {
 					if (!waves.finished) {
-						if (debug && waves.isRunning())
+						if (debug && waves.isRunning()) {
+							hasCheated = true;
 							mainAlert.add("DEBUG : wave skipped!");
+						}
 						waves.startNextWave();
-						hasCheated = true;
-						mainAlert.add(waves.getName() + " has started!");
+						money += waves.getMoneyFromWave();
+						mainAlert.add(waves.getName() + " has started! +" + waves.getMoneyFromWave() + "$");
 					}
 				}
 			} else if (selectedTile instanceof SpeedupButton) {

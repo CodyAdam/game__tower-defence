@@ -42,7 +42,7 @@ public class Missile extends Projectile {
     protected void explode(Position pos, int damage, double radius, List<Bloon> bloons) {
         exploding = true;
         for (Bloon b : bloons) {
-            if (b instanceof BlackBloon)
+            if (!(b instanceof BlackBloon))
                 if (b.pos.inGridSpace(false).dist(pos.inGridSpace(false)) < radius)
                     b.hp -= damage;
         }
