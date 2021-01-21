@@ -26,8 +26,8 @@ public class WaveManager {
 
         Wave wave;
         ArrayDeque<BloonSpawn> queue;
-        // Creation des Vagues :
 
+        // Creation des Vagues :
         queue = new ArrayDeque<BloonSpawn>();
         queue.add(new BloonSpawn(50, new RedBloon(pathing), 20));
         wave = new Wave("Wave 1 / 65", queue);

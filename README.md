@@ -4,8 +4,7 @@
 
 ## TODO
 
--   [ ] Finishing all the waves
--   [ ] Ajout de tours
+-   [ ] Ajout supermonkey + bomber
 -   [ ] Exporter avec eclipse
 
 ## Concept du projet :

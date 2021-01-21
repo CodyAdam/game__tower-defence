@@ -92,6 +92,8 @@ public abstract class Projectile {
 
     /**
      * Update du projectile
+     * 
+     * @param bloons la liste de tous les bloons
      */
     public void tick(List<Bloon> bloons) {
         if (isOutOfBound() || traveledDistance > maxRange)

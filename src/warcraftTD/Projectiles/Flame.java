@@ -8,6 +8,10 @@ import warcraftTD.StdDraw;
 import warcraftTD.Bloons.Bloon;
 import warcraftTD.Bloons.MetalBloon;
 
+/**
+ * Classe utilisé par le TackShooter Upgrade lvl 3 a gauche pour lancer des
+ * rayon de flammes
+ */
 public class Flame extends Projectile {
 
     private int cooldown = 0;

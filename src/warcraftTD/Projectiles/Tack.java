@@ -21,6 +21,12 @@ public class Tack extends Dart {
         }
     }
 
+    /**
+     * Update du projectile
+     * 
+     * @Override ajoute une animation de rotation quand isShootingBlade==true
+     * @param bloons la liste de tous les bloons
+     */
     @Override
     public void tick(List<Bloon> bloons) {
         if (isOutOfBound() || traveledDistance > maxRange)

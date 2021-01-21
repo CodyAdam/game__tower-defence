@@ -39,6 +39,15 @@ public class Missile extends Projectile {
             }
     }
 
+    /**
+     * Remplace la fonction hit (hit fait du single target) mais applique des dégats
+     * de zone
+     * 
+     * @param pos    position du centre de l'explosion
+     * @param damage dégâts de l'explosion
+     * @param radius rayon de l'explosion
+     * @param bloons la liste de tous les bloons
+     */
     protected void explode(Position pos, int damage, double radius, List<Bloon> bloons) {
         exploding = true;
         for (Bloon b : bloons) {
@@ -48,6 +57,13 @@ public class Missile extends Projectile {
         }
     }
 
+    /**
+     * Update du projectile
+     * 
+     * @Override remplace le sprite avec une explosion si le projectile a touché un
+     *           bloon
+     * @param bloons la liste de tous les bloons
+     */
     @Override
     public void tick(List<Bloon> bloons) {
         if (exploding && !remove) {

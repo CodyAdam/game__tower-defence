@@ -20,6 +20,12 @@ public class Pike extends Projectile {
         this.hitboxRadius *= 1.3;
     }
 
+    /**
+     * Update du projectile
+     * 
+     * @Override ajoute une animation au projectile en fonction du temps
+     * @param bloons la liste de tous les bloons
+     */
     @Override
     public void tick(List<Bloon> bloons) {
         super.tick(bloons);
