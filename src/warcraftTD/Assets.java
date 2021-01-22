@@ -43,10 +43,10 @@ public class Assets {
     public static String dartMonkeySpikeOPult1 = "/Assets/Sprites/Towers/DartMonkey_Spike-o-pult_1.png";
     public static String dartMonkeySpikeOPult2 = "/Assets/Sprites/Towers/DartMonkey_Spike-o-pult_2.png";
     public static String dartMonkeyTripleDart = "/Assets/Sprites/Towers/DartMonkey_TripleDart.png";
-    public static String tackShooter = "/Assets/Sprites/Towers/tackShooter.png";
-    public static String tackShooterFlame = "/Assets/Sprites/Towers/tackShooter_Flame.png";
-    public static String tackShooterBlade0 = "/Assets/Sprites/Towers/tackShooter_Blade_0.png";
-    public static String tackShooterBlade1 = "/Assets/Sprites/Towers/tackShooter_Blade_1.png";
+    public static String tackShooter = "/Assets/Sprites/Towers/TackShooter.png";
+    public static String tackShooterFlame = "/Assets/Sprites/Towers/TackShooter_Flame.png";
+    public static String tackShooterBlade0 = "/Assets/Sprites/Towers/TackShooter_Blade_0.png";
+    public static String tackShooterBlade1 = "/Assets/Sprites/Towers/TackShooter_Blade_1.png";
     public static String dartlingGun0 = "/Assets/Sprites/Towers/DartlingGun_0.png";
     public static String dartlingGun1 = "/Assets/Sprites/Towers/DartlingGun_1.png";
     public static String dartlingGunLaser = "/Assets/Sprites/Towers/DartlingGun_Laser.png";
