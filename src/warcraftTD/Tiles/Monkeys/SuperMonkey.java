@@ -41,7 +41,7 @@ public class SuperMonkey extends Monkey {
 
         rightUpgrades.add(new Upgrade("Super", "Range", "Super Monkey + super range = good!", 1000));
         rightUpgrades.add(new Upgrade("Epic", "Range", "Why settle for super when you can have EPIC?", 1500));
-        rightUpgrades.add(new Upgrade("Triple", "Darts", "Half Super Monkey, half killer robot of death.",
+        rightUpgrades.add(new Upgrade("Technological", "Terror", "Half Super Monkey, half killer robot of death.",
                 " Super Monkey's arms become pulse cannons of annihilation, able to with two independent laser-blaster",
                 9000));
     }

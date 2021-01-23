@@ -13,7 +13,7 @@ public class Sunball extends Plasma {
         this.sprite = Assets.sunball;
         this.canPopLead = true;
         this.damage = 1;
-        this.pierce = 50;
+        this.pierce = 150;
         hitboxRadius = 3;
     }
 }

@@ -342,9 +342,9 @@ public class WaveManager {
         waves.add(wave);
 
         queue = new ArrayDeque<BloonSpawn>();
-        queue.add(new BloonSpawn(30, new RaimbowBloon(pathing), 30));
-        queue.add(new BloonSpawn(35, new CeramicBloon(pathing), 20));
-        queue.add(new BloonSpawn(30, new RaimbowBloon(pathing), 30));
+        queue.add(new BloonSpawn(40, new RaimbowBloon(pathing), 30));
+        queue.add(new BloonSpawn(45, new CeramicBloon(pathing), 20));
+        queue.add(new BloonSpawn(40, new RaimbowBloon(pathing), 30));
         wave = new Wave("Wave 43 / 65", queue);
         waves.add(wave);
 
