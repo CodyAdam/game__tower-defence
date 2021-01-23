@@ -4,12 +4,11 @@
 
 ## TODO
 
--   [ ] Ajout bomber
 -   [ ] Exporter avec eclipse
 
 ## Concept du projet :
 
-Quand nous avons vu que le thème du projet était sur les jeux de type Tower defence, nous avons eu l'idée de faire une sandbox simplifiée du jeu "Bloons TD 5" avec les outils mis à notre disposition, ce qui a été un challenge vraiment enrichissant.
+Quand nous avons vu que le thème du projet était sur les jeux de type Tower defence, nous avons eu l'idée de faire une version simplifiée du jeu "Bloons TD 5" avec les outils mis à notre disposition, ce qui a été un challenge vraiment enrichissant.
 
 La majorité des [assets](https://en.wikipedia.org/wiki/Digital_asset) sont donc issus de ce même jeu, les images ne sont donc pas libre de droit. C'est pourquoi nous n'allons aucunement rendre ce jeu public, celui-ci restera dans le cadre du projet de PO. Quelles ont été nos motivations pour avoir pris les [sprites](<https://en.wikipedia.org/wiki/Sprite_(computer_graphics)>) de ce jeu ? Le projet de PO a pour but de tester nos capacités en programmation et non en graphisme, c'est pourquoi emprunter les sprites de ce jeu nous permet de gagner du temps en ayant des images prêtes à être utilisé tout en rendant notre projet original.
 
@@ -68,6 +67,8 @@ Chaque tour possèdes 6 amélioration dont 2 améliorations "unique" (Une tour p
 -   "Dart Monkey" : Tour qui lance des fléchettes sur la cible et peut être amélioré en une catapulte à piques ou en arché à triple fléchettes
 -   "Tack Shooter" : Tour qui lance des petites punaises dans toutes les directions et peut être amélioré en expulseur de flames ou en lanceur de scies
 -   "Dartling Gun" : Tour qui lance des fléchettes mais elles les lance vers la position de la souris les directions et peut être amélioré en cracheur de flames ou en lanceur de scies
+-   "Bomb Shooter" : Tour qui lance des bombes sur la cible, les bombes explose et font des dégats de zone. La tour peux devenir un lanceur de bombes fragmenté de mini bombes ou bien un lanceur de rocket anti-ballons-aérien
+-   "Super Monkey" : Tour qui lance des fléchettes très rapidement mais qui est aussi très couteuse, elle peux devenir un giga-robot qui tire des rayons plasma de ses deux mains ou bien devenir le TEMPLE DE DIEUX SINGES !
 
 ## Touches utiles en jeu :
 
