@@ -1,7 +1,5 @@
 ##### Binôme : Cody ADAM et Fabien GOARDOU
 
-# Page Github du projet : [Tower-Defence](https://github.com/CodyAdam/Tower-Defence)
-
 ## TODO
 
 -   [ ] Exporter avec eclipse
