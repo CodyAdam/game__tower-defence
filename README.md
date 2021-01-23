@@ -50,7 +50,7 @@ En tant que joueur, nous posons des singes sur le terrain dans le but de se déf
 -   Ajout d'une interface visuelle interactive d'achat et d'amélioration. Le jeu peu donc être joué uniquement à la souris.
 -   Système de popup textuel animé avec du [easing](https://easings.net/fr). Permet d'afficher pleins d'informations tel que des infos. de vagues ou bien des gains d'argents
 -   Amélioration de la classe Position par l'ajout de fonctions utiles tel que : normalized, angle, rotate, multi, plus, minus, etc.
--   Système de grille avec prévisualisation des emplacements disponible quand une tour souhaite être placée permetant d'avoir des tours qui prennent plus ou moins de place que d'autres ![Voir image d'explication de la grille "explication_grille.png"](/explication_ballon.png)
+-   Système de grille avec prévisualisation des emplacements disponible quand une tour souhaite être placée permetant d'avoir des tours qui prennent plus ou moins de place que d'autres ![Voir image d'explication de la grille "explication_grille.png"](/explication_grille.png)
 -   Système de tile (tuile en français) couplé à la grille, tout objet interactif du jeu est représenté par une tile dans la grille à l'éxception des ballons
 -   Ajout de passages pour les ballons dans des tunnels, empêchant les tours de les attaqués
 -   Système de projectiles capteur de collision par hitbox circulaire
