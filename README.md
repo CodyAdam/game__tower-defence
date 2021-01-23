@@ -41,34 +41,33 @@ En tant que joueur, nous posons des singes sur le terrain dans le but de se déf
 ## Changement effectué sur le projet par défaut :
 
 -   Les ennemies ont été renommés en tant que "Bloon" et les tours en tant que "Monkey"
--   Fenêtre de résolution fixée de 1240 x 720 px
--   Grille de 31 x 18 tuiles (une tuile fait 40 x 40 px)
--   Sprite des tours et ennemies customisées
--   Arrière-plan customisé (pas de tuile mais une seule image)
--   Police customisée (voir bibliographie)
 -   Changement total des unités ennemies et alliées (Bomb et Arrow Tower remplacés par les différents Singes et les monstres sont remplacés par le système de Bloons)
--   Système de niveaux avec chacun des chemins, environnements et difficultés différentes (4 disponibles + procédural)
--   Générateur procédural de niveaux intelligent avec 3 modes de génération et avec une animation de génération
+-   Fenêtre de résolution fixée de 1240 x 720 px avec une grille de jeu de 31 x 18 tuiles (une tuile fait 40 x 40 px)
+-   Sprite des tours, ennemies ainsi qu'arrière-plan customisé (arrière-plan sans tuile mais en une seule image)
+-   Police customisée (voir bibliographie)
+-   Système de niveaux avec chacun des chemins, environnements et difficultés différentes (4 disponibles + 1 procédural)
+-   Générateur procédural de niveaux intelligent avec 3 modes de génération ainsi qu'une animation de génération
 -   Un mode débug avancé avec un affichage de multiples informations et accès à des commandes de "triche"
--   Ajout d'une interface visuelle interactive d'achat et d'amélioration. Le jeu ce joue à la souris
--   Système de popup textuel animé avec du [easing](https://easings.net/fr) et modulable
--   Amélioration de la classe Position par l'ajout de fonctions utiles
--   Système de grille avec prévisualisation des emplacements disponible quand une tour souhaite être placée
+-   Ajout d'une interface visuelle interactive d'achat et d'amélioration. Le jeu peu donc être jouer uniquement à la souris.
+-   Système de popup textuel animé avec du [easing](https://easings.net/fr). Permet d'afficher pleins d'informations tel que des info. de vagues ou bien des gains d'argents
+-   Amélioration de la classe Position par l'ajout de fonctions utiles tel que : normalized, angle, rotate, multi, plus, minus, etc...
+-   Système de grille avec prévisualisation des emplacements disponible quand une tour souhaite être placée permetant d'avoir des tours qui prennent plus ou moins de place que d'autres
 -   Système de tile (tuile en français) couplé à la grille, tout objet interactif du jeu est représenté par une tile dans la grille à l'éxception des ballons
 -   Ajout de passages pour les ballons dans des tunnels, empêchant les tours de les attaqués
--   Système de projectiles, avec un capteur de collision modulable
--   Système d'amélioration de tour via l'interface graphique avec changement des compétence des tours quand elles sont améliorées
--   Système de changement de l'énemie ciblé par la tour via l'interface graphique
+-   Système de projectiles capteur de collision par hitbox circulaire
+-   Système d'amélioration de tour via l'interface graphique avec changement des compétence des tours quand elles sont améliorées (Voir la séction Implémentation des tours)
+-   Système de changement de l'énemie ciblé par la tour via l'interface graphique (Choix entre : cible la plus proche, cible la plus loins dans le chemin, cible la moins loins dans le chemin, cible la plus forte)
 -   Menu d'accueil avec sélection de niveaux via l'interface graphique avec des petites animations
--   Système de TPS (tick par secondes) et FPS (frame par secondes) qui permet de facilement géré le temps dans le jeu
+-   Séparation des TPS (tick/update par secondes) et FPS (frame/draw par secondes) qui permet de facilement géré le temps dans le jeu
 -   Possibilité pour le joueur d'accélérer le temps et jouer en vitesse x4
 
-Implémentation des tours :
-Chaque tour possèdes 6 amélioration dont 2 améliorations "unique" (Une tour peux avoir une seul amélioration unique à la fois)
+#### Implémentation des tours :
 
--   "Dart Monkey" : il lance des fléchettes et peut être amélioré en une catapulte à piques ou en arché à triple fléchettes
--   "Tack Shooter" : il lance des petites punaises dans toutes les directions et peut être amélioré en cracheur de flames ou en lanceur de scies
--   "Tack Shooter" : il lance des petites punaises dans toutes les directions et peut être amélioré en cracheur de flames ou en lanceur de scies
+Chaque tour possèdes 6 amélioration dont 2 améliorations "unique" (Une tour peux avoir une seul amélioration unique à la fois), les améliorations non unique change uniquement quelques statistique de la tour alors que les amélioration unique change totalement les effets d'une tour ainsi que sont apparence.
+
+-   "Dart Monkey" : Tour qui lance des fléchettes sur la cible et peut être amélioré en une catapulte à piques ou en arché à triple fléchettes
+-   "Tack Shooter" : Tour qui lance des petites punaises dans toutes les directions et peut être amélioré en expulseur de flames ou en lanceur de scies
+-   "Dartling Gun" : Tour qui lance des fléchettes mais elles les lance vers la position de la souris les directions et peut être amélioré en cracheur de flames ou en lanceur de scies
 
 ## Touches utiles en jeu :
 
