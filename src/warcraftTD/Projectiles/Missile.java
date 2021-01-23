@@ -1,22 +1,29 @@
 package warcraftTD.Projectiles;
 
 import java.util.List;
+import java.util.ListIterator;
 
 import warcraftTD.Assets;
 import warcraftTD.Position;
+import warcraftTD.StdDraw;
 import warcraftTD.Bloons.BlackBloon;
 import warcraftTD.Bloons.Bloon;
+import warcraftTD.Bloons.ZebraBloon;
 
 public class Missile extends Projectile {
     private int explosionDuration = 4; // nombre de tick que l'on affiche le sprite d'explosion
-    private boolean exploding = false;
+    protected boolean exploding = false;
+    protected double explosionRadius;
 
-    public Missile(Position startingPos, Position direction, double velocity, int damage, double range) {
+    public Missile(Position startingPos, Position direction, double velocity, int damage, double range,
+            double explosionRadius) {
         super(startingPos, Assets.missile);
         this.dir = new Position(direction).normalized();
         this.velocity = velocity;
         this.damage = damage;
         this.maxRange = range;
+        hitboxRadius = 0.25;
+        this.explosionRadius = explosionRadius;
         pierce = 1;
         canPopLead = true;
     }
@@ -34,7 +41,7 @@ public class Missile extends Projectile {
                 if (remove)
                     return;
                 if (isColliding(b) && b.hp > 0) {
-                    explode(this.pos, damage, 2, bloons);
+                    explode(this.pos, damage, explosionRadius, bloons);
                 }
             }
     }
@@ -51,7 +58,7 @@ public class Missile extends Projectile {
     protected void explode(Position pos, int damage, double radius, List<Bloon> bloons) {
         exploding = true;
         for (Bloon b : bloons) {
-            if (!(b instanceof BlackBloon))
+            if (!(b instanceof BlackBloon || b instanceof ZebraBloon))
                 if (b.pos.inGridSpace(false).dist(pos.inGridSpace(false)) < radius)
                     b.hp -= damage;
         }
@@ -61,19 +68,45 @@ public class Missile extends Projectile {
      * Update du projectile
      * 
      * @Override remplace le sprite avec une explosion si le projectile a touché un
-     *           bloon
+     *           bloon et explose si hors portée
      * @param bloons la liste de tous les bloons
      */
     @Override
-    public void tick(List<Bloon> bloons) {
+    public void tick(List<Bloon> bloons, ListIterator<Projectile> i) {
+        this.porjectilesIterator = i;
         if (exploding && !remove) {
-            hitboxRadius = 2;
-            sprite = Assets.explosion;
+            hitboxRadius = explosionRadius;
             explosionDuration--;
             if (explosionDuration <= 0)
                 remove = true;
         } else {
-            super.tick(bloons);
+            if (remove)
+                return;
+            else if (isOutOfBound() || traveledDistance > maxRange)
+                explode(this.pos, damage, explosionRadius, bloons);
+            else {
+                rotation = dir.inGridSpace().angle(new Position(0, 1));
+                move();
+                checkCollision(bloons);
+            }
         }
+    }
+
+    /**
+     * Affiche le projectile et si le mode debug est actif, affiche la hitbox
+     * 
+     * @Override Affiche l'explosion avec la bonne taille
+     * @param debug est-ce que le mode debug est actif ?
+     */
+    @Override
+    public void draw(boolean debug) {
+        if (exploding) {
+            Position size = new Position(199.0 / (2 * 1240), 171.0 / (2 * 720)).multi(explosionRadius);
+            StdDraw.picture(this.pos.x, this.pos.y, Assets.explosion, size.x, size.y, rotation);
+        } else
+            StdDraw.picture(this.pos.x, this.pos.y, this.sprite, rotation);
+
+        if (debug) // Draw hitbox on debug
+            drawHitbox();
     }
 }

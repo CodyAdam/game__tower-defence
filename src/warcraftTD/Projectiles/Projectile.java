@@ -2,6 +2,8 @@ package warcraftTD.Projectiles;
 
 import java.awt.Color;
 import java.util.List;
+import java.util.ListIterator;
+
 import warcraftTD.Position;
 import warcraftTD.StdDraw;
 import warcraftTD.Bloons.Bloon;
@@ -11,7 +13,8 @@ import warcraftTD.Bloons.MetalBloon;
  * Classe parente de tous les projectiles
  */
 public abstract class Projectile {
-
+    protected ListIterator<Projectile> porjectilesIterator; // permet d'ajouter des nouveaux projetiles durant
+                                                            // l'itération
     protected Position pos;
     protected Position dir;
     protected double velocity;
@@ -95,7 +98,8 @@ public abstract class Projectile {
      * 
      * @param bloons la liste de tous les bloons
      */
-    public void tick(List<Bloon> bloons) {
+    public void tick(List<Bloon> bloons, ListIterator<Projectile> i) {
+        this.porjectilesIterator = i;
         if (isOutOfBound() || traveledDistance > maxRange)
             remove = true;
         if (remove)

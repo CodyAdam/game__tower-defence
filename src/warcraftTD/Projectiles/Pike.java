@@ -1,6 +1,7 @@
 package warcraftTD.Projectiles;
 
 import java.util.List;
+import java.util.ListIterator;
 
 import warcraftTD.Assets;
 import warcraftTD.Position;
@@ -27,8 +28,8 @@ public class Pike extends Projectile {
      * @param bloons la liste de tous les bloons
      */
     @Override
-    public void tick(List<Bloon> bloons) {
-        super.tick(bloons);
+    public void tick(List<Bloon> bloons, ListIterator<Projectile> i) {
+        super.tick(bloons, i);
         animationCounter += 1;
         if ((int) (animationCounter * ANIMATION_SPEED) % 2 == 0)
             sprite = Assets.pike0;

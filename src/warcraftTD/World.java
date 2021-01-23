@@ -181,7 +181,7 @@ public class World {
 			p = i.next();
 			if (p.remove)
 				i.remove();
-			p.tick(bloons);
+			p.tick(bloons, i);
 		}
 	}
 
@@ -411,6 +411,12 @@ public class World {
 		StdDraw.text(0.868, 0.521 - SHADOW_OFFSET, cost + "$");
 		StdDraw.setPenColor(cost <= money ? CAN_BUY : CANT_BUY);
 		StdDraw.text(0.868, 0.521, cost + "$");
+		// for the DartlingGun tower
+		cost = ((BuyTile) map[28][10]).cost;
+		StdDraw.setPenColor(SHADOW);
+		StdDraw.text(0.939, 0.521 - SHADOW_OFFSET, cost + "$");
+		StdDraw.setPenColor(cost <= money ? CAN_BUY : CANT_BUY);
+		StdDraw.text(0.939, 0.521, cost + "$");
 		// for the SuperMonkey
 		cost = ((BuyTile) map[26][8]).cost;
 		StdDraw.setPenColor(SHADOW);
@@ -432,13 +438,13 @@ public class World {
 			double mouseY = Math.round(StdDraw.mouseY() * 1000) / (double) 1000;
 			Position mouseGrid = new Position(mouseX, mouseY).inGridSpace();
 
-			StdDraw.setPenColor(new Color(0, 0, 0, 130));
+			StdDraw.setPenColor(new Color(0, 0, 0, 80));
 			StdDraw.filledRectangle(0, 0, 0.3, 0.38);
 			StdDraw.setFont(); // set default font
 			StdDraw.setPenColor(StdDraw.WHITE);
 			StdDraw.textLeft(ALIGN_LEFT, 0.33, "Debug informations ('D' to disable)");
 			StdDraw.textLeft(ALIGN_LEFT, 0.29, "[Cheat] Press the play button to skip waves");
-			StdDraw.textLeft(ALIGN_LEFT, 0.27, "[Cheat] Press 'M' to gain 1000$");
+			StdDraw.textLeft(ALIGN_LEFT, 0.27, "[Cheat] Press 'M' to gain 2000$");
 			StdDraw.textLeft(ALIGN_LEFT, 0.25, "[Cheat] Press 'K' to kill every Bloons");
 			StdDraw.textLeft(ALIGN_LEFT, 0.23, "[Cheat] Press 'H' to gain infinite health");
 			StdDraw.textLeft(ALIGN_LEFT, 0.18, "FPS : " + fps);
@@ -747,9 +753,9 @@ public class World {
 		}
 
 		// on re-donne au joueur 2/3 du prix d'origine de placement
-		money += (int) (2 * target.cost / 3);
+		money += (int) (target.totalMoneySpend * 0.75);
 		Alert gainMoney = new Alert(target.pos, 100, new Color(225, 232, 21, 255), this.font, 60, 0.05, 20);
-		gainMoney.add("+" + (int) (2 * target.cost / 3) + "$");
+		gainMoney.add("+" + (int) (target.totalMoneySpend * 0.75) + "$");
 		alerts.add(gainMoney);
 
 		// on suprime la tour du jeu
@@ -788,9 +794,9 @@ public class World {
 				if (debug) {
 					Alert gainAlert = new Alert(new Position(StdDraw.mouseX(), StdDraw.mouseY()), 100,
 							new Color(225, 232, 21, 255), this.font, 60, 0.05, 20);
-					gainAlert.add("+1000$");
+					gainAlert.add("+2000$");
 					alerts.add(gainAlert);
-					money += 1000;
+					money += 2000;
 					hasCheated = true;
 				}
 				break;

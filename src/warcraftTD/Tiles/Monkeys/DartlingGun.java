@@ -128,7 +128,7 @@ public class DartlingGun extends Monkey {
         Projectile d;
         Position direction = mousePos.minus(pos).rotate(Math.random() * accuracyDegree - accuracyDegree / 2);
         if (rightUpgrade == 3)
-            d = new Missile(pos, direction, dartSpeed, 5, range);
+            d = new Missile(pos, direction, dartSpeed, 5, range, 2);
         else if (leftUpgrade == 3)
             d = new Laser(pos, direction, dartSpeed, 1, pierce, range);
         else

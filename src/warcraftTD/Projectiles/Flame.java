@@ -1,6 +1,7 @@
 package warcraftTD.Projectiles;
 
 import java.util.List;
+import java.util.ListIterator;
 
 import warcraftTD.Assets;
 import warcraftTD.Position;
@@ -27,7 +28,8 @@ public class Flame extends Projectile {
     }
 
     @Override
-    public void tick(List<Bloon> bloons) {
+    public void tick(List<Bloon> bloons, ListIterator<Projectile> i) {
+        this.porjectilesIterator = i;
         if (traveledDistance > maxRange)
             remove = true;
         if (remove)

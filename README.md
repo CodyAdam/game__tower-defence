@@ -4,7 +4,7 @@
 
 ## TODO
 
--   [ ] Ajout supermonkey + bomber
+-   [ ] Ajout bomber
 -   [ ] Exporter avec eclipse
 
 ## Concept du projet :
@@ -19,22 +19,22 @@ En tant que joueur, nous posons des singes sur le terrain dans le but de se déf
 
 #### Hiérarchie des ballons :
 
-| Type de Bloons      | Capacité                                      | Spécialité                                      |
-| ------------------- | --------------------------------------------- | ----------------------------------------------- |
-| Ballon rouge        | Ne contient aucun ballon                      | 1pv et lent                                     |
-| Ballon bleu         | Contient 1 ballon rouge                       | 1pv et moyennement lent                         |
-| Ballon vert         | Contient 1 ballon bleu                        | 1pv et moyennement rapide                       |
-| Ballon jaune        | Contient 1 ballon vert                        | 1pv et rapide                                   |
-| Ballon rose         | Contient 1 ballon jaune                       | 1pv et très rapide                              |
-| Ballon noir         | Contient 2 ballon rose                        | 1pv et invincible au explosions                 |
-| Ballon de glace     | Contient 2 ballon rose                        | 1pv et invincible contre le froid               |
-| Ballon d'acier      | Contient 2 ballon noir                        | 1pv et invincible contre les projectiles pointu |
-| Ballon zebré        | Contient 1 ballon noir et un ballons de glace | 1pv et invincible contre les projectiles pointu |
-| Ballon arc-en-ciel  | Contient 2 ballon zebré                       | 1pv et très rapide                              |
-| Ballon céramic      | Contient 2 ballon arc-en-ciel                 | 10pv et lent                                    |
-| Ballon aérien bleu  | Contient 4 ballon céramique                   | 200pv et très lent                              |
-| Ballon aérien rouge | Contient 4 ballon aérien bleu                 | 700pv et méga lent                              |
-| Ballon aérien noir  | Contient 4 ballon aérien rouge                | 4000pv et giga lent                             |
+| Type de Bloons      | Capacité                                      | Spécialité                                          |
+| ------------------- | --------------------------------------------- | --------------------------------------------------- |
+| Ballon rouge        | Ne contient aucun ballon                      | 1pv et lent                                         |
+| Ballon bleu         | Contient 1 ballon rouge                       | 1pv et moyennement lent                             |
+| Ballon vert         | Contient 1 ballon bleu                        | 1pv et moyennement rapide                           |
+| Ballon jaune        | Contient 1 ballon vert                        | 1pv et rapide                                       |
+| Ballon rose         | Contient 1 ballon jaune                       | 1pv et très rapide                                  |
+| Ballon noir         | Contient 2 ballon rose                        | 1pv et invincible au explosions                     |
+| Ballon de glace     | Contient 2 ballon rose                        | 1pv et invincible contre le froid                   |
+| Ballon d'acier      | Contient 2 ballon noir                        | 1pv et invincible contre les projectiles pointu     |
+| Ballon zebré        | Contient 1 ballon noir et un ballons de glace | 1pv et invincible contre les explosions et le froid |
+| Ballon arc-en-ciel  | Contient 2 ballon zebré                       | 1pv et rapide                                       |
+| Ballon céramic      | Contient 2 ballon arc-en-ciel                 | 10pv et lent                                        |
+| Ballon aérien bleu  | Contient 4 ballon céramique                   | 200pv et très lent                                  |
+| Ballon aérien rouge | Contient 4 ballon aérien bleu                 | 700pv et méga lent                                  |
+| Ballon aérien noir  | Contient 4 ballon aérien rouge                | 4000pv et giga lent                                 |
 
 ![Image d'explication des Bloons](/explication_ballon.png)
 
@@ -62,6 +62,13 @@ En tant que joueur, nous posons des singes sur le terrain dans le but de se déf
 -   Menu d'accueil avec sélection de niveaux via l'interface graphique avec des petites animations
 -   Système de TPS (tick par secondes) et FPS (frame par secondes) qui permet de facilement géré le temps dans le jeu
 -   Possibilité pour le joueur d'accélérer le temps et jouer en vitesse x4
+
+Implémentation des tours :
+Chaque tour possèdes 6 amélioration dont 2 améliorations "unique" (Une tour peux avoir une seul amélioration unique à la fois)
+
+-   "Dart Monkey" : il lance des fléchettes et peut être amélioré en une catapulte à piques ou en arché à triple fléchettes
+-   "Tack Shooter" : il lance des petites punaises dans toutes les directions et peut être amélioré en cracheur de flames ou en lanceur de scies
+-   "Tack Shooter" : il lance des petites punaises dans toutes les directions et peut être amélioré en cracheur de flames ou en lanceur de scies
 
 ## Touches utiles en jeu :
 

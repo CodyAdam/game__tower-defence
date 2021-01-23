@@ -25,6 +25,8 @@ public abstract class Monkey extends Tile {
     protected int timer; // timer pour savoir quand tirer
     public int cost; // prix pour placer la tour
 
+    public int totalMoneySpend = 0; // Compteur d'argent mit dans la tour pour plus tard la vendre
+
     protected String targetingMode;// variable permetant de choisir quel énemie ciblé
     private List<String> targetingModes;// liste des types de ciblage
 
@@ -99,10 +101,13 @@ public abstract class Monkey extends Tile {
      * @param isLeft est-ce qu'il s'agit de l'upgrade de gauche ?
      */
     public void upgrade(boolean isLeft) {
-        if (isLeft)
+        if (isLeft) {
+            totalMoneySpend += leftUpgrades.get(leftUpgrade).price;
             postUpgradeLeft(++leftUpgrade);
-        else
+        } else {
+            totalMoneySpend += leftUpgrades.get(rightUpgrade).price;
             postUpgradeRight(++rightUpgrade);
+        }
     }
 
     /**

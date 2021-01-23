@@ -55,6 +55,9 @@ public class Assets {
     public static String superMonkeyRobot = "/Assets/Sprites/Towers/SuperMonkey_Robot.png";
     public static String superMonkeyTemple = "/Assets/Sprites/Towers/SuperMonkey_Temple.png";
     public static String superMonkeyTempleHead = "/Assets/Sprites/Towers/SuperMonkey_TempleHead.png";
+    public static String bombShooter = "/Assets/Sprites/Towers/BombShooter.png";
+    public static String bombShooterMissileLauncher = "/Assets/Sprites/Towers/BombShooter_MissileLauncher.png";
+    public static String bombShooterFragBombs = "/Assets/Sprites/Towers/BombShooter_FragBombs.png";
 
     // projectiles
     public static String dart = "/Assets/Sprites/Projectiles/Dart.png";
@@ -68,6 +71,8 @@ public class Assets {
     public static String explosion = "/Assets/Sprites/Projectiles/Explosion.png";
     public static String plasma = "/Assets/Sprites/Projectiles/Plasma.png";
     public static String sunball = "/Assets/Sprites/Projectiles/Sunball.png";
+    public static String bomb = "/Assets/Sprites/Projectiles/Bomb.png";
+    public static String bombMissile = "/Assets/Sprites/Projectiles/BombMissile.png";
 
     // bloons
     public static String blueAirBloon = "/Assets/Sprites/Bloons/BlueAirBloon.png";

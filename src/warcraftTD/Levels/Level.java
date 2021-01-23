@@ -79,6 +79,11 @@ public abstract class Level {
         map[27][10] = new BuyDartlingGun(27, 10);
         map[27][9] = new BuyDartlingGun(27, 9);
 
+        map[28][9] = new BuyBombShooter(28, 9);
+        map[28][10] = new BuyBombShooter(28, 10);
+        map[29][10] = new BuyBombShooter(29, 10);
+        map[29][9] = new BuyBombShooter(29, 9);
+
         map[26][8] = new BuySuperMonkey(26, 8);
         map[26][7] = new BuySuperMonkey(26, 7);
         map[27][7] = new BuySuperMonkey(27, 7);

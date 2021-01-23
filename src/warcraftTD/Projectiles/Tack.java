@@ -1,6 +1,7 @@
 package warcraftTD.Projectiles;
 
 import java.util.List;
+import java.util.ListIterator;
 
 import warcraftTD.Assets;
 import warcraftTD.Position;
@@ -28,7 +29,8 @@ public class Tack extends Dart {
      * @param bloons la liste de tous les bloons
      */
     @Override
-    public void tick(List<Bloon> bloons) {
+    public void tick(List<Bloon> bloons, ListIterator<Projectile> i) {
+        this.porjectilesIterator = i;
         if (isOutOfBound() || traveledDistance > maxRange)
             remove = true;
         if (remove)
