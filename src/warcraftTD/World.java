@@ -297,7 +297,9 @@ public class World {
 							int cx = coordinate[0];
 							int cy = coordinate[1];
 							if ((x == cx && y == cy) || (x == mouseGrid.x && y == mouseGrid.y))
-								squarreColor = toPlace.isPlacableAt(x, y, map) ? IS_PLACABLE : IS_NOT_PLACABLE;
+								squarreColor = toPlace.isPlacableAt((int) mouseGrid.x, (int) mouseGrid.y, map)
+										? IS_PLACABLE
+										: IS_NOT_PLACABLE;
 						}
 					}
 
