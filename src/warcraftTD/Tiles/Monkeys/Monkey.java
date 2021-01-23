@@ -300,6 +300,8 @@ public abstract class Monkey extends Tile {
 
     /**
      * Affiche la tour ainsi que sa portée si elle est sélectionnée
+     * 
+     * @param selectedTile la Tile selectionné
      */
     public void draw(Tile selectedTile) {
         if (selectedTile == this) // Affiche le rayon si la tour est sélectionnée ou en train d'etre pose

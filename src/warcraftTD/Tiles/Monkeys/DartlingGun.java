@@ -130,7 +130,7 @@ public class DartlingGun extends Monkey {
         if (rightUpgrade == 3)
             d = new Missile(pos, direction, dartSpeed, 5, range);
         else if (leftUpgrade == 3)
-            d = new Laser(pos, direction, dartSpeed, 2, pierce, range);
+            d = new Laser(pos, direction, dartSpeed, 1, pierce, range);
         else
             d = new Dart(pos, direction, dartSpeed, 1, pierce, range);
         projectiles.add(d);

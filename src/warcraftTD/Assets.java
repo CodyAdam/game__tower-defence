@@ -31,11 +31,11 @@ public class Assets {
     public static String medalCheat = "/Assets/Sprites/HUD/medal_cheat.png";
 
     // levels
-    public static String level1 = "/Assets/Sprites/monkey_lane_thumb.jpg";
-    public static String level2 = "/Assets/Sprites/ancient_tomb_thumb.jpg";
-    public static String level3 = "/Assets/Sprites/crop_circles_thumb.jpg";
-    public static String level4 = "/Assets/Sprites/head_in_the_clouds_thumb.jpg";
-    public static String levelProcedural = "/Assets/Sprites/custom_thumb.png";
+    public static String level1 = "/Assets/Sprites/Levels/monkey_lane_thumb.jpg";
+    public static String level2 = "/Assets/Sprites/Levels/ancient_tomb_thumb.jpg";
+    public static String level3 = "/Assets/Sprites/Levels/crop_circles_thumb.jpg";
+    public static String level4 = "/Assets/Sprites/Levels/head_in_the_clouds_thumb.jpg";
+    public static String levelProcedural = "/Assets/Sprites/Levels/custom_thumb.png";
 
     // towers
     public static String dartMonkey = "/Assets/Sprites/Towers/DartMonkey.png";
@@ -51,6 +51,10 @@ public class Assets {
     public static String dartlingGun1 = "/Assets/Sprites/Towers/DartlingGun_1.png";
     public static String dartlingGunLaser = "/Assets/Sprites/Towers/DartlingGun_Laser.png";
     public static String dartlingGunRocket = "/Assets/Sprites/Towers/DartlingGun_Rocket.png";
+    public static String superMonkey = "/Assets/Sprites/Towers/SuperMonkey.png";
+    public static String superMonkeyRobot = "/Assets/Sprites/Towers/SuperMonkey_Robot.png";
+    public static String superMonkeyTemple = "/Assets/Sprites/Towers/SuperMonkey_Temple.png";
+    public static String superMonkeyTempleHead = "/Assets/Sprites/Towers/SuperMonkey_TempleHead.png";
 
     // projectiles
     public static String dart = "/Assets/Sprites/Projectiles/Dart.png";
@@ -62,6 +66,8 @@ public class Assets {
     public static String laser = "/Assets/Sprites/Projectiles/Laser.png";
     public static String missile = "/Assets/Sprites/Projectiles/Missile.png";
     public static String explosion = "/Assets/Sprites/Projectiles/Explosion.png";
+    public static String plasma = "/Assets/Sprites/Projectiles/Plasma.png";
+    public static String sunball = "/Assets/Sprites/Projectiles/Sunball.png";
 
     // bloons
     public static String blueAirBloon = "/Assets/Sprites/Bloons/BlueAirBloon.png";

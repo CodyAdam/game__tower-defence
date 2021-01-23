@@ -411,6 +411,12 @@ public class World {
 		StdDraw.text(0.868, 0.521 - SHADOW_OFFSET, cost + "$");
 		StdDraw.setPenColor(cost <= money ? CAN_BUY : CANT_BUY);
 		StdDraw.text(0.868, 0.521, cost + "$");
+		// for the SuperMonkey
+		cost = ((BuyTile) map[26][8]).cost;
+		StdDraw.setPenColor(SHADOW);
+		StdDraw.text(0.868, 0.408 - SHADOW_OFFSET, cost + "$");
+		StdDraw.setPenColor(cost <= money ? CAN_BUY : CANT_BUY);
+		StdDraw.text(0.868, 0.408, cost + "$");
 	}
 
 	/**
