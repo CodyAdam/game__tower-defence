@@ -1,8 +1,6 @@
 ##### Binôme : Cody ADAM et Fabien GOARDOU
 
-## TODO
-
--   [ ] Exporter avec eclipse
+# Projet Tower Defence
 
 ## Concept du projet :
 
@@ -69,7 +67,7 @@ Nous nous sommes répartis les tâches afin d'être plus efficace sur le projet.
 Chaque tour possède 6 améliorations dont 2 améliorations "unique" (Une tour peux avoir une seule amélioration unique à la fois), les améliorations non-unique change uniquement quelques statistiques de la tour alors que les améliorations uniques change totalement les effets d'une tour ainsi que sont apparence.
 
 -   **F**: "Dart Monkey" : Tour qui lance des fléchettes sur la cible et peut être amélioré en une catapulte à piques ou en arché à triple fléchettes
--   **F**: "Tack Shooter" : Tour qui lance des petites punaises dans toutes les directions et peut être amélioré en expulser de flames ou en lanceur de scies
+-   **F**: "Tack Shooter" : Tour qui lance des petites punaises dans toutes les directions et peut être amélioré en expulseur de flames ou en lanceur de scies
 -   **C**: "Dartling Gun" : Tour qui lance des fléchettes mais elles les lancent vers la position de la souris les directions et peut être amélioré en cracheur de flames ou en lanceur de scies
 -   **C**: "Bomb Shooter" : Tour qui lance des bombes sur la cible, les bombes explose et font des dégâts de zone. La tour peux devenir un lanceur de bombes fragmenté de mini-bombes ou bien un lanceur de rocket anti-ballons-aérien
 -   **FC**: "Super Monkey" : Tour qui lance des fléchettes très rapidement mais qui est aussi très couteuse, elle peut devenir un giga-robot qui tire des rayons plasma de ses deux mains ou bien devenir le TEMPLE DE DIEUX SINGES !
