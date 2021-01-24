@@ -9,7 +9,7 @@ public class Menu {
 
     // compte le nombre de tps (tick per second)
     private long tpsTimerStart = System.nanoTime();
-    private final long TARGET_TPS = 1000000000 / 60; // on veut avoir 30 tps constant
+    private final long TARGET_TPS = 1000000000 / 60; // on veut avoir 60 tps constant
 
     private int cursorAnimationCounter; // Compte les frame pour savoir quand changer l'animation du curseur
     private String cursorImage;
@@ -148,16 +148,20 @@ public class Menu {
      */
     public void loop() {
         while (true) {
-            while (tpsTimerStart - System.nanoTime() < TARGET_TPS / 1) {
-                tpsTimerStart += TARGET_TPS / 1;
+
+            //Execute les ticks a une vitesse constante
+            while (tpsTimerStart - System.nanoTime() < TARGET_TPS) {
+                tpsTimerStart += TARGET_TPS;
                 tick();
             }
+
             draw();
             if (StdDraw.hasNextKeyTyped()) { // Exit game if Q is pressed
-                Character key = StdDraw.nextKeyTyped();
+                char key = StdDraw.nextKeyTyped();
                 if (Character.toLowerCase(key) == 'q')
                     break;
             }
+
             if (StdDraw.isMousePressed())
                 onMouseClick(StdDraw.mouseX(), StdDraw.mouseY());
         }

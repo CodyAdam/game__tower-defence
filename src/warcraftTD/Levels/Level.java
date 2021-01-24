@@ -52,7 +52,7 @@ public abstract class Level {
             for (int x = 25; x < 31; x++)
                 map[x][y] = new Panel(x, y);
 
-        // Set the HUD tiless to the correct location
+        // Set the HUD tiles to the correct location
 
         map[23][0] = new PlayButton(23, 0);
         map[23][1] = new PlayButton(23, 1);
@@ -106,9 +106,10 @@ public abstract class Level {
     }
 
     /**
-     * @param path      le chemin sur lequel effectuer l'oppération
-     * @param recursion le nombre de fois qu'on applique l'arrondi
-     * @param amount    la taille de l'arrondi
+     * @param path        le chemin sur lequel effectuer l'oppération
+     * @param recursion   le nombre de fois qu'on applique l'arrondi
+     * @param usePercent  arondir avec des pourcentages ou pas
+     * @param roundRadius le rayon d'action de l'arondissement du pourcentage
      * @return le nouveau chemin après l'arrondisage des coins
      */
     protected List<Position> roundPath(List<Position> path, int recursion, boolean usePercent, double roundRadius) {
