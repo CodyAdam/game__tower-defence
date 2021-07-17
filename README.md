@@ -1,5 +1,3 @@
-##### Binôme : Cody ADAM et Fabien GOARDOU
-
 # Projet Tower Defence
 
 ## Concept du projet :
@@ -33,12 +31,6 @@ En tant que joueur, nous posons des singes sur le terrain dans le but de se déf
 
 ![Voir image d'explication des Bloons "explication_ballon.png"](/explication_ballon.png)
 
-## Répartition des tâches :
-
-Nous nous sommes répartis les tâches afin d'être plus efficace sur le projet.
-
--   **F** correspond à Fabien
--   **C** correspond à Cody
 
 ## Changement effectué sur le projet par défaut :
 
