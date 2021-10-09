@@ -7,11 +7,11 @@ This project was made in groups of 2 (my teamate : [Fgdou](https://github.com/Fg
 # Features and demo :
 
 ![preview0](https://github.com/CodyAdam/game__tower-defence/blob/main/preview0.gif?raw=true)
-![preview1](https://github.com/CodyAdam/game__tower-defence/blob/preview1.gif?raw=true)
-![preview2](https://github.com/CodyAdam/game__tower-defence/blob/preview2.gif?raw=true)
-![preview3](https://github.com/CodyAdam/game__tower-defence/blob/preview3.gif?raw=true)
-![preview4](https://github.com/CodyAdam/game__tower-defence/blob/preview4.gif?raw=true)
-![preview5](https://github.com/CodyAdam/game__tower-defence/blob/preview5.gif?raw=true)
+![preview1](https://github.com/CodyAdam/game__tower-defence/blob/main/preview1.gif?raw=true)
+![preview2](https://github.com/CodyAdam/game__tower-defence/blob/main/preview2.gif?raw=true)
+![preview3](https://github.com/CodyAdam/game__tower-defence/blob/main/preview3.gif?raw=true)
+![preview4](https://github.com/CodyAdam/game__tower-defence/blob/main/preview4.gif?raw=true)
+![preview5](https://github.com/CodyAdam/game__tower-defence/blob/main/preview5.gif?raw=true)
 
 # Projet Tower Defence
 
