@@ -2,11 +2,16 @@
 # About
 
 One of our **school project** was to make a **tower defence game** and the restriction were to only use **Java** and the **StdDraw** library
-This project was made in groups of 2 (my teamate : (Fgdou)[https://github.com/Fgdou])
+This project was made in groups of 2 (my teamate : [Fgdou](https://github.com/Fgdou))
 
+# Features and demo :
 
-
-
+![preview0](https://github.com/CodyAdam/Tower-Defence/edit/main/preview0.gif)
+![preview1](https://github.com/CodyAdam/Tower-Defence/edit/main/preview1.gif)
+![preview2](https://github.com/CodyAdam/Tower-Defence/edit/main/preview2.gif)
+![preview3](https://github.com/CodyAdam/Tower-Defence/edit/main/preview3.gif)
+![preview4](https://github.com/CodyAdam/Tower-Defence/edit/main/preview4.gif)
+![preview5](https://github.com/CodyAdam/Tower-Defence/edit/main/preview5.gif)
 
 # Projet Tower Defence
 
