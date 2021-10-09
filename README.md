@@ -6,12 +6,12 @@ This project was made in groups of 2 (my teamate : [Fgdou](https://github.com/Fg
 
 # Features and demo :
 
-![preview0](https://github.com/CodyAdam/Tower-Defence/edit/main/preview0.gif)
-![preview1](https://github.com/CodyAdam/Tower-Defence/edit/main/preview1.gif)
-![preview2](https://github.com/CodyAdam/Tower-Defence/edit/main/preview2.gif)
-![preview3](https://github.com/CodyAdam/Tower-Defence/edit/main/preview3.gif)
-![preview4](https://github.com/CodyAdam/Tower-Defence/edit/main/preview4.gif)
-![preview5](https://github.com/CodyAdam/Tower-Defence/edit/main/preview5.gif)
+![preview0](https://github.com/CodyAdam/Tower-Defence/edit/main/preview0.gif?raw=true)
+![preview1](https://github.com/CodyAdam/Tower-Defence/edit/main/preview1.gif?raw=true)
+![preview2](https://github.com/CodyAdam/Tower-Defence/edit/main/preview2.gif?raw=true)
+![preview3](https://github.com/CodyAdam/Tower-Defence/edit/main/preview3.gif?raw=true)
+![preview4](https://github.com/CodyAdam/Tower-Defence/edit/main/preview4.gif?raw=true)
+![preview5](https://github.com/CodyAdam/Tower-Defence/edit/main/preview5.gif?raw=true)
 
 # Projet Tower Defence
 
