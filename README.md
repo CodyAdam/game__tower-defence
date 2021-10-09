@@ -1,3 +1,13 @@
+
+# About
+
+One of our **school project** was to make a **tower defence game** and the restriction were to only use **Java** and the **StdDraw** library
+This project was made in groups of 2 (my teamate : (Fgdou)[https://github.com/Fgdou])
+
+
+
+
+
 # Projet Tower Defence
 
 ## Concept du projet :
