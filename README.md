@@ -11,6 +11,7 @@ This project was made in groups of 2 (my teamate : [Fgdou](https://github.com/Fg
 ![preview2](https://github.com/CodyAdam/game__tower-defence/blob/main/preview2.gif?raw=true)
 ![preview3](https://github.com/CodyAdam/game__tower-defence/blob/main/preview3.gif?raw=true)
 ![preview4](https://github.com/CodyAdam/game__tower-defence/blob/main/preview4.gif?raw=true)
+Procedural level generator :
 ![preview5](https://github.com/CodyAdam/game__tower-defence/blob/main/preview5.gif?raw=true)
 
 # Download 
