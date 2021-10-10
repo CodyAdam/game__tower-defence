@@ -13,6 +13,10 @@ This project was made in groups of 2 (my teamate : [Fgdou](https://github.com/Fg
 ![preview4](https://github.com/CodyAdam/game__tower-defence/blob/main/preview4.gif?raw=true)
 ![preview5](https://github.com/CodyAdam/game__tower-defence/blob/main/preview5.gif?raw=true)
 
+# Download 
+
+You can find the game executable here : [release-1.0.jar](https://github.com/CodyAdam/game__tower-defence/releases/download/1.0/release-1.0.jar)
+
 # Projet Tower Defence
 
 ## Concept du projet :
